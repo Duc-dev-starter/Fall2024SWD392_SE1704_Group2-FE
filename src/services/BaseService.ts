@@ -1,44 +1,13 @@
-import axios, { AxiosResponse } from "axios";
-import config from "../secret";
+import { AxiosResponse } from "axios";
 import type { ApiRequestModel } from "../models";
 import { store } from "../store";
 import { hideLoading, showLoading } from "../store/loadingSlice";
+import { axiosInstance } from "./axiosInstance";
 
 
-export const axiosInstance = axios.create({
-    baseURL: config.BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    timeout: 300000,
-    timeoutErrorMessage: `Connection is timeout exceeded`
-})
-
-axiosInstance.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
-axiosInstance.interceptors.response.use((response) => {
-    return response;
-}, (error) => {
-    if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
-        window.location.href = '/login'; 
-      }
-      return Promise.reject(error);
-})
 
 export const BaseService = {
-    async get<T = any>({ url, payload, headers }: Partial<ApiRequestModel>): Promise<AxiosResponse<T>> {
+    async get<T = any>({ url, payload, headers }: ApiRequestModel): Promise<AxiosResponse<T>> {
         if (!url) {
             throw new Error("URL is required for PUT request");
         }
@@ -60,7 +29,7 @@ export const BaseService = {
         }
     },
 
-    async post<T = any>({ url, payload, headers }: Partial<ApiRequestModel>): Promise<AxiosResponse<T>> {
+    async post<T = any>({ url, payload, headers }: ApiRequestModel): Promise<AxiosResponse<T>> {
         if (!url) {
             throw new Error("URL is required for PUT request");
         }
@@ -74,7 +43,7 @@ export const BaseService = {
             store.dispatch(hideLoading());
         }
     },
-    async put<T = any>({ url, payload, headers }: Partial<ApiRequestModel>): Promise<AxiosResponse<T>> {
+    async put<T = any>({ url, payload, headers }: ApiRequestModel): Promise<AxiosResponse<T>> {
         if (!url) {
             throw new Error("URL is required for PUT request");
         }
@@ -89,7 +58,7 @@ export const BaseService = {
         }
     },
     
-    async delete<T = any>({ url, payload, headers }: Partial<ApiRequestModel>): Promise<AxiosResponse<T>> {
+    async delete<T = any>({ url, payload, headers }: ApiRequestModel): Promise<AxiosResponse<T>> {
         if (!url) {
             throw new Error("URL is required for DELETE request");
         }

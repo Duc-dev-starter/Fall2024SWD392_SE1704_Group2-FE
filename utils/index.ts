@@ -1,3 +1,5 @@
+import i18n from 'i18next';
+
 export const scrollToTop = (position = 0, behavior: ScrollBehavior = 'smooth') => {
     document.body.scrollTo({
         top: position,
@@ -23,3 +25,8 @@ export const clearCache = async () => {
         )
     }
 }
+
+export const changeLanguage = (lng: string) => {
+  i18n.changeLanguage(lng);
+  localStorage.setItem('i18nextLng', lng);
+};

@@ -4,6 +4,7 @@ interface ImportMetaEnv {
     readonly VITE_BASE_URL: string;
     readonly VITE_TINYMCE_KEY: string;
     readonly VITE_RECAPTCHA: string;
+    test: string;
   }
   
   interface ImportMeta {
