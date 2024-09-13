@@ -1,15 +1,14 @@
 import { AxiosResponse } from "axios";
-import type { ApiRequestModel } from "../models";
-import { store } from "../store";
-import { hideLoading, showLoading } from "../store/loadingSlice";
+import type { ApiRequestModel } from "@/models";
+import { store } from "@/store";
+import { hideLoading, showLoading } from "@/store/loadingSlice";
 import { axiosInstance } from "./axiosInstance";
-
 
 
 export const BaseService = {
     async get<T = any>({ url, payload, headers }: ApiRequestModel): Promise<AxiosResponse<T>> {
         if (!url) {
-            throw new Error("URL is required for PUT request");
+            throw new Error("URL is required for GET request");
         }
         store.dispatch(showLoading());  
         try {

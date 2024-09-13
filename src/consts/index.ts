@@ -1,4 +1,1 @@
-export const PATHS = {
-    HOME: '/',
-    ABOUT: '/about'
-}
+export {PATHS} from './paths'

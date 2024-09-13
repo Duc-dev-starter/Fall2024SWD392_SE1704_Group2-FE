@@ -1,6 +1,7 @@
+import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import { HomePage } from "../pages";
-import { PATHS } from "../consts";
+import { HomePage } from "@/pages";
+import { PATHS } from "@/consts";
 
 const AppRouter: React.FC = () => {
     return (

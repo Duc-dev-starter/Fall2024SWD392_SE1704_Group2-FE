@@ -1,4 +1,19 @@
 {
     "welcome_message": "Welcome to our application!",
-    "login_button": "Login"
+    "login_button": "Login",
+    "register_button": "Register",
+    "home": "Home",
+    "about": "About",
+    "contest": "Contest",
+    "contact_us": "Contact Us",
+    "hero_title": "Welcome to KoiChamp",
+    "hero_subtitle": "Discover and manage Koi fish competitions with ease",
+    "hero_introduction": "KoiChamp is a professional organization for",
+    "hero_types": [
+        "Koi Competitions",
+        "Showcase Your Koi",
+        "Elegant Koi Experience"
+    ],
+    "hero_description": "Register your Koi fish, participate in exciting competitions, and view detailed results and statistics. Experience the elegance of Koi with our advanced management tools.",
+    "get_started_button": "Get Started"
 }

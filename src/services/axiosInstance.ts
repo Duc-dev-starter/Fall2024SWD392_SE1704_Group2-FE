@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../secret";
+import config from "@/secret";
 
 export const axiosInstance = axios.create({
     baseURL: config.BASE_URL,

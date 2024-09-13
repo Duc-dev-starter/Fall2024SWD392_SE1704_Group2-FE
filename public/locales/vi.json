@@ -1,4 +1,19 @@
 {
     "welcome_message": "Chào mừng bạn đến với ứng dụng của chúng tôi!",
-    "login_button": "Đăng nhập"
+    "login_button": "Đăng nhập",
+    "register_button": "Đăng ký",
+    "home": "Trang Chủ",
+    "about": "Về Chúng Tôi",
+    "contest": "Cuộc Thi",
+    "contact_us": "Liên Hệ",
+    "hero_title": "Chào mừng đến với KoiChamp",
+    "hero_subtitle": "Khám phá và quản lý các cuộc thi cá Koi dễ dàng",
+    "hero_introduction": "KoiChamp là tổ chức chuyên nghiệp về",
+    "hero_types": [
+        "Cuộc thi Cá Koi",
+        "Trưng bày Cá Koi",
+        "Trải nghiệm Cá Koi"
+    ],
+    "hero_description": "Đăng ký cá Koi của bạn, tham gia các cuộc thi hấp dẫn, và xem kết quả và thống kê chi tiết. Trải nghiệm vẻ đẹp của cá Koi với các công cụ quản lý tiên tiến của chúng tôi.",
+    "get_started_button": "Bắt đầu"
 }

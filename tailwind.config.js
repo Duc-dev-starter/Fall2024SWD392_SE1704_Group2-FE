@@ -4,7 +4,19 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "source-sans": ["Source Sans 3", "sans-serif"],
+        "monsterrat": ["Monsterrat", "sans-serif"]
+      },
+      colors: {
+        'neutralSilver': "#F5F7FA",
+        'neutralDGrey': "#4D4D4D",
+        'brandPrimary': "#DC143C",
+        'neutralGrey': "#717171",
+        'gray900': "#717171",
+      }
+    },
   },
   plugins: [],
 }

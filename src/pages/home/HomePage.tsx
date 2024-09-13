@@ -1,10 +1,27 @@
-import config from "../../secret"
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { ReactTyped } from "react-typed";
 
 const HomePage: React.FC = () => {
-    const test = config.GOOGLE_CLIENT_ID
+    const { t } = useTranslation();
     return (
-        <div>
-            {test}
+        <div className='text-neutralDGrey bg-neutralSilver'>
+            <div className='max-w-6xl w-full h-[70vh] mx-auto text-center flex flex-col justify-center'>
+                <p className='text-brandPrimary font-bold p-2'>{t('hero_subtitle')}</p>
+                <h1 className='md:text-6xl sm:text-5xl text-3xl font-bold'>{t('hero_title')}</h1>
+                <div className='flex justify-center items-center'>
+                    <span className='md:text-4xl sm:text-3xl text-base font-bold'>{t('hero_introduction')}</span>
+                    <ReactTyped
+                        className='md:text-4xl sm:text-3xl text-base font-bold md:pl-4 pl-2'
+                        strings={t('hero_types', { returnObjects: true }) as string[]}
+                        typeSpeed={120}
+                        backSpeed={140}
+                        loop
+                    />
+                </div>
+                <p className='md:text-2xl texl-xl font-bold text-gray-500 pt-5'>{t('hero_description')}</p>
+                <button className='bg-[#d02a2a] w-[200px] text-white rounded-md font-medium mx-auto py-3'>{t('get_started_button')}</button>
+            </div>
         </div>
     )
 }
