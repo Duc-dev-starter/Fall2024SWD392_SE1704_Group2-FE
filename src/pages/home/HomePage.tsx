@@ -6,10 +6,10 @@ const HomePage: React.FC = () => {
     const { t } = useTranslation();
     return (
         <div className='text-neutralDGrey bg-neutralSilver'>
-            <div className='max-w-6xl w-full h-[70vh] mx-auto text-center flex flex-col justify-center'>
+            <div className='max-w-6xl w-full lg:h-[70vh] md:h-[70vh] xl:h-[70vh] 2xl:h-[70vh] sm:h-[60vh] h-[70vh] mx-auto text-center flex flex-col justify-center'>
                 <p className='text-brandPrimary font-bold p-2'>{t('hero_subtitle')}</p>
                 <h1 className='md:text-6xl sm:text-5xl text-3xl font-bold'>{t('hero_title')}</h1>
-                <div className='flex justify-center items-center'>
+                <div className='flex flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row justify-center items-center'>
                     <span className='md:text-4xl sm:text-3xl text-base font-bold'>{t('hero_introduction')}</span>
                     <ReactTyped
                         className='md:text-4xl sm:text-3xl text-base font-bold md:pl-4 pl-2'
