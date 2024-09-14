@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionDuration: {
+        '2000': '2000ms',
+      },
       fontFamily: {
         "source-sans": ["Source Sans 3", "sans-serif"],
         "monsterrat": ["Monsterrat", "sans-serif"]

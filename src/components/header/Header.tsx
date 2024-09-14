@@ -39,7 +39,7 @@ const Header = () => {
 
     return (
         <header className='w-full bg-white md:bg-transparent fixed top-0 left-0 right-0'>
-            <nav className={`py-4 lg:px-14 px-4 sm:flex-wrap ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-300" : ""}`}>
+            <nav className={`py-4 lg:px-14 px-2 sm:px-4 sm:flex-wrap ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-700" : ""}`}>
                 <div className='flex flex-col md:flex-row justify-between items-center text-base gap-8'>
                     <div className='relative flex justify-between items-center text-base gap-8 w-full'>
                         <Link to={PATHS.HOME} className='lg:text-2xl text-base font-semibold flex items-center space-x-3'>
@@ -53,31 +53,33 @@ const Header = () => {
 
                         <LanguageSwitcher />
 
-                        <div className='lg:space-x-12 flex gap-2 items-center'>
-                            <Link to={PATHS.LOGIN} className='lg:flex items-center text-brandPrimary hover:text-gray900'>
-                                {t('login_button')} {/* Translation for "Login" */}
-                            </Link>
-                            <button type='button' className='bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGrey'>
+                        <div className='lg:space-x-12 flex gap-2'>
+                            <button>
+                                <Link to={PATHS.LOGIN} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
+                                    {t('login_button')}  {/* Translation for "Login" */}
+                                </Link>
+                            </button>
+                            <button type='button' className='bg-brandPrimary text-white py-2 px-3 transition-all duration-300 rounded hover:bg-neutralDGrey text-nowrap items-center justify-center align-middle'>
                                 {t('register_button')} {/* Translation for "Register" */}
                             </button>
                         </div>
                     </div>
-                    <div className='absolute w-full top-16 text-end md:hidden bg-red-800 p-2'>
-                        <button onClick={toggleMenu} className='text-yellow-50 focus:outline-none focus:text-gray-500'>
+                    <div className='absolute w-full top-16 text-end md:hidden bg-brandPrimary p-3'>
+                        <button onClick={toggleMenu} className='text-yellow-50 focus:outline-none focus:text-yellow-50'>
                             {
                                 isMenuOpen ? (<FaXmark className='h-6 w-6' />) : (<FaBars className='h-6 w-6' />)
                             }
                         </button>
                     </div>
                 </div>
-                <div className={`space-y-4 px-4 mt-28 py-7 bg-brandPrimary ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}>
+                <div className={`space-y-4 top-0 fixed right-0 left-0 px-4 mt-28 py-7 transition-transform duration-700 ease-in-out transform bg-brandPrimary ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}>
                     {
                         navItems.map(({ link, path }) => <Link key={path} to={path} className='block text-base text-white hover:opacity-80 first:font-medium'>{link}</Link>)
                     }
                 </div>
             </nav>
 
-        </header>
+        </header >
     );
 };
 
