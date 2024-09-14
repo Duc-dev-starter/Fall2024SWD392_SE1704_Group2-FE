@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactTyped } from "react-typed";
-
 const HomePage: React.FC = () => {
     const { t } = useTranslation();
     return (

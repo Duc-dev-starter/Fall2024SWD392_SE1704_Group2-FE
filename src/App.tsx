@@ -1,8 +1,9 @@
 import React from 'react';
-import { Footer, Header } from "./components";
+import { FloatingActionButtons, Footer, Header } from "./components";
 import config from "./secret";
 import { AppRouter } from "./routes";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           </div>
           {!isPrivatePath && <Footer />}
         </div>
+        {!isPrivatePath && <FloatingActionButtons />}
       </GoogleOAuthProvider>
     </>
   );
