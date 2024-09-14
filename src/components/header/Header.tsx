@@ -4,6 +4,7 @@ import { PATHS } from '@/consts';
 import { FaBars, FaXmark } from 'react-icons/fa6';
 import LanguageSwitcher from '../language/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import logo from '../../assets/logo.png';
 
 
 const Header = () => {
@@ -43,7 +44,7 @@ const Header = () => {
                 <div className='flex flex-col md:flex-row justify-between items-center text-base gap-8'>
                     <div className='relative flex justify-between items-center text-base gap-8 w-full'>
                         <Link to={PATHS.HOME} className='lg:text-2xl text-base font-semibold flex items-center space-x-3'>
-                            <img src="" alt="logo" className='md:w-10 w-5 inline-block items-center' /><span className='text-[#263238]'>KoiChamp</span>
+                            <img src={logo} alt="logo" className='md:w-10 w-9 inline-block items-center rounded-full' /><span className='text-[#263238]'>KoiChamp</span>
                         </Link>
                         <ul className='md:flex space-x-12 hidden mt-4'>
                             {
