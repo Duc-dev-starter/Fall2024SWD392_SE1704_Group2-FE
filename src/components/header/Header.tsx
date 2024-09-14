@@ -17,7 +17,7 @@ const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 100) {
+            if (window.scrollY > 10) {
                 setIsSticky(true);
             }
             else {
@@ -38,7 +38,7 @@ const Header = () => {
     ];
 
     return (
-        <header className='w-full bg-white md:bg-transparent fixed top-0 left-0 right-0'>
+        <header className='w-full bg-white md:bg-transparent sticky top-0 left-0 right-0'>
             <nav className={`py-4 lg:px-14 px-4 sm:flex-wrap ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-300" : ""}`}>
                 <div className='flex flex-col md:flex-row justify-between items-center text-base gap-8'>
                     <div className='relative flex justify-between items-center text-base gap-8 w-full'>
