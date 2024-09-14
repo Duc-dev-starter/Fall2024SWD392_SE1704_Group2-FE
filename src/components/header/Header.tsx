@@ -41,7 +41,7 @@ const Header = () => {
         <header className='w-full bg-white md:bg-transparent fixed top-0 left-0 right-0'>
             <nav className={`py-4 lg:px-14 px-4 sm:flex-wrap ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-300" : ""}`}>
                 <div className='flex flex-col md:flex-row justify-between items-center text-base gap-8'>
-                    <div className='flex justify-between items-center text-base gap-8 w-full'>
+                    <div className='relative flex justify-between items-center text-base gap-8 w-full'>
                         <Link to={PATHS.HOME} className='lg:text-2xl text-base font-semibold flex items-center space-x-3'>
                             <img src="" alt="logo" className='md:w-10 w-5 inline-block items-center' /><span className='text-[#263238]'>KoiChamp</span>
                         </Link>
@@ -62,15 +62,15 @@ const Header = () => {
                             </button>
                         </div>
                     </div>
-                    <div className='w-full text-end md:hidden'>
-                        <button onClick={toggleMenu} className='text-neutralDGrey focus:outline-none focus:text-gray-500'>
+                    <div className='absolute w-full top-16 text-end md:hidden bg-red-800 p-2'>
+                        <button onClick={toggleMenu} className='text-yellow-50 focus:outline-none focus:text-gray-500'>
                             {
                                 isMenuOpen ? (<FaXmark className='h-6 w-6' />) : (<FaBars className='h-6 w-6' />)
                             }
                         </button>
                     </div>
                 </div>
-                <div className={`space-y-4 px-4 mt-32 py-7 bg-brandPrimary ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}>
+                <div className={`space-y-4 px-4 mt-28 py-7 bg-brandPrimary ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}>
                     {
                         navItems.map(({ link, path }) => <Link key={path} to={path} className='block text-base text-white hover:opacity-80 first:font-medium'>{link}</Link>)
                     }
