@@ -1,4 +1,4 @@
-export default interface ApiRequestModel {
+export default interface ApiRequest {
     url: string;
     payload?: any;
     headers: object;
