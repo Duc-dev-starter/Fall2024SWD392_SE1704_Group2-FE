@@ -43,18 +43,21 @@ const Header = () => {
             <nav className={`py-4 lg:px-14 px-2 sm:px-4 sm:flex-wrap ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-700" : ""}`}>
                 <div className='flex flex-col md:flex-row justify-between items-center text-base gap-8'>
                     <div className='relative flex justify-between items-center text-base gap-8 w-full'>
-                        <Link to={PATHS.HOME} className='lg:text-2xl text-base font-semibold flex items-center space-x-3'>
-                            <img src={logo} alt="logo" className='md:w-10 w-9 inline-block items-center rounded-full' /><span className='text-[#263238]'>KoiChamp</span>
-                        </Link>
+                        <div className='flex items-center align-middle gap-8'>
+                            <Link to={PATHS.HOME} className='lg:text-2xl text-base font-semibold flex items-center space-x-1'>
+                                <img src={logo} alt="logo" className='md:w-10 w-9 inline-block items-center rounded-full' /><span className='text-[#263238]'>KoiChamp</span>
+                            </Link>
+
+                            <LanguageSwitcher />
+                        </div>
+
                         <ul className='md:flex space-x-12 hidden mt-4'>
                             {
                                 navItems.map(({ link, path }) => <Link key={path} to={path} className='block text-base text-gray900 hover:text-brandPrimary first:font-medium'>{link}</Link>)
                             }
                         </ul>
 
-                        <LanguageSwitcher />
-
-                        <div className='lg:space-x-12 flex gap-2'>
+                        <div className='lg:space-x-6 flex gap-2'>
                             <button>
                                 <Link to={PATHS.LOGIN} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
                                     {t('login_button')}  {/* Translation for "Login" */}
