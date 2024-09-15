@@ -12,7 +12,7 @@ const LanguageSwitcher: React.FC = () => {
     };
 
     return (
-        <div className='flex items-center space-x-4'>
+        <div className='flex items-center lg:space-x-1 ml-2 gap-1 mr-2'>
             {/* <FaFlag onClick={() => handleLanguageChange('vi')} className='focus:outline-none cursor-pointer'>
             </FaFlag> */}
             <img src={vietFlag} onClick={() => handleLanguageChange('vi')} className='focus:outline-none cursor-pointer' />
