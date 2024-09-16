@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'vi',
+    fallbackLng: 'en',
     debug: true,
     backend: {
       loadPath: '/locales/{{lng}}.json',  // Đảm bảo đường dẫn này chính xác

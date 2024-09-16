@@ -27,5 +27,8 @@
     "vision_description": "Chúng tôi hình dung một thế giới nơi các cuộc thi Koi trở nên dễ tiếp cận, tiêu chuẩn hóa và thú vị hơn cho tất cả mọi người. Thông qua KoiChamp, chúng tôi hướng đến việc tạo ra một mạng lưới toàn cầu của những người yêu thích Koi, nơi họ có thể cạnh tranh, chia sẻ và tôn vinh vẻ đẹp của cá Koi một cách công bằng và hấp dẫn.",
     "why_choose_us": "Tại Sao Chọn Chúng Tôi?",
     "why_choose_us_subtitle": "Giải Pháp Chuyên Biệt Cho Mọi Bước",
-    "why_choose_us_description": "Nền tảng chuyên biệt của chúng tôi được thiết kế với những nhu cầu đặc thù của các cuộc thi Koi. Từ phân loại chính xác đến cập nhật thời gian thực và báo cáo chi tiết, KoiChamp đảm bảo rằng mỗi cuộc thi đều công bằng, minh bạch và thú vị. Tham gia cùng chúng tôi để trải nghiệm những gì tốt nhất trong quản lý cuộc thi Koi."
+    "why_choose_us_description": "Nền tảng chuyên biệt của chúng tôi được thiết kế với những nhu cầu đặc thù của các cuộc thi Koi. Từ phân loại chính xác đến cập nhật thời gian thực và báo cáo chi tiết, KoiChamp đảm bảo rằng mỗi cuộc thi đều công bằng, minh bạch và thú vị. Tham gia cùng chúng tôi để trải nghiệm những gì tốt nhất trong quản lý cuộc thi Koi.",
+    "blog_title": "Thông tin mới",
+    "blog_description": "Đăng nhập để nhận các thông tin về bài báo mới thường xuyên",
+    "blog_published": "Được xuất bản vào {{date}}"
 }

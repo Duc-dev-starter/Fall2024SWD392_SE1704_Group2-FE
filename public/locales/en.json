@@ -27,5 +27,8 @@
     "vision_description": "We envision a world where Koi competitions are more accessible, standardized, and enjoyable for all. Through KoiChamp, we aim to create a global network of Koi lovers who can compete, share, and celebrate the magnificence of Koi fish in a fair and engaging way.",
     "why_choose_us": "Why Choose Us?",
     "why_choose_us_subtitle": "Expert Solutions for Every Step",
-    "why_choose_us_description": "Our specialized platform is designed with the unique needs of Koi competitions in mind. From accurate classification to real-time updates and detailed reports, KoiChamp ensures that each competition is fair, transparent, and exciting. Join us to experience the best in Koi show management."
+    "why_choose_us_description": "Our specialized platform is designed with the unique needs of Koi competitions in mind. From accurate classification to real-time updates and detailed reports, KoiChamp ensures that each competition is fair, transparent, and exciting. Join us to experience the best in Koi show management.",
+    "blog_title": "Our Blogs",
+    "blog_description": "Login to get notifications about new blogs",
+    "blog_published": "Published on {{date}}"
 }
