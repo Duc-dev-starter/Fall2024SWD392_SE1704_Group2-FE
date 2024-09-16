@@ -48,7 +48,8 @@ const Header = () => {
                                 <img src={logo} alt="logo" className='md:w-10 w-9 inline-block items-center rounded-full' /><span className='text-[#263238]'>KoiChamp</span>
                             </Link>
 
-                            <LanguageSwitcher />
+                            <span className='lg:hidden xl:hidden'><LanguageSwitcher /></span>
+
                         </div>
 
                         <ul className='md:flex space-x-12 hidden mt-4'>
@@ -56,6 +57,8 @@ const Header = () => {
                                 navItems.map(({ link, path }) => <Link key={path} to={path} className='block text-base text-gray900 hover:text-brandPrimary first:font-medium'>{link}</Link>)
                             }
                         </ul>
+
+                        <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
                         <div className='lg:space-x-6 flex gap-2'>
                             <button>
