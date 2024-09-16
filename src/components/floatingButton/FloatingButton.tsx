@@ -10,7 +10,7 @@ const socialLinks = [
     { to: 'https://www.facebook.com', icon: <FaFacebook size={32} />, color: 'text-blue-600', bottom: 'bottom-24' },
 ];
 
-const FloatingActionButtons = () => {
+const FloatingActionButtons: React.FC = () => {
     return (
         <>
             {socialLinks.map(({ to, icon, color, bottom }) => (

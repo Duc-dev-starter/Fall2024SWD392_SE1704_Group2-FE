@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Banner, BlogCards, Pagination } from '@/components';
+import { Banner, BlogCards, Pagination, CategorySelection } from '@/components';
 import { BaseService } from '@/services';
 
 const BlogPage = () => {
@@ -43,7 +43,9 @@ const BlogPage = () => {
                 showButton={true}
             />
             {/* Category Section */}
-            <div></div>
+            <div>
+                <CategorySelection onSelectedCategory={handleCategoryChange} selectedCategory={selectedCategory} activeCategory={activeCategory} />
+            </div>
 
             {/* BlogCards Section */}
             <div>
@@ -52,7 +54,7 @@ const BlogPage = () => {
 
             {/* Pagination Section */}
             <div>
-                <Pagination onPageChange={handlePageChange} blogs={blogs} pageSize={pageSize} />
+                <Pagination onPageChange={handlePageChange} blogs={blogs} pageSize={pageSize} currentPage={currentPage} />
             </div>
         </>
     )
