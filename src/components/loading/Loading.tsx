@@ -1,16 +1,12 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { Flex, Spin } from "antd";
+import React from 'react';
+import './LoadingOverlay.css'; // Thêm CSS cho hiệu ứng
 
-const LoadingComponent: React.FC = () => {
+const LoadingOverlay = () => {
     return (
-        <>
-            <p className="flex items-center justify-center h-96">
-
-                <Flex align="center" gap="middle">
-                    <Spin indicator={<LoadingOutlined spin />} size="large" />
-                </Flex></p>
-        </>
+        <div className="loading-overlay">
+            <div className="spinner"></div>
+        </div>
     );
-}
+};
 
-export default LoadingComponent;
+export default LoadingOverlay;

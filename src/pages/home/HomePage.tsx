@@ -2,9 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactTyped } from "react-typed";
 import image from '../../assets/banner.png'
+import { useScrollPosition } from '@/hooks';
 
 const HomePage: React.FC = () => {
     const { t } = useTranslation();
+    useScrollPosition(window.location.href);
     return (
         <>
             <section className="text-neutralDGrey bg-neutralSilver" style={{

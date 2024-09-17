@@ -1,6 +1,7 @@
 import React from 'react'
+import { CategorySelectionProps } from '@/interfaces';
 
-const CategorySelection: React.FC = ({ onSelectedCategory, activeCategory }) => {
+const CategorySelection: React.FC<CategorySelectionProps> = ({ onSelectedCategory, activeCategory }) => {
     const categories = ["Startups", "Security", "AI", "Apps", "Tech"];
     return (
         <div className='px-4 mb-8 lg:space-x-16 flex flex-wrap items-center border-b-2 py-5 text-gray-900 font-semibold'>

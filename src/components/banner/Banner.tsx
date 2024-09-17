@@ -16,7 +16,7 @@ const Banner: React.FC<BannerProps> = ({
             className="text-neutralDGrey bg-neutralSilver bg-cover bg-center"
             style={{ backgroundImage: `url(${bgImage})` }}
         >
-            <div className='max-w-6xl w-full h-[80vh] mx-auto text-center flex flex-col justify-center'>
+            <div className='max-w-6xl w-full h-[70vh] mx-auto text-center flex flex-col justify-center'>
                 <h1 className='md:text-6xl sm:text-5xl text-3xl font-bold text-white'>{t(titleKey)}</h1>
                 <p className='md:text-2xl texl-xl font-bold text-yellow-400'>{t(descriptionKey)}</p>
                 {showButton && buttonTextKey && (

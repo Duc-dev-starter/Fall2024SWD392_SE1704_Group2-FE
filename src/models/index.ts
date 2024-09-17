@@ -1,2 +1,4 @@
-export type {default as User} from './User'
-export type {default as Blog} from './Blog'
+export {User} from './User'
+export {Blog} from './Blog'
+export {Category} from './Category'
+export {SubCategory} from './SubCategory'

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { SectionProps } from '@/interfaces';
 import { Banner } from '@/components';
 import { images } from '@/assets'
+import { useScrollPosition } from '@/hooks';
 
 const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink }: SectionProps) => (
     <section className={`py-10 px-10 xl:px-0 ${bg}`}>
@@ -25,6 +26,7 @@ const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-wh
 
 const AboutPage = () => {
     const { t } = useTranslation();
+    useScrollPosition(window.location.href);
 
     return (
         <>
