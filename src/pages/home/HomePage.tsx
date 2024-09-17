@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
     return (
         <>
             <section className="text-neutralDGrey bg-neutralSilver" style={{
-                backgroundImage: `url(${image})`, // Using inline styles for the background image
+                backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}>

@@ -30,5 +30,6 @@
     "why_choose_us_description": "Nền tảng chuyên biệt của chúng tôi được thiết kế với những nhu cầu đặc thù của các cuộc thi Koi. Từ phân loại chính xác đến cập nhật thời gian thực và báo cáo chi tiết, KoiChamp đảm bảo rằng mỗi cuộc thi đều công bằng, minh bạch và thú vị. Tham gia cùng chúng tôi để trải nghiệm những gì tốt nhất trong quản lý cuộc thi Koi.",
     "blog_title": "Thông tin mới",
     "blog_description": "Đăng nhập để nhận các thông tin về bài báo mới thường xuyên",
-    "blog_published": "Được xuất bản vào {{date}}"
+    "blog_published": "Được xuất bản vào {{date}}",
+    "contact_intro": "Nếu bạn có bất kỳ câu hỏi nào về Cuộc thi Cá Koi, vui lòng liên hệ theo thông tin bên dưới. Nhóm của chúng tôi sẽ phản hồi bạn sớm nhất có thể."
 }

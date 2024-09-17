@@ -30,5 +30,6 @@
     "why_choose_us_description": "Our specialized platform is designed with the unique needs of Koi competitions in mind. From accurate classification to real-time updates and detailed reports, KoiChamp ensures that each competition is fair, transparent, and exciting. Join us to experience the best in Koi show management.",
     "blog_title": "Our Blogs",
     "blog_description": "Login to get notifications about new blogs",
-    "blog_published": "Published on {{date}}"
+    "blog_published": "Published on {{date}}",
+    "contact_intro": "If you have any questions about the Koi Fish Competition, feel free to reach out using the information below. Our team will get back to you as soon as possible."
 }
