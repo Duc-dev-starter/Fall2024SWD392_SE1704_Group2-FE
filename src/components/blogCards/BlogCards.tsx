@@ -7,6 +7,7 @@ import { Blog } from "@/models";
 
 const BlogCards: React.FC<BlogCardsProps> = ({ blogs, currentPage, selectedCategory, pageSize }) => {
     const { t } = useTranslation();
+    const defaultImageUrl = "https://via.placeholder.com/400x300";
     const filteredBlogs = blogs
         .filter((blogs: Blog) => !selectedCategory || blogs.category_name === selectedCategory)
         .slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -17,7 +18,7 @@ const BlogCards: React.FC<BlogCardsProps> = ({ blogs, currentPage, selectedCateg
                 <Link key={blog._id} to={`/blog/${blog._id}`} className='p-5 shadow-lg rounded cursor-pointer'>
                     <div className='overflow-hidden rounded'>
                         <img
-                            src={blog.image_url}
+                            src={blog.image_url || defaultImageUrl}
                             alt={blog.name}
                             className='object-cover w-full h-48' // Set max height and maintain aspect ratio
                         />

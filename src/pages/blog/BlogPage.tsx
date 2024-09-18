@@ -69,7 +69,7 @@ const BlogPage = () => {
 
                 {/* Pagination Section */}
                 <div>
-                    <Pagination onPageChange={handlePageChange} blogs={blogs} pageSize={pageSize} currentPage={currentPage} />
+                    <Pagination onPageChange={handlePageChange} items={blogs} pageSize={pageSize} currentPage={currentPage} />
                 </div>
             </div >
         </>

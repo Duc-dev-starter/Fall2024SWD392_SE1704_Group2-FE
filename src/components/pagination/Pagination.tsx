@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Pagination: React.FC = ({ onPageChange, currentPage, blogs, pageSize }) => {
-    const totalPages = Math.ceil(blogs.length / pageSize);
+const Pagination: React.FC = ({ onPageChange, currentPage, items, pageSize }) => {
+    const totalPages = Math.ceil(items.length / pageSize);
     const renderPaginationLinks = () => {
         return Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
             <li key={pageNumber} className="pagination-item">

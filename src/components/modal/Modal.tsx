@@ -7,13 +7,11 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-    // Trạng thái để thay đổi giữa đăng nhập và đăng ký
     const [isLogin, setIsLogin] = useState(true);
 
     const renderGoogleLogin = () => (
         <GoogleLogin
             onSuccess={(credentialResponse) => {
-                console.log(credentialResponse)
                 localStorage.setItem("token", credentialResponse.credential as string);
             }}
         />
@@ -21,9 +19,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${isOpen ? "" : "hidden"}`}>
-            <div className='modal-container'>
+            <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={onClose}></div>
+
+            <div className='relative z-10'>
                 <div className='bg-blue-400 text-center p-5 h-[600px] lg:w-[500px] rounded shadow-md'>
-                    {/* Nội dung động của modal */}
                     {isLogin ? (
                         <>
                             <h2 className='text-xl font-semibold mb-4 mt-6 uppercase'>Please login here</h2>
