@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Banner, BlogCards, Pagination, CategorySelection, Sidebar } from '@/components';
+import { Banner, BlogCards, Pagination, CategorySelection, Sidebar, LoadingOverlay } from '@/components';
 import { BaseService } from '@/services';
 import { useScrollPosition } from '@/hooks';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import LoadingOverlay from '../../components/loading/Loading';
 
 const BlogPage = () => {
     const [blogs, setBlogs] = useState([]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import { HomePage, AboutPage, BlogPage, ContactPage } from "@/pages";
+import { HomePage, AboutPage, BlogPage, ContactPage, BlogDetailPage } from "@/pages";
 import { PATHS } from "@/consts";
 
 const AppRouter: React.FC = () => {
@@ -10,6 +10,7 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.ABOUT} element={<AboutPage />} />
             <Route path={PATHS.BLOG} element={<BlogPage />} />
             <Route path={PATHS.CONTACT} element={<ContactPage />} />
+            <Route path={PATHS.BLOG_DETAIL} element={<BlogDetailPage />} />
         </Routes>
     )
 }

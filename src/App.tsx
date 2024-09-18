@@ -3,14 +3,17 @@ import { FloatingActionButtons, Footer, Header } from "./components";
 import config from "./secret";
 import { AppRouter } from "./routes";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useLocation } from 'react-router-dom';
 
 
 function App() {
 
-  const isPrivatePath = window.location.href.includes('/admin');
+  const location = useLocation();
+  const isPrivatePath = location.pathname.includes('/admin');
 
 
   const clientId = config.GOOGLE_CLIENT_ID;
+  console.log(clientId)
   return (
     <>
       <GoogleOAuthProvider clientId={clientId}>

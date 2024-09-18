@@ -14,7 +14,7 @@ const BlogCards: React.FC<BlogCardsProps> = ({ blogs, currentPage, selectedCateg
     return (
         <div className='grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 max-w-5xl'>
             {filteredBlogs.map((blog: Blog) => (
-                <Link key={blog._id} to={`/blogs/${blog._id}`} className='p-5 shadow-lg rounded cursor-pointer'>
+                <Link key={blog._id} to={`/blog/${blog._id}`} className='p-5 shadow-lg rounded cursor-pointer'>
                     <div className='overflow-hidden rounded'>
                         <img
                             src={blog.image_url}

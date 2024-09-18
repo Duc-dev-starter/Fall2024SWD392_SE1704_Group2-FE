@@ -24,7 +24,7 @@ const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-wh
     </section>
 );
 
-const AboutPage = () => {
+const AboutPage: React.FC = () => {
     const { t } = useTranslation();
     useScrollPosition(window.location.href);
 

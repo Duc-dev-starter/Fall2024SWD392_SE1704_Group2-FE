@@ -5,11 +5,13 @@ import { FaBars, FaXmark } from 'react-icons/fa6';
 import LanguageSwitcher from '../language/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
+import Modal from '../modal/Modal';
 
 
-const Header = () => {
+const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
 
     const toggleMenu = () => {
@@ -31,6 +33,14 @@ const Header = () => {
         }
     }, [])
 
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
     const navItems = [
         { link: t('home'), path: PATHS.HOME },
         { link: t('about'), path: PATHS.ABOUT },
@@ -38,9 +48,10 @@ const Header = () => {
         { link: t('contact_us'), path: PATHS.CONTACT },
     ];
 
+
     return (
         <header className='w-full bg-white md:bg-transparent sticky top-0 left-0 right-0 z-50'>
-            <nav className={`py-4 lg:px-14 px-2 sm:px-4 sm:flex-wrap ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-700" : ""}`}>
+            <nav className={`py-4 lg:px-14 px-2 sm:px-4 sm:flex-wrap bg-white ${isSticky ? "sticky top-0 left-0 right-0 border-b duration-700" : ""}`}>
                 <div className='flex flex-col md:flex-row justify-between items-center text-base gap-8'>
                     <div className='relative flex justify-between items-center text-base gap-8 w-full'>
                         <div className='flex items-center align-middle gap-8'>
@@ -61,15 +72,15 @@ const Header = () => {
                         <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
                         <div className='lg:space-x-6 flex gap-2'>
-                            <button>
-                                <Link to={PATHS.LOGIN} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
-                                    {t('login_button')}  {/* Translation for "Login" */}
-                                </Link>
+                            <button onClick={openModal} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
+                                {t('login_button')}  {/* Translation for "Login" */}
                             </button>
-                            <button type='button' className='bg-brandPrimary text-white py-2 px-3 transition-all duration-300 rounded hover:bg-neutralDGrey text-nowrap items-center justify-center align-middle'>
+                            <button type='button' onClick={closeModal} className='bg-brandPrimary text-white py-2 px-3 transition-all duration-300 rounded hover:bg-neutralDGrey text-nowrap items-center justify-center align-middle'>
                                 {t('register_button')} {/* Translation for "Register" */}
                             </button>
                         </div>
+                        {/* Modal Component */}
+                        <Modal isOpen={isModalOpen} onClose={closeModal} />
                     </div>
                     <div className='absolute w-full top-16 text-end md:hidden bg-brandPrimary p-3'>
                         <button onClick={toggleMenu} className='text-yellow-50 focus:outline-none focus:text-yellow-50'>

@@ -48,4 +48,6 @@ export class Blog {
       this.reading_time = reading_time;
       this.tags = tags
   }
+
+ 
 }
