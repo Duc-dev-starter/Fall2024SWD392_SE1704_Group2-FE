@@ -10,7 +10,7 @@ module.exports = {
       },
       fontFamily: {
         "source-sans": ["Source Sans 3", "sans-serif"],
-        "monsterrat": ["Monsterrat", "sans-serif"]
+        "monsterrat": ["Monsterrat", "sans-serif"],
       },
       colors: {
         'neutralSilver': "#F5F7FA",

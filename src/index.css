@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900');
+@import url('https://fonts.googleapis.com/css2?family=Sofadi+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 * {
     margin: 0;
@@ -196,4 +198,9 @@ html {
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+}
+
+.login-register-input {
+    @apply w-full rounded-md border-b-2 border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium
+    text-[#88909c] outline-none focus:border-[#206291] focus:shadow-md transition-all duration-300 placeholder:text-[#dfdfe0] focus:placeholder:text-[#88909c]
 }
