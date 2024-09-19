@@ -31,5 +31,6 @@
     "blog_title": "Our Blogs",
     "blog_description": "Login to get notifications about new blogs",
     "blog_published": "Published on {{date}}",
-    "contact_intro": "If you have any questions about the Koi Fish Competition, feel free to reach out using the information below. Our team will get back to you as soon as possible."
+    "contact_intro": "If you have any questions about the Koi Fish Competition, feel free to reach out using the information below. Our team will get back to you as soon as possible.",
+    "contact_title": "Contact Us"
 }

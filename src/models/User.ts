@@ -1,4 +1,4 @@
-export type UserRole = "manager" | "staff" | "customer" | "referee";
+export type UserRole = "manager" | "staff" | "member" | "referee";
 
 export class User {
   _id: string;
@@ -11,12 +11,10 @@ export class User {
   phone_number?: string;
   description?: string; // required if user role is instructor
   avatar: { file?: { originFileObj?: File } } | string;
-  video?: string; // url
   dob?: Date; // date of birth
   created_at?: Date;
   updated_at?: Date;
   is_deleted?: boolean; // flag remove logic when user is deleted
-  is_verified?: boolean; // add this property
   balance: number;
   balance_total: number;
 
@@ -24,19 +22,17 @@ export class User {
     _id: string = "",
     name: string = "",
     email: string = "",
-    role: UserRole = "customer",
+    role: UserRole = "member",
     status: boolean = true,
     google_id?: string,
     password?: string,
     phone_number?: string,
     description?: string,
     avatar?: { file?: { originFileObj?: File } } | string,
-    video?: string,
     dob?: Date,
     created_at?: Date,
     updated_at?: Date,
     is_deleted?: boolean,
-    is_verified?: boolean, // add this parameter
     balance: number = 0,
     balance_total : number = 0,
   ) {
@@ -50,12 +46,10 @@ export class User {
     this.phone_number = phone_number;
     this.description = description;
     this.avatar = avatar || "";
-    this.video = video;
     this.dob = dob;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.is_deleted = is_deleted;
-    this.is_verified = is_verified; // add this initialization
     this.balance = balance;
     this.balance_total = balance_total;
   }

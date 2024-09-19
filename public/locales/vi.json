@@ -31,5 +31,6 @@
     "blog_title": "Thông tin mới",
     "blog_description": "Đăng nhập để nhận các thông tin về bài báo mới thường xuyên",
     "blog_published": "Được xuất bản vào {{date}}",
-    "contact_intro": "Nếu bạn có bất kỳ câu hỏi nào về Cuộc thi Cá Koi, vui lòng liên hệ theo thông tin bên dưới. Nhóm của chúng tôi sẽ phản hồi bạn sớm nhất có thể."
+    "contact_intro": "Nếu bạn có bất kỳ câu hỏi nào về Cuộc thi Cá Koi, vui lòng liên hệ theo thông tin bên dưới. Nhóm của chúng tôi sẽ phản hồi bạn sớm nhất có thể.",
+    "contact_title": "Liên hệ chúng tôi"
 }
