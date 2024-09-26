@@ -1,20 +1,27 @@
 import { GoogleLogin } from '@react-oauth/google';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RiCloseLargeLine } from "react-icons/ri";
 
 
 interface ModalProps {
     isOpen: boolean;
+    isLoginForm: boolean;
     onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-    const [isLogin, setIsLogin] = useState(true);
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
+    const [isLogin, setIsLogin] = useState(isLoginForm);
+    const { t } = useTranslation();
+
+    useEffect(() => {
+        setIsLogin(isLoginForm);
+    }, [isLoginForm])
 
     const renderGoogleLogin = () => (
         <GoogleLogin
             onSuccess={(credentialResponse) => {
-                localStorage.setItem("token", credentialResponse.credential as string);
+                localStorage.setItem("googleToken", credentialResponse.credential as string);
             }}
         />
     );
@@ -27,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 <div className='bg-slate-100 h-full text-center p-5 lg:w-[500px] rounded shadow-md'>
                     {isLogin ? (
                         <div>
-                            <h2 className='text-xl font-semibold mb-4 mt-6 uppercase text-red-950'>Please login here</h2>
+                            <h2 className='text-xl font-semibold mb-4 mt-6 uppercase text-red-950'>{t('login_title')}</h2>
                             <form action="" className='px-4'>
                                 <div className='mb-5'>
                                     <input type="email" name='email' id='email' placeholder='example@gmail.com'
@@ -39,14 +46,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                                 </div>
                                 <div className='mt-5'>
                                     <button className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
-                    px-8 text-base font-semibold text-white outline-none w-full transition-all duration-300'>Login</button>
+                    px-8 text-base font-semibold text-white outline-none w-full transition-all duration-300'>{t('login_button')}</button>
                                 </div>
                             </form>
                             {/* <p className='mt-4'>Don't have an account? <span onClick={() => setIsLogin(false)} className='text-sky-700 cursor-pointer'>Register here</span></p> */}
                         </div>
                     ) : (
                         <div>
-                            <h2 className='text-xl font-semibold mb-4 mt-6 uppercase'>Please register here</h2>
+                            <h2 className='text-xl font-semibold mb-4 mt-6 uppercase'>{t('register_title')}</h2>
                             <form action="" className='px-4'>
                                 <div className='mb-5'>
                                     <input type="text" name='name' id='name' placeholder='Your name'
@@ -62,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                                 </div>
                                 <div className='mt-5'>
                                     <button className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
-                    px-8 text-base font-semibold text-white outline-none w-full'>Register</button>
+                    px-8 text-base font-semibold text-white outline-none w-full'>{t('register_button')}</button>
                                 </div>
                             </form>
                             {/* <p className='mt-4'>Already have an account? <span onClick={() => setIsLogin(true)} className='text-sky-700 cursor-pointer'>Login here</span></p> */}
@@ -72,16 +79,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                     <span className='flex flex-col justify-between gap-6 mt-6'>
                         <div className="flex items-center justify-center">
                             <div className="flex-grow border-t border-gray-300"></div>
-                            <span className="mx-4 text-gray-500">or</span>
+                            <span className="mx-4 text-gray-500">{t('or')}</span>
                             <div className="flex-grow border-t border-gray-300"></div>
                         </div>
 
-                        <div>{renderGoogleLogin()}</div>
-                        {/* login with github
+                        <div className='flex align-center justify-center rounded-full'>{renderGoogleLogin()}</div>
+                        {/* 
+                            login with github
                             login with facebook
                         */}
-                        {isLogin ? <p className='mt-4'>Don't have an account? <span onClick={() => setIsLogin(false)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>Register here</span></p>
-                            : <p className='mt-4'>Already have an account? <span onClick={() => setIsLogin(true)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>Login here</span></p>
+                        {isLogin ? <p className='mt-4'>{t('havent_account')} <span onClick={() => setIsLogin(false)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>{t('register_title')}</span></p>
+                            : <p className='mt-4'>{t('have_account')} <span onClick={() => setIsLogin(true)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>{t('login_title')}</span></p>
                         }
                     </span>
                 </div>
