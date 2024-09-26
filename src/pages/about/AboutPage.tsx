@@ -27,7 +27,6 @@ const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-wh
 const AboutPage: React.FC = () => {
     const { t } = useTranslation();
     useScrollPosition(window.location.href);
-
     return (
         <>
             {/* Banner Section */}
