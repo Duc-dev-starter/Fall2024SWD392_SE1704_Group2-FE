@@ -38,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                                         className='login-register-input' />
                                 </div>
                                 <div className='mt-5'>
-                                    <button className='hover:shadow-md rounded-md bg-[#206291] hover:bg-blue-950 py-3
+                                    <button className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
                     px-8 text-base font-semibold text-white outline-none w-full transition-all duration-300'>Login</button>
                                 </div>
                             </form>
@@ -61,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                                         className='login-register-input' />
                                 </div>
                                 <div className='mt-5'>
-                                    <button className='hover:shadow-md rounded-md bg-[#206291] hover:bg-sky-900 py-3
+                                    <button className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
                     px-8 text-base font-semibold text-white outline-none w-full'>Register</button>
                                 </div>
                             </form>
@@ -80,8 +80,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                         {/* login with github
                             login with facebook
                         */}
-                        {isLogin ? <p className='mt-4'>Don't have an account? <span onClick={() => setIsLogin(false)} className='text-sky-700 cursor-pointer'>Register here</span></p>
-                            : <p className='mt-4'>Already have an account? <span onClick={() => setIsLogin(true)} className='text-sky-700 cursor-pointer'>Login here</span></p>
+                        {isLogin ? <p className='mt-4'>Don't have an account? <span onClick={() => setIsLogin(false)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>Register here</span></p>
+                            : <p className='mt-4'>Already have an account? <span onClick={() => setIsLogin(true)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>Login here</span></p>
                         }
                     </span>
                 </div>
