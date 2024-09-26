@@ -45,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                 url: '/api/auth/login',
                 payload,
             });
-
+            console.log(response);
             localStorage.setItem('token', response.token);
             navigate('/');
             onClose();

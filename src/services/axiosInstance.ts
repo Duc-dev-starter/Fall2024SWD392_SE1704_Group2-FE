@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use((response) => {
   if (response.status === 200 || response.status === 201) {
     return response.data;
   }
-  return response;
+  return response.data;
 }, (error) => {
     if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
