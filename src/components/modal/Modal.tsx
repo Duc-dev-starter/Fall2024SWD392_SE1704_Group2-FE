@@ -2,6 +2,9 @@ import { GoogleLogin } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiCloseLargeLine } from "react-icons/ri";
+import { BaseService } from '../../services';
+import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 
 interface ModalProps {
@@ -13,6 +16,9 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
     const [isLogin, setIsLogin] = useState(isLoginForm);
     const { t } = useTranslation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLogin(isLoginForm);
@@ -26,6 +32,28 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
         />
     );
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault(); // Prevent default form submission
+
+        try {
+            const payload = {
+                email: email,
+                password: password,
+            };
+
+            const response = await BaseService.post({
+                url: '/api/auth/login',
+                payload,
+            });
+
+            console.log("Login successful:", response.data);
+            navigate('/')
+            message.success("Login successful");
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
+    }
+
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${isOpen ? "" : "hidden"}`}>
             <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={onClose}></div>
@@ -35,7 +63,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                     {isLogin ? (
                         <div>
                             <h2 className='text-xl font-semibold mb-4 mt-6 uppercase text-red-950'>{t('login_title')}</h2>
-                            <form action="" className='px-4'>
+                            <form onSubmit={handleSubmit} className='px-4'>
                                 <div className='mb-5'>
                                     <input type="email" name='email' id='email' placeholder='example@gmail.com'
                                         className='login-register-input' />

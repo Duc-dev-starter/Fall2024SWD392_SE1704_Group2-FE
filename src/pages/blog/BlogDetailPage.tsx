@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FaClock, FaUser } from 'react-icons/fa6'
 import { useParams } from 'react-router-dom'
 import { BaseService } from '@/services'
-import { Blog } from '../../models'
+import { Blog } from '@/models'
 import { useSelector } from 'react-redux'
-import { RootState } from '@store'
+import { RootState } from '@/store'
 import { LoadingOverlay, Sidebar } from '@/components'
 
 const BlogDetailPage: React.FC = () => {

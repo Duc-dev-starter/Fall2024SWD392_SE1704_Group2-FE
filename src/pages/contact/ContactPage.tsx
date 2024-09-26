@@ -1,8 +1,6 @@
 import React from 'react';
 import { BiEnvelope, BiMap, BiPhoneCall } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
-import image from '../../assets/banner.png';
-import Map from '../../components/map';
 import { Banner } from '../../components';
 import { BsClock } from 'react-icons/bs';
 import contactImg from '../../assets/contact-png.png'
