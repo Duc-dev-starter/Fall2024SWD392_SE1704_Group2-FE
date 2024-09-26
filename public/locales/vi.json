@@ -33,12 +33,9 @@
     "blog_description": "Đăng nhập để nhận các thông tin về bài báo mới thường xuyên",
     "blog_published": "Được xuất bản vào {{date}}",
     "contact_intro": "Nếu bạn có bất kỳ câu hỏi nào về Cuộc thi Cá Koi, vui lòng liên hệ theo thông tin bên dưới. Nhóm của chúng tôi sẽ phản hồi bạn sớm nhất có thể.",
-<<<<<<< HEAD
     "login_title": "Đăng nhập tại đây",
     "register_title": "Đăng ký tại đây",
     "havent_account": "Chưa có tài khoản",
-    "have_account": "Đã có tài khoản"
-=======
+    "have_account": "Đã có tài khoản",
     "contact_title": "Liên hệ chúng tôi"
->>>>>>> main
 }
