@@ -18,6 +18,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     useEffect(() => {
         setIsLogin(isLoginForm);
@@ -51,6 +53,28 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
             console.error('Login failed:', error);
         }
     }
+
+    const handleRegisterSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+            const payload = {
+                name,
+                email,
+                password,
+                phoneNumber,
+            };
+
+            const response = await BaseService.post({
+                url: API_PATHS.REGISTER,
+                payload,
+            });
+            toast.success("Registration successful");
+            onClose();
+        } catch (error) {
+            console.error('Registration failed:', error);
+        }
+    };
 
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${isOpen ? "" : "hidden"}`}>
@@ -94,18 +118,29 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                     ) : (
                         <div>
                             <h2 className='text-xl font-semibold mb-4 mt-6 uppercase'>{t('register_title')}</h2>
-                            <form action="" className='px-4'>
+                            <form onSubmit={handleRegisterSubmit} action="" className='px-4'>
                                 <div className='mb-5'>
                                     <input type="text" name='name' id='name' placeholder='Your name'
-                                        className='login-register-input' />
+                                        className='login-register-input' onChange={(e) => setName(e.target.value)} />
                                 </div>
                                 <div className='mb-5'>
                                     <input type="email" name='email' id='email' placeholder='example@gmail.com'
-                                        className='login-register-input' />
+                                        className='login-register-input' onChange={(e) => setEmail(e.target.value)} />
                                 </div>
                                 <div>
                                     <input type="password" name='password' id='password' placeholder='Enter your password'
-                                        className='login-register-input' />
+                                        className='login-register-input' onChange={(e) => setPassword(e.target.value)} />
+                                </div>
+                                <div className='mb-5'>
+                                    <input
+                                        type="text"
+                                        name='phoneNumber'
+                                        id='phoneNumber'
+                                        placeholder='Your phone number'
+                                        className='login-register-input'
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                    />
                                 </div>
                                 <div className='mt-5'>
                                     <button className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
