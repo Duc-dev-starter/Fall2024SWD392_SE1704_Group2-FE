@@ -33,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
     );
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
         try {
             const payload = {
@@ -65,15 +65,29 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                             <h2 className='text-xl font-semibold mb-4 mt-6 uppercase text-red-950'>{t('login_title')}</h2>
                             <form onSubmit={handleSubmit} className='px-4'>
                                 <div className='mb-5'>
-                                    <input type="email" name='email' id='email' placeholder='example@gmail.com'
-                                        className='login-register-input' />
+                                    <input
+                                        type="email"
+                                        name='email'
+                                        id='email'
+                                        placeholder='example@gmail.com'
+                                        className='login-register-input'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                 </div>
                                 <div>
-                                    <input type="password" name='password' id='password' placeholder='Enter your password'
-                                        className='login-register-input' />
+                                    <input
+                                        type="password"
+                                        name='password'
+                                        id='password'
+                                        placeholder='Enter your password'
+                                        className='login-register-input'
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                 </div>
                                 <div className='mt-5'>
-                                    <button className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
+                                    <button type='submit' className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
                     px-8 text-base font-semibold text-white outline-none w-full transition-all duration-300'>{t('login_button')}</button>
                                 </div>
                             </form>
