@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiCloseLargeLine } from "react-icons/ri";
 import { BaseService } from '../../services';
-import { message } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { API_PATHS } from '../../consts';
 
 
 interface ModalProps {
@@ -18,7 +18,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
     const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLogin(isLoginForm);
@@ -42,14 +41,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
             };
 
             const response = await BaseService.post({
-                url: '/api/auth/login',
+                url: API_PATHS.LOGIN,
                 payload,
             });
-            console.log(response);
-            localStorage.setItem('token', response.token);
-            navigate('/');
+            localStorage.setItem('token', response.data.token);
             onClose();
-            message.success("Login successful");
+            toast.success("Login successful");
         } catch (error) {
             console.error('Login failed:', error);
         }

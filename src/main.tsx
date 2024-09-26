@@ -8,10 +8,13 @@ import 'swiper/css/bundle';
 import { store } from './store';
 import React from 'react';
 import '../i18n.ts'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <BrowserRouter>
+      <ToastContainer />
       <App />
     </BrowserRouter>
   </Provider>
