@@ -46,8 +46,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                 payload,
             });
 
-            console.log("Login successful:", response.data);
-            navigate('/')
+            localStorage.setItem('token', response.token);
+            navigate('/');
+            onClose();
             message.success("Login successful");
         } catch (error) {
             console.error('Login failed:', error);
