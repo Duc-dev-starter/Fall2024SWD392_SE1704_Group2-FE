@@ -8,6 +8,8 @@ import { API_PATHS } from '@/consts';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store'
 import { LoadingOverlay } from '@/components';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+
 
 
 interface ModalProps {
@@ -23,6 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
     useEffect(() => {
@@ -36,6 +39,22 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
             }}
         />
     );
+
+    const handleCloseModal = () => {
+        setEmail('');
+        setPassword('');
+        setName('');
+        setPhoneNumber('');
+        onClose();
+    }
+
+    const handleTransitionForm = () => {
+        setEmail('');
+        setPassword('');
+        setName('');
+        setPhoneNumber('');
+        setIsLogin(!isLogin)
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -80,7 +99,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
             <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${isOpen ? "" : "hidden"}`}>
                 <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={onClose}></div>
 
-                <div className='relative z-20 justify-normal'>
+                <div className={`relative z-20 transition-all duration-500 ease-in-out`} >
                     <div className='bg-slate-100 h-full text-center p-5 lg:w-[500px] rounded shadow-md'>
                         {isLogin ? (
                             <div>
@@ -99,14 +118,20 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                                     </div>
                                     <div>
                                         <input
-                                            type="password"
+                                            type={showPassword ? 'text' : 'password'}
                                             name='password'
                                             id='password'
-                                            placeholder='Enter your password'
+                                            placeholder='Your password'
                                             className='login-register-input'
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
+                                        <span
+                                            style={{ position: 'absolute', right: '45px', top: '38%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                                        </span>
                                     </div>
                                     <div className='mt-5'>
                                         <button type='submit' className='hover:shadow-md rounded-md bg-[#c83424] hover:bg-[#5d2019] py-3
@@ -120,18 +145,38 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                                 <h2 className='text-xl font-semibold mb-4 mt-6 uppercase'>{t('register_title')}</h2>
                                 <form onSubmit={handleSubmit} action="" className='px-4'>
                                     <div className='mb-5'>
-                                        <input type="text" name='name' id='name' placeholder='Your name'
+                                        <input type="text" name='name' id='name' value={name} placeholder='Your name'
                                             className='login-register-input' onChange={(e) => setName(e.target.value)} />
                                     </div>
                                     <div className='mb-5'>
-                                        <input type="email" name='email' id='email' placeholder='example@gmail.com'
-                                            className='login-register-input' onChange={(e) => setEmail(e.target.value)} />
+                                        <input
+                                            type="email"
+                                            name='email'
+                                            id='email'
+                                            placeholder='example@gmail.com'
+                                            className='login-register-input'
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
                                     </div>
                                     <div>
-                                        <input type="password" name='password' id='password' placeholder='Enter your password'
-                                            className='login-register-input' onChange={(e) => setPassword(e.target.value)} />
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            name='password'
+                                            id='password'
+                                            placeholder='Your password'
+                                            className='login-register-input'
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                        <span
+                                            style={{ position: 'absolute', right: '45px', top: '40%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                                        </span>
                                     </div>
-                                    <div className='mb-5'>
+                                    <div className='my-5'>
                                         <input
                                             type="text"
                                             name='phoneNumber'
@@ -163,13 +208,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                             login with github
                             login with facebook
                         */}
-                            {isLogin ? <p className='mt-4'>{t('havent_account')} <span onClick={() => setIsLogin(false)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>{t('register_title')}</span></p>
-                                : <p className='mt-4'>{t('have_account')} <span onClick={() => setIsLogin(true)} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>{t('login_title')}</span></p>
+                            {isLogin ? <p className='mt-4'>{t('havent_account')} <span onClick={handleTransitionForm} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>{t('register_title')}</span></p>
+                                : <p className='mt-4'>{t('have_account')} <span onClick={handleTransitionForm} className='text-[#c83424] hover:text-[#6d2a22] cursor-pointer'>{t('login_title')}</span></p>
                             }
                         </span>
                     </div>
 
-                    <button onClick={onClose} className='absolute top-0 right-0 bg-transparent hover:bg-transparent text-3xl text-gray-800 hover:text-red-600 font-semibold p-3 transition-all duration-150'>
+                    <button onClick={handleCloseModal} className='absolute top-0 right-0 bg-transparent hover:bg-transparent text-3xl text-gray-800 hover:text-red-600 font-semibold p-3 transition-all duration-150'>
                         <RiCloseLargeLine />
                     </button>
                 </div>

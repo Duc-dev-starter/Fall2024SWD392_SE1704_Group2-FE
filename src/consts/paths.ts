@@ -3,5 +3,7 @@ export const PATHS = {
     ABOUT: '/about',
     BLOG: '/blog',
     CONTACT: "/contact",
-    BLOG_DETAIL: '/blog/:id'
+    BLOG_DETAIL: '/blog/:id',
+
+    MANAGER_LOGIN: '/manager/login'
 }
