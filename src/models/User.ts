@@ -34,7 +34,7 @@ export class User {
     updated_at?: Date,
     is_deleted?: boolean,
     balance: number = 0,
-    balance_total : number = 0,
+    balance_total: number = 0,
   ) {
     this._id = _id;
     this.google_id = google_id;

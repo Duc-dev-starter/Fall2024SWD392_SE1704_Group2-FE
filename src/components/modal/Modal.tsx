@@ -92,28 +92,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
         }
     }
 
-    const handleRegisterSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        try {
-            const payload = {
-                name,
-                email,
-                password,
-                phoneNumber,
-            };
-
-            const response = await BaseService.post({
-                url: API_PATHS.REGISTER,
-                payload,
-            });
-            toast.success("Registration successful");
-            onClose();
-        } catch (error) {
-            console.error('Registration failed:', error);
-        }
-    };
-
     return (
         <div>
             {isLoading && <LoadingOverlay />}

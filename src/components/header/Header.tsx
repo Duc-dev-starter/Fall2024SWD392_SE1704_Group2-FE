@@ -15,6 +15,8 @@ const Header: React.FC = () => {
     const [isLoginForm, setIsLoginForm] = useState(true);
     const { t } = useTranslation();
 
+    const token = localStorage.getItem('token');
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
@@ -78,14 +80,16 @@ const Header: React.FC = () => {
 
                         <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
-                        <div className='lg:space-x-6 flex gap-2'>
-                            <button onClick={openRegisterForm} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
-                                {t('register_button')}  {/* Translation for "Register" */}
-                            </button>
-                            <button type='button' onClick={openModal} className='bg-brandPrimary text-white py-2 px-3 transition-all duration-300 rounded hover:bg-neutralDGrey text-nowrap items-center justify-center align-middle'>
-                                {t('login_button')} {/* Translation for "Login" */}
-                            </button>
-                        </div>
+                        {token ? <img src='' alt='avatar' /> :
+                            <div className='lg:space-x-6 flex gap-2'>
+                                <button onClick={openRegisterForm} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
+                                    {t('register_button')}  {/* Translation for "Register" */}
+                                </button>
+                                <button type='button' onClick={openModal} className='bg-brandPrimary text-white py-2 px-3 transition-all duration-300 rounded hover:bg-neutralDGrey text-nowrap items-center justify-center align-middle'>
+                                    {t('login_button')} {/* Translation for "Login" */}
+                                </button>
+                            </div>
+                        }
                         {/* Modal Component */}
                         <Modal isOpen={isModalOpen} onClose={closeModal} isLoginForm={isLoginForm} />
                     </div>
