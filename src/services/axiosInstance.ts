@@ -28,11 +28,11 @@ axiosInstance.interceptors.response.use((response) => {
   if (response.status === 200 || response.status === 201) {
     return response.data;
   }
-  return response.data;
+  return response;
 }, (error) => {
     if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
-        window.location.href = '/login'; 
+        window.location.href = '/'; 
       }
       return Promise.reject(error);
 })
