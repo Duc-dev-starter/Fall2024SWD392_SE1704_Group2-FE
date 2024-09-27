@@ -4,8 +4,8 @@ import { PATHS } from '@/consts';
 import { FaBars, FaXmark } from 'react-icons/fa6';
 import LanguageSwitcher from '../language/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/logo.png';
-import Modal from '../modal/Modal';
+import { images } from '@/assets';
+import { Modal } from '@/components';
 
 
 const Header: React.FC = () => {
@@ -43,6 +43,11 @@ const Header: React.FC = () => {
         setIsLoginForm(true);
     }
 
+    const openRegisterForm = () => {
+        setIsModalOpen(true);
+        setIsLoginForm(false);
+    }
+
     const navItems = [
         { link: t('home'), path: PATHS.HOME },
         { link: t('about'), path: PATHS.ABOUT },
@@ -58,7 +63,7 @@ const Header: React.FC = () => {
                     <div className='relative flex justify-between items-center text-base gap-8 w-full'>
                         <div className='flex items-center align-middle gap-8'>
                             <Link to={PATHS.HOME} className='lg:text-2xl text-base font-semibold flex items-center space-x-1'>
-                                <img src={logo} alt="logo" className='md:w-10 w-9 inline-block items-center rounded-full' /><span className='text-[#263238]'>KoiChamp</span>
+                                <img src={images.logo} alt="logo" className='md:w-10 w-9 inline-block items-center rounded-full' /><span className='text-[#263238]'>KoiChamp</span>
                             </Link>
 
                             <span className='lg:hidden xl:hidden'><LanguageSwitcher /></span>
@@ -74,7 +79,7 @@ const Header: React.FC = () => {
                         <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
                         <div className='lg:space-x-6 flex gap-2'>
-                            <button onClick={() => { setIsModalOpen(true); setIsLoginForm(false); }} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
+                            <button onClick={openRegisterForm} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
                                 {t('register_button')}  {/* Translation for "Register" */}
                             </button>
                             <button type='button' onClick={openModal} className='bg-brandPrimary text-white py-2 px-3 transition-all duration-300 rounded hover:bg-neutralDGrey text-nowrap items-center justify-center align-middle'>

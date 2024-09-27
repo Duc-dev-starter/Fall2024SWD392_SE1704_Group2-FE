@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import { HomePage, AboutPage, BlogPage, ContactPage, BlogDetailPage, Notfound } from "@/pages";
 import { PATHS } from "@/consts";
-import Dashboard from '../pages/manager/dashboard/Dashboard';
+import { Dashboard } from '@/layouts';
 
 const AppRouter: React.FC = () => {
     return (
