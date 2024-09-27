@@ -80,7 +80,7 @@ const Header: React.FC = () => {
 
                         <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
-                        {token ? <img src='' alt='avatar' /> :
+                        {token ? <img src='https://th.bing.com/th/id/OIP.52T8HHBWh6b0dwrG6tSpVQHaFe?rs=1&pid=ImgDetMain' alt='avatar' width={60} /> :
                             <div className='lg:space-x-6 flex gap-2'>
                                 <button onClick={openRegisterForm} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
                                     {t('register_button')}  {/* Translation for "Register" */}
