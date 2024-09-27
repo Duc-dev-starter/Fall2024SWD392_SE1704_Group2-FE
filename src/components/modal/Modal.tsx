@@ -38,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
 
         try {
             const payload = {
-                email: email,
+                emahil: email,
                 password: password,
             };
 
@@ -69,6 +69,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                 url: API_PATHS.REGISTER,
                 payload,
             });
+
+            localStorage.setItem('token', response.data.token);
             toast.success("Registration successful");
             onClose();
         } catch (error) {

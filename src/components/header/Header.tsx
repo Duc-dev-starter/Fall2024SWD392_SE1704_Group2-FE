@@ -40,7 +40,7 @@ const Header: React.FC = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setIsLoginForm(!isLoginForm);
+        setIsLoginForm(true);
     }
 
     const navItems = [
