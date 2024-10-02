@@ -1,5 +1,6 @@
-export const ROLES = {
-    CUSTOMER: "customer",
-    STAFF: "staff",
-    MANAGER: "manager",
+export enum ROLES  {
+    CUSTOMER = "customer",
+    STAFF = "staff",
+    MANAGER = "manager",
+    REFEREE = "referee"
   };

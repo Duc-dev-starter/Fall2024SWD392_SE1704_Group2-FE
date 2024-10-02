@@ -17,6 +17,7 @@ const Sidebar = () => {
     async function fetchBlogs() {
         const response = await BaseService.get({ url: 'https://665b3286003609eda4602205.mockapi.io/blogs' });
         setPopularBlogs(response.data);
+        console.log(response)
     }
 
     return (
