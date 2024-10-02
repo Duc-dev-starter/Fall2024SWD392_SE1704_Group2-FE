@@ -1,9 +1,71 @@
 import { useNavigate } from "react-router-dom";
 import { User } from "../models";
 import { getUserFromLocalStorage } from "../utils";
-import { API_PATHS, PATHS, ROLES } from "../consts";
+import { API_PATHS, PATHS, ROLES, rolesArr } from "../consts";
 import { toast } from "react-toastify";
 import { BaseService } from "./BaseService";
+import { JwtPayload } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
+
+export const login = async (email: string, password: string) => {
+  const response = await BaseService.post({
+    url: API_PATHS.LOGIN,
+    payload: { email, password },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  if (!response.success) {
+    return;
+  }
+
+  const token = response.data.token;
+  const decodedToken: JwtPayload = jwtDecode(token);
+
+  if (!rolesArr.includes(decodedToken.role)) {
+    toast.error("Invalid user role");
+    return null;
+  }
+
+  const currentPath = window.location.pathname;
+  const userRole = decodedToken.role;
+
+  if (currentPath.includes(ROLES.REFEREE) && userRole !== ROLES.REFEREE) {
+    toast.error("You don't have permission to access this page");
+    return null;
+  }
+  else if (currentPath.includes(ROLES.MANAGER) && userRole !== ROLES.MANAGER) {
+    toast.error("You don't have permission to access this page");
+    return null;
+  }
+  
+  else if (currentPath.includes(ROLES.STAFF) && userRole !== ROLES.STAFF) {
+    toast.error("You don't have permission to access this page");
+    return null;
+  }
+
+  // const handleWrongPathLogin = (correctPath: string) => {
+  //   message.error(`You login wrong path. Navigate in 2s`);
+  //   setTimeout(() => {
+  //     window.location.href = correctPath;
+  //   }, 2000);
+  //   return null;
+  // };
+
+  // if (currentPath.includes("/admin")) {
+  //   // Đã xử lý ở trên: nếu không phải admin vào trang admin
+  // } else if ([roles.ADMIN, roles.MANAGER, roles.STAFF].includes(userRole)) {
+  //   if (userRole === roles.ADMIN) {
+  //     return handleWrongPathLogin(PATH.ADMIN_LOGIN);
+  //   } else if (userRole === roles.MANAGER) {
+  //     return handleWrongPathLogin(PATH.MANAGER_LOGIN);
+  //   } else {
+  //     return handleWrongPathLogin(PATH.STAFF_LOGIN);
+  //   }
+  // }
+
+  return { token };
+};
 
 
 export const forgotPassword = async (email: string) => {
@@ -11,14 +73,52 @@ export const forgotPassword = async (email: string) => {
   toast.success('New password sent to your email. Please check your inbox.');
 }
 
-export const logout = ( navigate: ReturnType<typeof useNavigate>) => {
-    const user: User = getUserFromLocalStorage();
-    if (user.role === ROLES.MANAGER) {
-      navigate(PATHS.MANAGER_LOGIN);
+export const handleNavigateRole = async (token: string, navigate: ReturnType<typeof useNavigate>) => {
+  localStorage.setItem('token', token);
+  const response = await BaseService.get({url: API_PATHS.GET_CURRENT_LOGIN_USER});
+  const user = response.data;
+  localStorage.setItem("user", JSON.stringify(user));
+    switch (user.role) {
+      case ROLES.CUSTOMER:
+        navigate(PATHS.HOME);
+        break;
+      case ROLES.MANAGER:
+        navigate(PATHS.MANAGER_DASHBOARD);
+        break;
+      case ROLES.REFEREE:
+        navigate(PATHS.REFEREE_DASHBOARD);
+        break;
+      case ROLES.STAFF: 
+      navigate(PATHS.STAFF_DASHBOARD);
+      break;
+      default:
+        navigate(PATHS.HOME);
+        break;
     }
-    else {
+    toast.success("Login successfully");
+};
+
+export const getCurrentLoginUser = async () => {
+  const response = await BaseService.get({url: API_PATHS.GET_CURRENT_LOGIN_USER});
+  localStorage.setItem("user", JSON.stringify(response.data));
+};
+
+export const logout = async ( navigate: ReturnType<typeof useNavigate>)=>  {
+  await BaseService.get({url: API_PATHS.LOGOUT});
+  const user: User = getUserFromLocalStorage();
+  switch(user.role) {
+    case ROLES.MANAGER:
+      navigate(PATHS.MANAGER_LOGIN)
+      break;
+      case ROLES.STAFF:
+      navigate(PATHS.STAFF_LOGIN)
+      break;
+      case ROLES.REFEREE:
+      navigate(PATHS.REFERREE_LOGIN)
+      break;
+      default:
       navigate(PATHS.HOME);
-    }
-    toast.info("You logout from the system");
-    localStorage.clear();
-  };
+  }
+  toast.info("You logout from the system");
+  localStorage.clear();
+};

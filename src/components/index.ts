@@ -9,3 +9,4 @@ export {default as CategorySelection} from './categorySelection/CategorySelectio
 export {default as Sidebar} from './sidebar/Sidebar'
 export {default as LoadingOverlay} from './loading/Loading' 
 export {default as Modal} from './modal/Modal'
+export { EmailFormItem, PasswordFormItem, ButtonFormItem, NameFormItem, VideoFormItem,DescriptionFormItem,PhoneNumberFormItem, CommentFormItem,RatingFormItem,ContentFormItem, TitleFormItem,NumberFormItem } from './formItem'

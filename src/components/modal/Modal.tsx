@@ -2,13 +2,13 @@ import { GoogleLogin } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiCloseLargeLine } from "react-icons/ri";
-import { BaseService } from '@/services';
 import { toast } from 'react-toastify';
-import { API_PATHS } from '@/consts';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store'
 import { LoadingOverlay } from '@/components';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { handleNavigateRole, login, register } from '../../services';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -26,6 +26,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
     const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
     useEffect(() => {
@@ -61,16 +62,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
 
         try {
             let payload;
-            let response;
             if (isLogin) {
                 payload = {
                     email: email,
                     password: password,
                 };
-                response = await BaseService.post({
-                    url: API_PATHS.LOGIN,
-                    payload,
-                });
+                const authResult = await login(email, password);
+                if (authResult && "token" in authResult) {
+                    handleNavigateRole(authResult.token, navigate);
+                }
             }
             else {
                 payload = {
@@ -79,40 +79,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                     password,
                     phoneNumber,
                 };
-                response = await BaseService.post({
-                    url: API_PATHS.REGISTER,
-                    payload,
-                });
+                await register(payload);
+                const authResult = await login(email, password);
+                if (authResult && "token" in authResult) {
+                    handleNavigateRole(authResult.token, navigate);
+                }
             }
-            localStorage.setItem('token', response.data.token);
             onClose();
             toast.success("Login successful");
         } catch (error) {
             console.error('Login failed:', error);
         }
     }
-
-    const handleRegisterSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        try {
-            const payload = {
-                name,
-                email,
-                password,
-                phoneNumber,
-            };
-
-            const response = await BaseService.post({
-                url: API_PATHS.REGISTER,
-                payload,
-            });
-            toast.success("Registration successful");
-            onClose();
-        } catch (error) {
-            console.error('Registration failed:', error);
-        }
-    };
 
     return (
         <div>

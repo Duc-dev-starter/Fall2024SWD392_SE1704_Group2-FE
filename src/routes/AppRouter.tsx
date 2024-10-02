@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import { HomePage, AboutPage, BlogPage, ContactPage, BlogDetailPage, Notfound, ForgotPassword } from "@/pages";
+import { HomePage, AboutPage, BlogPage, ContactPage, BlogDetailPage, Notfound, ForgotPassword, ChangePassword } from "@/pages";
 import { PATHS, ROLES } from "@/consts";
 import { Dashboard } from '@/layouts';
 import { useRoleRedirect } from '../hooks'
@@ -15,6 +15,7 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.CONTACT} element={<ContactPage />} />
             <Route path={PATHS.BLOG_DETAIL} element={<BlogDetailPage />} />
             <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
+            <Route path={PATHS.CHANGE_PASSWORD} element={<ChangePassword />} />
 
 
             <Route path='/staff/*' element={canAccess([ROLES.STAFF]) && <Dashboard />}>
