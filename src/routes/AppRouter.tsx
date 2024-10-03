@@ -9,6 +9,7 @@ import {
     Managecompetition, ContestRegistration, ContestReport,
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword
 } from "@/pages";
+import { ServerLogin } from '../pages';
 
 const AppRouter: React.FC = () => {
     const { canAccess } = useRoleRedirect();
@@ -23,14 +24,15 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.CHANGE_PASSWORD} element={<ChangePassword />} />
 
             {/* MANAGER ROUTE */}
-            <Route path={PATHS.MANAGER_LOGIN} element={'manager login page'} />  {/* MANAGER login page */}
-            <Route path={PATHS.MANAGER} element={canAccess([ROLES.MANAGER]) && <DashboardLayout />}> {/* Layout */}
+            <Route path={PATHS.MANAGER_LOGIN} element={<ServerLogin />} />  {/* MANAGER login page */}
+            <Route path={PATHS.MANAGER} element={<DashboardLayout />}> {/* Layout */}
                 <Route path={PATHS.MANAGER_DASHBOARD} element={<ManagerDashboard />} /> {/** MANAGER dashboard layout */}
                 <Route path={PATHS.MANAGER_USERS} element={<ManagerUsers />} /> {/** MANAGER manage user */}
                 <Route path={PATHS.MANAGER_BLOGS} element={<ManagerCategory />} /> {/** MANAGER manage blog */}
             </Route>
 
             {/* STAFF ROUTE */}
+            <Route path={PATHS.STAFF_LOGIN} element={<ServerLogin />} />
             <Route path={PATHS.STAFF} element={canAccess([ROLES.STAFF]) && <DashboardLayout />}> {/* Layout */}
                 <Route path={PATHS.STAFF_REGISTRATION} element={<ContestRegistration />} /> {/* contest registration */}
                 <Route path={PATHS.STAFF_COMPETITION} element={<Managecompetition />} /> {/* manage competition */}
@@ -38,6 +40,7 @@ const AppRouter: React.FC = () => {
 
             {/* REFEREE ROUTE */}
             {/* login */}
+            <Route path={PATHS.REFEREE_LOGIN} element={<ServerLogin />} />
             <Route path={PATHS.REFEREE} element={canAccess([ROLES.REFEREE]) && <DashboardLayout />}> {/* Layout */}
                 <Route path={PATHS.REFEREE_COMPETITION} element={<RefereeCompetition />} /> {/* Assigned Competition */}
                 <Route path={PATHS.REFEREE_SCORE} element={<RefereeScored />} /> {/* Score Koifish */}

@@ -44,7 +44,7 @@ const ForgotPassword = () => {
                                 <div className='border-t border-[rgba(0,0,0,0.1)] rounded-b-lg p-4'>
                                     <div className='flex gap-1 mb:justify-center md:justify-end'>
                                         <button>
-                                            <Link to={PATHS.FORGOT_PASSWORD} className='py-2 md:px-5 px-2 bg-[#e4e6eb] border-none rounded-md text-[15px] ml-2 mb-3 text-[#4b4f56] cursor-pointer text-center'>
+                                            <Link to={PATHS.HOME} className='py-2 md:px-5 px-2 bg-[#e4e6eb] border-none rounded-md text-[15px] ml-2 mb-3 text-[#4b4f56] cursor-pointer text-center'>
                                                 {t('cancel')}
                                             </Link>
                                         </button>

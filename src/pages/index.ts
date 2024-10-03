@@ -12,6 +12,8 @@ export { default as ChangePassword } from './changePassword'
 
 export { default as DashboardLayout } from '../layouts/dashboard/Dashboard'
 
+
+export {default as ServerLogin} from './serverLogin'
 // manager page exports
 export { default as ManagerDashboard } from './manager/dashboard/Dashboard'
 export { default as ManagerUsers } from './manager/manage-users'
