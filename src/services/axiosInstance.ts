@@ -66,7 +66,7 @@ axiosInstance.interceptors.request.use(
                     window.location.href = PATHS.STAFF_LOGIN;
                     break;
                     case ROLES.REFEREE: 
-                    window.location.href = PATHS.REFERREE_LOGIN;
+                    window.location.href = PATHS.REFEREE_LOGIN;
                     break;
                     default:
                       window.location.href = PATHS.HOME;

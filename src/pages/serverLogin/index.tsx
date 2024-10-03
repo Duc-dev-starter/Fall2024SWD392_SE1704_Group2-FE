@@ -13,6 +13,7 @@ import { handleNavigateRole, login } from "@/services";
 import { LoginFieldType } from "@/models";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
+import { ROLES } from "../../consts";
 const ServerLogin: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,11 +21,11 @@ const ServerLogin: React.FC = () => {
 
     const getRoleFromPath = (): string => {
         const path = location.pathname;
-        if (path.includes("admin")) {
-            return "Admin";
-        } else if (path.includes("manager")) {
+        if (path.includes(ROLES.REFEREE)) {
+            return "Referee";
+        } else if (path.includes(ROLES.MANAGER)) {
             return "Manager";
-        } else if (path.includes("staff")) {
+        } else if (path.includes(ROLES.STAFF)) {
             return "Staff";
         }
         return "User";
