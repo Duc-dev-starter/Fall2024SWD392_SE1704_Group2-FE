@@ -13,6 +13,7 @@ import { handleNavigateRole, login } from "@/services";
 import { LoginFieldType } from "@/models";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
+import { ROLES } from "../../consts";
 const ServerLogin: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,14 +21,14 @@ const ServerLogin: React.FC = () => {
 
     const getRoleFromPath = (): string => {
         const path = location.pathname;
-        if (path.includes("admin")) {
-            return "Admin";
+        if (path.includes("referee")) {
+            return ROLES.REFEREE;
         } else if (path.includes("manager")) {
-            return "Manager";
+            return ROLES.MANAGER;
         } else if (path.includes("staff")) {
-            return "Staff";
+            return ROLES.STAFF;
         }
-        return "User";
+        return ROLES.MEMBER;
     };
 
     const onFinish: FormProps<LoginFieldType>["onFinish"] = async (values) => {
@@ -35,6 +36,8 @@ const ServerLogin: React.FC = () => {
 
         try {
             const authResult = await login(email, password);
+            console.log(authResult);
+
             if (authResult && "token" in authResult) {
                 handleNavigateRole(authResult.token, navigate);
                 console.log(authResult);
@@ -45,7 +48,8 @@ const ServerLogin: React.FC = () => {
         }
     };
 
-    const role = getRoleFromPath()
+    const role = getRoleFromPath();
+
 
     return (
         <>

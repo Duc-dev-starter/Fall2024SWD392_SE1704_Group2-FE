@@ -28,6 +28,8 @@ export const login = async (email: string, password: string) => {
   }
 
   const currentPath = window.location.pathname;
+  console.log(currentPath);
+
   const userRole = decodedToken.role;
 
   if (currentPath.includes(ROLES.REFEREE) && userRole !== ROLES.REFEREE) {
@@ -38,7 +40,7 @@ export const login = async (email: string, password: string) => {
     toast.error("You don't have permission to access this page");
     return null;
   }
-  
+
   else if (currentPath.includes(ROLES.STAFF) && userRole !== ROLES.STAFF) {
     toast.error("You don't have permission to access this page");
     return null;
@@ -69,54 +71,54 @@ export const login = async (email: string, password: string) => {
 
 
 export const forgotPassword = async (email: string) => {
-  await BaseService.put({url : API_PATHS.FORGOT_PASSWORD, payload: {email}});
+  await BaseService.put({ url: API_PATHS.FORGOT_PASSWORD, payload: { email } });
   toast.success('New password sent to your email. Please check your inbox.');
 }
 
 export const handleNavigateRole = async (token: string, navigate: ReturnType<typeof useNavigate>) => {
   localStorage.setItem('token', token);
-  const response = await BaseService.get({url: API_PATHS.GET_CURRENT_LOGIN_USER});
+  const response = await BaseService.get({ url: API_PATHS.GET_CURRENT_LOGIN_USER });
   const user = response.data;
   localStorage.setItem("user", JSON.stringify(user));
-    switch (user.role) {
-      case ROLES.CUSTOMER:
-        navigate(PATHS.HOME);
-        break;
-      case ROLES.MANAGER:
-        navigate(PATHS.MANAGER_DASHBOARD);
-        break;
-      case ROLES.REFEREE:
-        navigate(PATHS.REFEREE_DASHBOARD);
-        break;
-      case ROLES.STAFF: 
+  switch (user.role) {
+    case ROLES.CUSTOMER:
+      navigate(PATHS.HOME);
+      break;
+    case ROLES.MANAGER:
+      navigate(PATHS.MANAGER_DASHBOARD);
+      break;
+    case ROLES.REFEREE:
+      navigate(PATHS.REFEREE_DASHBOARD);
+      break;
+    case ROLES.STAFF:
       navigate(PATHS.STAFF_DASHBOARD);
       break;
-      default:
-        navigate(PATHS.HOME);
-        break;
-    }
-    toast.success("Login successfully");
+    default:
+      navigate(PATHS.HOME);
+      break;
+  }
+  toast.success("Login successfully");
 };
 
 export const getCurrentLoginUser = async () => {
-  const response = await BaseService.get({url: API_PATHS.GET_CURRENT_LOGIN_USER});
+  const response = await BaseService.get({ url: API_PATHS.GET_CURRENT_LOGIN_USER });
   localStorage.setItem("user", JSON.stringify(response.data));
 };
 
-export const logout = async ( navigate: ReturnType<typeof useNavigate>)=>  {
-  await BaseService.get({url: API_PATHS.LOGOUT});
+export const logout = async (navigate: ReturnType<typeof useNavigate>) => {
+  await BaseService.get({ url: API_PATHS.LOGOUT });
   const user: User = getUserFromLocalStorage();
-  switch(user.role) {
+  switch (user.role) {
     case ROLES.MANAGER:
       navigate(PATHS.MANAGER_LOGIN)
       break;
-      case ROLES.STAFF:
+    case ROLES.STAFF:
       navigate(PATHS.STAFF_LOGIN)
       break;
-      case ROLES.REFEREE:
+    case ROLES.REFEREE:
       navigate(PATHS.REFERREE_LOGIN)
       break;
-      default:
+    default:
       navigate(PATHS.HOME);
   }
   toast.info("You logout from the system");
