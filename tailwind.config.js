@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'mb': '300px'
+      },
       transitionDuration: {
         '2000': '2000ms',
       },

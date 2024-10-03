@@ -9,10 +9,6 @@ export const PATHS = {
     FORGOT_PASSWORD: '/forgot-password',
     LOGIN: '/login',
     CHANGE_PASSWORD: '/change-password',
-    
-
-    REFERREE_LOGIN: '/referee/login',
-    REFEREE_DASHBOARD: '/referee/dashboard',
 
     // manager paths
     MANAGER: '/manager/*',
@@ -24,12 +20,14 @@ export const PATHS = {
     // referee paths
     REFEREE: '/referee/*',
     REFEREE_LOGIN: '/referee/login',
+    REFEREE_DASHBOARD: 'dashboard',
     REFEREE_COMPETITION: 'competition',
     REFEREE_SCORE: 'score',
 
     // staff paths
     STAFF: '/staff/*',
     STAFF_LOGIN: '/staff/login',
+    STAFF_DASHBOARD: 'dashboard',
     STAFF_REGISTRATION: 'contest-registration',
     STAFF_COMPETITION: 'competition',
     STAFF_REPORT: 'report',

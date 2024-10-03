@@ -34,7 +34,6 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.STAFF} element={canAccess([ROLES.STAFF]) && <DashboardLayout />}> {/* Layout */}
                 <Route path={PATHS.STAFF_REGISTRATION} element={<ContestRegistration />} /> {/* contest registration */}
                 <Route path={PATHS.STAFF_COMPETITION} element={<Managecompetition />} /> {/* manage competition */}
-                <Route path={PATHS.STAFF_REPORT} element={<ContestReport />} /> {/* export report */}
             </Route>
 
             {/* REFEREE ROUTE */}
