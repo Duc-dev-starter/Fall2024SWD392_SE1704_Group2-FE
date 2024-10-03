@@ -88,7 +88,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                 }
             }
             onClose();
-            toast.success("Login successful");
         } catch (error) {
             console.error('Login failed:', error);
         }

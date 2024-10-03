@@ -19,8 +19,12 @@ export const login = async (email: string, password: string) => {
     return;
   }
 
+
   const token = response.data.token;
   const decodedToken: JwtPayload = jwtDecode(token);
+  // const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  // console.log(role);
+
 
   if (!rolesArr.includes(decodedToken.role)) {
     toast.error("Invalid user role");
@@ -28,7 +32,6 @@ export const login = async (email: string, password: string) => {
   }
 
   const currentPath = window.location.pathname;
-  console.log(currentPath);
 
   const userRole = decodedToken.role;
 

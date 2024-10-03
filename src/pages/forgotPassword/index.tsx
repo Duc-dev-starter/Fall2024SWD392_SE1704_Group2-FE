@@ -23,9 +23,9 @@ const ForgotPassword = () => {
     return (
         <>
             {isLoading && <LoadingOverlay />}
-            <div className='bg-[#e9ebee] h-screen'>
+            <div className='bg-[#e9ebee] py-8'>
                 <div className=''>
-                    <div className='h-screen flex justify-center align-middle m-auto'>
+                    <div className='flex justify-center align-middle m-auto'>
                         <form onSubmit={(e) => handleSubmit(e)} className='m-auto'>
                             <div className="pt-2 border-none rounded-lg shadow-sm mx-auto md:w-[500px] w-[300px] bg-white text-[#1c1e21]">
                                 <div className='mt-2 border-[rgba(0,0,0,0.1)] mx-0 p-0 border-b pb-0'>

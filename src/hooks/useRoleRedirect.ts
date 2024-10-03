@@ -12,19 +12,21 @@ const useRoleRedirect = () => {
     if (user.role) {
       redirectBasedOnRole();
     }
-    if(user.google_id){
-      if(location.pathname.includes(PATHS.CHANGE_PASSWORD)){
-        navigate(PATHS.LOGIN)
+    if (user.googleId) {
+      console.log(user.googleId);
+
+      if (location.pathname.includes(PATHS.CHANGE_PASSWORD)) {
+        navigate(PATHS.FORGOT_PASSWORD)
       }
     }
   }, [user.role, location.pathname]);
-  
+
 
   const redirectBasedOnRole = () => {
     const path = location.pathname;
 
     switch (user.role) {
-      case ROLES.CUSTOMER:
+      case ROLES.MEMBER:
         if (path.includes(ROLES.REFEREE) || path.includes(ROLES.MANAGER) || path.includes(PATHS.FORGOT_PASSWORD) || path.includes(ROLES.STAFF)) {
           navigate(PATHS.HOME);
         }
@@ -35,15 +37,15 @@ const useRoleRedirect = () => {
         }
         break;
       case ROLES.MANAGER:
-        if (!path.includes(ROLES.MANAGER)|| path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
+        if (!path.includes(ROLES.MANAGER) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
           navigate(PATHS.MANAGER_DASHBOARD);
         }
         break;
-        case ROLES.STAFF:
-          if (!path.includes(ROLES.STAFF)|| path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
-            navigate(PATHS.MANAGER_DASHBOARD);
-          }
-          break;
+      case ROLES.STAFF:
+        if (!path.includes(ROLES.STAFF) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
+          navigate(PATHS.MANAGER_DASHBOARD);
+        }
+        break;
       default:
         navigate(PATHS.HOME);
         break;

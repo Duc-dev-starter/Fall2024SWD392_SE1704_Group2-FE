@@ -10,8 +10,7 @@ export const user = getUserFromLocalStorage();
 
 
 export const register = async (values) => {
-  const response = await BaseService.post({ url: API_PATHS.REGISTER, payload: values });
-  return response;
+  await BaseService.post({ url: API_PATHS.REGISTER, payload: values });
 }
 
 export const getUsers = async (

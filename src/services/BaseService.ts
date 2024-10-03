@@ -11,7 +11,7 @@ export const BaseService = {
         if (!url) {
             throw new Error("URL is required for GET request");
         }
-        store.dispatch(showLoading());  
+        store.dispatch(showLoading());
         try {
             const params = cleanParams({ ...payload });
             const response = await axiosInstance.get<T, AxiosResponse<T>>(url, {
@@ -24,7 +24,7 @@ export const BaseService = {
             console.error("GET request failed", error);
             throw error;
         } finally {
-            store.dispatch(hideLoading());  
+            store.dispatch(hideLoading());
         }
     },
 
@@ -62,7 +62,7 @@ export const BaseService = {
             store.dispatch(hideLoading());
         }
     },
-    
+
     async delete<T = any>({ url, payload, headers }: ApiRequest): Promise<AxiosResponse<T>> {
         if (!url) {
             throw new Error("URL is required for DELETE request");

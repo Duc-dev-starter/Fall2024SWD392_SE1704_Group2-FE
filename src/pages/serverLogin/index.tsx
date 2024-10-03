@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import Login from "@/assets/Login4.jpg";
@@ -28,20 +28,21 @@ const ServerLogin: React.FC = () => {
         } else if (path.includes(ROLES.STAFF)) {
             return "Staff";
         }
-        return ROLES.MEMBER;
+        return "Member";
     };
+
+    useEffect(() => {
+        getRoleFromPath();
+    }, [])
 
     const onFinish: FormProps<LoginFieldType>["onFinish"] = async (values) => {
         const { email, password } = values;
 
         try {
             const authResult = await login(email, password);
-            console.log(authResult);
 
             if (authResult && "token" in authResult) {
                 handleNavigateRole(authResult.token, navigate);
-                console.log(authResult);
-
             }
         } catch (error) {
             console.log(error);
