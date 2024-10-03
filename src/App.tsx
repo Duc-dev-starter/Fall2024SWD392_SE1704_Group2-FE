@@ -9,13 +9,13 @@ import { useLocation } from 'react-router-dom';
 function App() {
 
   const location = useLocation();
-  const isPrivatePath = [
-    location.pathname.includes('manager'),
-    location.pathname.includes('staff'),
-    location.pathname.includes('referee'),
-  ]
-
   const clientId = config.GOOGLE_CLIENT_ID;
+  const isPrivatePath =
+    location.pathname.includes('manager') ||
+    location.pathname.includes('staff') ||
+    location.pathname.includes('referee')
+
+
   return (
     <>
       <GoogleOAuthProvider clientId={clientId}>
