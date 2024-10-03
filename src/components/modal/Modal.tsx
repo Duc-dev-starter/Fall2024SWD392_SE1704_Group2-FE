@@ -9,6 +9,8 @@ import { LoadingOverlay } from '@/components';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { handleNavigateRole, login, register } from '../../services';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { PATHS } from '../../consts';
 
 
 
@@ -126,7 +128,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                         <span
-                                            style={{ position: 'absolute', right: '45px', top: '38%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                            style={{ position: 'absolute', right: '45px', top: '35.5%', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
                                             {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
@@ -137,7 +139,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                     px-8 text-base font-semibold text-white outline-none w-full transition-all duration-300'>{t('login_button')}</button>
                                     </div>
                                 </form>
-                                {/* <p className='mt-4'>Don't have an account? <span onClick={() => setIsLogin(false)} className='text-sky-700 cursor-pointer'>Register here</span></p> */}
                             </div>
                         ) : (
                             <div>
@@ -169,7 +170,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                         <span
-                                            style={{ position: 'absolute', right: '45px', top: '40%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                            style={{ position: 'absolute', right: '45px', top: '35.5%', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
                                             {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
@@ -194,8 +195,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                                 {/* <p className='mt-4'>Already have an account? <span onClick={() => setIsLogin(true)} className='text-sky-700 cursor-pointer'>Login here</span></p> */}
                             </div>
                         )}
-
-                        <span className='flex flex-col justify-between gap-6 mt-6'>
+                        <div className='mt-4' onClick={handleCloseModal}>
+                            <Link to={PATHS.FORGOT_PASSWORD} className='hover:underline text-brandPrimary'>
+                                {t('forgot_password')}
+                            </Link>
+                        </div>
+                        <span className='flex flex-col justify-between gap-6 mt-4'>
                             <div className="flex items-center justify-center">
                                 <div className="flex-grow border-t border-gray-300"></div>
                                 <span className="mx-4 text-gray-500">{t('or')}</span>

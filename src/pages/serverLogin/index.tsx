@@ -21,12 +21,12 @@ const ServerLogin: React.FC = () => {
 
     const getRoleFromPath = (): string => {
         const path = location.pathname;
-        if (path.includes("referee")) {
-            return ROLES.REFEREE;
-        } else if (path.includes("manager")) {
-            return ROLES.MANAGER;
-        } else if (path.includes("staff")) {
-            return ROLES.STAFF;
+        if (path.includes(ROLES.REFEREE)) {
+            return "Referee";
+        } else if (path.includes(ROLES.MANAGER)) {
+            return "Manager";
+        } else if (path.includes(ROLES.STAFF)) {
+            return "Staff";
         }
         return ROLES.MEMBER;
     };

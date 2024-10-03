@@ -56,5 +56,10 @@
     "not_match": "The two passwords that you entered do not match!",
     "confirm_newpass_error": "Please confirm your new password!",
     "oldpassword_error": "Please input your old password!",
-    "newpassword_error": "Please input your new password!"
+    "newpassword_error": "Please input your new password!",
+    "forgot_password": "Forgot Password?",
+    "opening_hours": "Opening Hours",
+    "address": "Địa chỉ",
+    "phone_number": "Phone Number",
+    "monday_friday": "Monday - Friday"
 }
