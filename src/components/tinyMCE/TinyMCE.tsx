@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditor } from 'tinymce';
-import config from '@/secret/config';
+import config from '../../secret';
 
 interface TinyMCEEditorProps {
     value: string;

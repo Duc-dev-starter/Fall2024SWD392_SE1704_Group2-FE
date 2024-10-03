@@ -24,8 +24,8 @@ const BlogDetailPage: React.FC = () => {
             const response = await BaseService.get({
                 url: `https://665b3286003609eda4602205.mockapi.io/blogs/${blogId}`,
             });
-            setBlogData(response.data);
-            console.log(response.data);
+            setBlogData(response);
+            console.log(response);
         } catch (error) {
             console.error("Error fetching blog:", error);
         }

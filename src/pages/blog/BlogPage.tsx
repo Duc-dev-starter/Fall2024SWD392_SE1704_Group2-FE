@@ -23,7 +23,7 @@ const BlogPage = () => {
         if (selectedCategory) {
             url += `&category=${selectedCategory}`;
         }
-        setBlogs(response.data);
+        setBlogs(response);
     }
 
     const handlePageChange = (pageNumber: number) => {

@@ -7,6 +7,8 @@ export { default as BlogDetailPage } from './blog/BlogDetailPage'
 export { default as NotAuthorized } from './403'
 export { default as Notfound } from './404'
 export { default as InternalServerError } from './500'
+export { default as ForgotPassword } from './forgotPassword'
+export { default as ChangePassword } from './changePassword'
 
 // manager page exports
 export { default as DashboardLayout } from '../layouts/dashboard/Dashboard'
