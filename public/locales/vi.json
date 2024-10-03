@@ -56,5 +56,10 @@
     "not_match": "Mật Khẩu Xác Nhận Phải Giống Với Mật Khẩu Mới!",
     "confirm_newpass_error": "Vui Lòng Xác Nhận Mật Khẩu Mới Của Bạn!",
     "oldpassword_error": "Vui Lòng Nhập Mật Khẩu Của Bạn!",
-    "newpassword_error": "Vui Lòng Nhập Mật Khẩu Mới Của Bạn!"
+    "newpassword_error": "Vui Lòng Nhập Mật Khẩu Mới Của Bạn!",
+    "forgot_password": "Quên mật khẩu?",
+    "opening_hours": "Giờ mở cửa",
+    "address": "Địa chỉ",
+    "phone_number": "SĐT",
+    "monday_friday": "Thứ 2 - Thứ 6"
 }
