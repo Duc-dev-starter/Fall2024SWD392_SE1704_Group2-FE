@@ -84,17 +84,17 @@ export const handleNavigateRole = async (token: string, navigate: ReturnType<typ
   const user = response.data;
   localStorage.setItem("user", JSON.stringify(user));
   switch (user.role) {
-    case ROLES.CUSTOMER:
+    case ROLES.MEMBER:
       navigate(PATHS.HOME);
       break;
     case ROLES.MANAGER:
-      navigate(PATHS.MANAGER_DASHBOARD);
+      navigate(PATHS.MANAGER_HOME);
       break;
     case ROLES.REFEREE:
-      navigate(PATHS.REFEREE_DASHBOARD);
+      navigate(PATHS.REFEREE_HOME);
       break;
     case ROLES.STAFF:
-      navigate(PATHS.STAFF_DASHBOARD);
+      navigate(PATHS.STAFF_HOME);
       break;
     default:
       navigate(PATHS.HOME);
