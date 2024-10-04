@@ -141,7 +141,7 @@ const Profile: React.FC = () => {
     const getAvatarUrl = (url: string) => `${url}?t=${new Date().getTime()}`;
 
     return (
-        <div className="w-full rounded-md">
+        <div className="w-full rounded-md mb:mt-10 md:mt-0">
             <div className="flex items-center justify-between px-6 py-4">
                 <div className="flex gap-4">
                     <Avatar size={90} src={getAvatarUrl(user.avatar) || "https://default-avatar-url.com"} alt="avatar" />
@@ -173,7 +173,7 @@ const Profile: React.FC = () => {
                     </Row>
                     <Row gutter={16}>
                         <Col span={12} className="flex justify-center">
-                            <Form.Item label={t('phone_number')} name={t('phone_number')} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
+                            <Form.Item label={t('phone_number')} name='phoneNumber' labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
                                 <Input className="w-full h-10" />
                             </Form.Item>
                         </Col>
@@ -220,7 +220,7 @@ const Profile: React.FC = () => {
                             </Upload>
                         </Form.Item>
                     </div>
-                    <div className="flex pl-28 ml-2 ">
+                    <div className="flex pl-28 ml-2">
                         <Button type="primary" htmlType="submit">
                             Edit
                         </Button>
