@@ -3,8 +3,20 @@ import { BiLocationPlus, BiMailSend, BiPhoneCall } from 'react-icons/bi';
 import { FaFacebookSquare, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { PATHS } from '@/consts';
+import { companyLinks, legalLinks, solutionLinks, supportLinks } from '../../consts';
 
-const Footer = () => {
+const Footer: React.FC = () => {
+
+    const renderLinks = (links: any[]) => (
+        <ul>
+            {links.map((link, index) => (
+                <li key={index} className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>
+                    <Link to={link.href}>{link.title}</Link>
+                </li>
+            ))}
+        </ul>
+    );
+
     return (
         <>
             <footer className='bg-neutralSilver'>
@@ -50,41 +62,22 @@ const Footer = () => {
                     <div className='lg:col-span-3 grid-cols-2  lg:flex grid justify-between'>
                         <div>
                             <h6 className='font-bold text-black'>Solutions</h6>
-                            <ul>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Analytics</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Marketing</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Commerce</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Insights</li>
-                            </ul>
+                            {renderLinks(solutionLinks)}
                         </div>
 
                         <div>
                             <h6 className='font-bold text-black'>Support</h6>
-                            <ul>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Pricing</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Documentation</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Guide</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Api Status</li>
-                            </ul>
+                            {renderLinks(supportLinks)}
                         </div>
 
                         <div>
                             <h6 className='font-bold text-black'>Company</h6>
-                            <ul>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>About</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Blog</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Jobs</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Press</li>
-                            </ul>
+                            {renderLinks(companyLinks)}
                         </div>
 
                         <div>
                             <h6 className='font-bold text-black'>Legal</h6>
-                            <ul>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Claim</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Policy</li>
-                                <li className='py-2 text-sm hover:underline hover:decoration-brandPrimary cursor-pointer'>Terms</li>
-                            </ul>
+                            {renderLinks(legalLinks)}
                         </div>
                     </div>
                 </div>
@@ -98,4 +91,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default Footer;

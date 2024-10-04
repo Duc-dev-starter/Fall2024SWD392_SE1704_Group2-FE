@@ -1,4 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
+import React from 'react'
 
 const UploadButton: React.FC = () => {
 	return (

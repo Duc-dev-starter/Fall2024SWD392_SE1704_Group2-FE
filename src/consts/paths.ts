@@ -9,6 +9,7 @@ export const PATHS = {
     FORGOT_PASSWORD: '/forgot-password',
     LOGIN: '/login',
     CHANGE_PASSWORD: '/change-password',
+    TERMS: '/terms',
 
     // member paths
     USER_PROFILE: '/profile',

@@ -11,7 +11,7 @@ export class User {
   phoneNumber?: string;
   description?: string; // required if user role is instructor
   avatar: { file?: { originFileObj?: File } } | string;
-  dob?: Date; // date of birth
+  dob?: Date | string; // date of birth
   createdAt?: Date;
   updatedAt?: Date;
   isDeleted?: boolean; // flag remove logic when user is deleted
