@@ -207,7 +207,7 @@ const Profile: React.FC = () => {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <div className="flex md:ml-20 mb:justify-center md:justify-start">
+                    <div className="flex md:ml-28 mb:justify-center md:justify-start md:pl-2">
                         <Form.Item label="Avatar" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
                             <Upload
                                 action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
@@ -220,7 +220,7 @@ const Profile: React.FC = () => {
                             </Upload>
                         </Form.Item>
                     </div>
-                    <div className="flex mb:justify-center align-middle md:justify-start md:ml-20">
+                    <div className="flex mb:justify-center align-middle md:justify-start md:ml-28">
                         <Button type="primary" htmlType="submit" className="mb:w-2/3 sm:w-screen md:w-24">
                             Edit
                         </Button>
