@@ -12,15 +12,13 @@ const useRoleRedirect = () => {
     if (user.role) {
       redirectBasedOnRole();
     }
-    if (user.googleId) {
-      console.log(user.googleId);
-
-      if (location.pathname.includes(PATHS.CHANGE_PASSWORD)) {
-        navigate(PATHS.FORGOT_PASSWORD)
+    if(user.googleId){
+      if(location.pathname.includes(PATHS.CHANGE_PASSWORD)){
+        navigate(PATHS.LOGIN)
       }
     }
   }, [user.role, location.pathname]);
-
+  
 
   const redirectBasedOnRole = () => {
     const path = location.pathname;
@@ -37,18 +35,15 @@ const useRoleRedirect = () => {
         }
         break;
       case ROLES.MANAGER:
-        if (!path.includes(ROLES.MANAGER) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
+        if (!path.includes(ROLES.MANAGER)|| path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
           navigate(PATHS.MANAGER_DASHBOARD);
         }
         break;
-      case ROLES.STAFF:
-        if (!path.includes(ROLES.STAFF) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
-          navigate(PATHS.MANAGER_DASHBOARD);
-        }
-        break;
-      default:
-        navigate(PATHS.HOME);
-        break;
+        case ROLES.STAFF:
+          if (!path.includes(ROLES.STAFF)|| path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
+            navigate(PATHS.MANAGER_DASHBOARD);
+          }
+          break;
     }
   };
   const canAccess = (allowedRoles: string[]) => {

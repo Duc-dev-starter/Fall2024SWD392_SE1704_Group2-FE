@@ -5,7 +5,7 @@ import { FaBars, FaXmark } from 'react-icons/fa6';
 import LanguageSwitcher from '../language/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { images } from '@/assets';
-import { Modal } from '@/components';
+import { Modal, DropdownAvatar } from '@/components';
 import { getUserFromLocalStorage } from '../../utils';
 
 
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
 
                         </div>
 
-                        <ul className='md:flex space-x-12 hidden mt-4'>
+                        <ul className='md:flex space-x-12 hidden mt-4 mx-auto'>
                             {
                                 navItems.map(({ link, path }) => <Link key={path} to={path} className='block text-base text-gray900 hover:text-brandPrimary first:font-medium'>{link}</Link>)
                             }
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
 
                         <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
-                        {user ? <img src='https://th.bing.com/th/id/OIP.52T8HHBWh6b0dwrG6tSpVQHaFe?rs=1&pid=ImgDetMain' alt='avatar' width={60} /> :
+                        {user ? <div className='ml-auto'><DropdownAvatar /></div> :
                             <div className='lg:space-x-6 flex gap-2'>
                                 <button onClick={openRegisterForm} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
                                     {t('register_button')}  {/* Translation for "Register" */}

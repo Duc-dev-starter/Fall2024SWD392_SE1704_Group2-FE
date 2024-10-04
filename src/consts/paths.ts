@@ -10,6 +10,10 @@ export const PATHS = {
     LOGIN: '/login',
     CHANGE_PASSWORD: '/change-password',
 
+    // member paths
+    USER_PROFILE: '/profile',
+    USER_HISTORY: '/history',
+
     // manager paths
     MANAGER: '/manager/*',
     MANAGER_LOGIN: '/manager/login',

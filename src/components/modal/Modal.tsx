@@ -169,7 +169,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, isLoginForm }) => {
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                         <span
-                                            style={{ position: 'absolute', right: '45px', top: '35.5%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                            style={{ position: 'absolute', right: '45px', top: '38.5%', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
                                             {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}

@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "@/secret";
 import { toast } from "react-toastify";
 import { getUserFromLocalStorage } from "../utils";
-import { PATHS, ROLES } from "../consts";
+import { HttpStatus, PATHS, ROLES } from "../consts";
 
 export const axiosInstance = axios.create({
   baseURL: config.BASE_URL,
@@ -31,7 +31,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     console.log(response);
-    if (response.status === 200 || response.status === 201) {
+    if (response.status === HttpStatus.Success || response.status === HttpStatus.Created) {
       return response.data;
     }
   },
@@ -48,8 +48,8 @@ axiosInstance.interceptors.response.use(
 
       else {
         switch (error.response.status) {
-          case 401:
-          case 403: {
+          case HttpStatus.Unauthorized:
+          case HttpStatus.Forbidden: {
             if (!isTokenExpired) {
               isTokenExpired = true
               toast.error(data.message);
@@ -83,12 +83,12 @@ axiosInstance.interceptors.response.use(
             break;
           }
 
-          case 404:
+          case HttpStatus.NotFound:
             toast.error(data.message);
             // window.location.href = PATH.NOTFOUND;
             break;
 
-          case 500:
+          case HttpStatus.InternalServerError:
             toast.error(data.message);
             window.location.href = PATHS.INTERNAL_SERVER_ERROR;
             break;

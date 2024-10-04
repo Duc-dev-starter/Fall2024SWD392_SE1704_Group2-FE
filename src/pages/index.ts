@@ -9,7 +9,7 @@ export { default as Notfound } from './404'
 export { default as InternalServerError } from './500'
 export { default as ForgotPassword } from './forgotPassword'
 export { default as ChangePassword } from './changePassword'
-
+export {default as Profile} from './profile/Profile'
 export { default as DashboardLayout } from '../layouts/dashboard/Dashboard'
 
 

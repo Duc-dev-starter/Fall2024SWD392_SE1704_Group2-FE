@@ -84,7 +84,7 @@ export const handleNavigateRole = async (token: string, navigate: ReturnType<typ
   const user = response.data;
   localStorage.setItem("user", JSON.stringify(user));
   switch (user.role) {
-    case ROLES.CUSTOMER:
+    case ROLES.MEMBER:
       navigate(PATHS.HOME);
       break;
     case ROLES.MANAGER:
@@ -119,7 +119,7 @@ export const logout = async (navigate: ReturnType<typeof useNavigate>) => {
       navigate(PATHS.STAFF_LOGIN)
       break;
     case ROLES.REFEREE:
-      navigate(PATHS.REFERREE_LOGIN)
+      navigate(PATHS.REFEREE_LOGIN)
       break;
     default:
       navigate(PATHS.HOME);

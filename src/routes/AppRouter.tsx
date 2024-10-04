@@ -7,7 +7,7 @@ import {
     BlogDetailPage, Notfound, DashboardLayout,
     ManagerDashboard, ManagerUsers, ManagerCategory,
     Managecompetition, ContestRegistration, ContestReport,
-    RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword
+    RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile
 } from "@/pages";
 import { ServerLogin } from '../pages';
 
@@ -21,7 +21,10 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.CONTACT} element={<ContactPage />} />
             <Route path={PATHS.BLOG_DETAIL} element={<BlogDetailPage />} />
             <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
+
+            {/* MEMBER ROUTE */}
             <Route path={PATHS.CHANGE_PASSWORD} element={<ChangePassword />} />
+            <Route path={PATHS.USER_PROFILE} element={<Profile />} />
 
             {/* MANAGER ROUTE */}
             <Route path={PATHS.MANAGER_LOGIN} element={<ServerLogin />} />  {/* MANAGER login page */}
