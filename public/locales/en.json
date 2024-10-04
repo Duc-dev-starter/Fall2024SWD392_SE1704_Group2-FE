@@ -59,7 +59,11 @@
     "newpassword_error": "Please input your new password!",
     "forgot_password": "Forgot Password?",
     "opening_hours": "Opening Hours",
-    "address": "Địa chỉ",
+    "address": "Address",
     "phone_number": "Phone Number",
-    "monday_friday": "Monday - Friday"
+    "monday_friday": "Monday - Friday",
+    "full_name": "Full Name",
+    "dob": "Date of Birth",
+    "createDate": "Create Date",
+    "updatedDate": "Updated Date"
 }

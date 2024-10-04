@@ -61,5 +61,9 @@
     "opening_hours": "Giờ mở cửa",
     "address": "Địa chỉ",
     "phone_number": "SĐT",
-    "monday_friday": "Thứ 2 - Thứ 6"
+    "monday_friday": "Thứ 2 - Thứ 6",
+    "full_name": "Họ và Tên",
+    "dob": "Ngày Sinh",
+    "createDate": "Ngày tạo tài khoản",
+    "updatedDate": "Ngày cập nhật"
 }

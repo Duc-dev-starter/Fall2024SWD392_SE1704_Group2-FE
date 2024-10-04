@@ -5,6 +5,7 @@ import type { UploadFile, UploadProps } from "antd";
 import { getBase64, getFormattedDate, getUserFromLocalStorage, uploadFile } from "../../utils";
 import { UploadButton } from "../../components";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 type FileType = Parameters<Required<UploadProps>["beforeUpload"]>[0];
 
@@ -28,6 +29,8 @@ const Profile: React.FC = () => {
         status: false,
         updatedAt: "",
     });
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         const userData = getUserFromLocalStorage();
@@ -153,7 +156,7 @@ const Profile: React.FC = () => {
                     <Row gutter={16}>
                         <Col span={12} className="flex justify-center">
                             <Form.Item
-                                label="Full Name"
+                                label={t('full_name')}
                                 name="name"
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }}
@@ -170,13 +173,13 @@ const Profile: React.FC = () => {
                     </Row>
                     <Row gutter={16}>
                         <Col span={12} className="flex justify-center">
-                            <Form.Item label="Phone" name="phone_number" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
+                            <Form.Item label={t('phone_number')} name={t('phone_number')} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
                                 <Input className="w-full h-10" />
                             </Form.Item>
                         </Col>
                         <Col span={12} className="flex justify-center">
                             <Form.Item
-                                label="Date of Birth"
+                                label={t('dob')}
                                 name="dob"
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }}
@@ -188,13 +191,13 @@ const Profile: React.FC = () => {
                     </Row>
                     <Row gutter={16}>
                         <Col span={12} className="flex justify-center">
-                            <Form.Item label="Create Date " name="created_at" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
+                            <Form.Item label={t('createDate')} name="created_at" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
                                 <Input className="w-full h-10" disabled />
                             </Form.Item>
                         </Col>
                         <Col span={12} className="flex justify-center">
                             <Form.Item
-                                label="Updated Date"
+                                label={t('updatedDate')}
                                 name="updated_at"
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }}
