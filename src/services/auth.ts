@@ -119,7 +119,7 @@ export const logout = async (navigate: ReturnType<typeof useNavigate>) => {
       navigate(PATHS.STAFF_LOGIN)
       break;
     case ROLES.REFEREE:
-      navigate(PATHS.REFERREE_LOGIN)
+      navigate(PATHS.REFEREE_LOGIN)
       break;
     default:
       navigate(PATHS.HOME);
