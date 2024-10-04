@@ -154,7 +154,7 @@ const Profile: React.FC = () => {
             <div className="p-4">
                 <Form form={form} onFinish={handleEdit}>
                     <Row gutter={16}>
-                        <Col span={12} className="flex justify-center">
+                        <Col xs={24} md={12} span={12} className="flex justify-center">
                             <Form.Item
                                 label={t('full_name')}
                                 name="name"
@@ -165,19 +165,19 @@ const Profile: React.FC = () => {
                                 <Input className="w-full h-10" />
                             </Form.Item>
                         </Col>
-                        <Col span={12} className="flex justify-center">
+                        <Col xs={24} md={12} span={12} className="flex justify-center">
                             <Form.Item label="Email" name="email" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
                                 <Input className="w-full h-10" disabled />
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col span={12} className="flex justify-center">
+                        <Col xs={24} md={12} span={12} className="flex justify-center">
                             <Form.Item label={t('phone_number')} name='phoneNumber' labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
                                 <Input className="w-full h-10" />
                             </Form.Item>
                         </Col>
-                        <Col span={12} className="flex justify-center">
+                        <Col xs={24} md={12} span={12} className="flex justify-center">
                             <Form.Item
                                 label={t('dob')}
                                 name="dob"
@@ -190,12 +190,12 @@ const Profile: React.FC = () => {
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col span={12} className="flex justify-center">
+                        <Col xs={24} md={12} span={12} className="flex justify-center">
                             <Form.Item label={t('createDate')} name="created_at" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="w-2/3">
                                 <Input className="w-full h-10" disabled />
                             </Form.Item>
                         </Col>
-                        <Col span={12} className="flex justify-center">
+                        <Col xs={24} md={12} span={12} className="flex justify-center">
                             <Form.Item
                                 label={t('updatedDate')}
                                 name="updated_at"
@@ -207,7 +207,7 @@ const Profile: React.FC = () => {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <div className="flex pl-28 ml-2">
+                    <div className="flex md:ml-20 mb:justify-center md:justify-start">
                         <Form.Item label="Avatar" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
                             <Upload
                                 action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
@@ -220,8 +220,8 @@ const Profile: React.FC = () => {
                             </Upload>
                         </Form.Item>
                     </div>
-                    <div className="flex pl-28 ml-2">
-                        <Button type="primary" htmlType="submit">
+                    <div className="flex mb:justify-center align-middle md:justify-start md:ml-20">
+                        <Button type="primary" htmlType="submit" className="mb:w-2/3 sm:w-screen md:w-24">
                             Edit
                         </Button>
                     </div>
