@@ -7,6 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { images } from '@/assets';
 import { Modal, DropdownAvatar } from '@/components';
 import { getUserFromLocalStorage } from '../../utils';
+import { useSelector } from 'react-redux';
+import { RootState, store } from '../../store';
+import { hideModal } from '../../store/forgotPasswordSlice';
 
 
 const Header: React.FC = () => {
@@ -17,6 +20,11 @@ const Header: React.FC = () => {
     const { t } = useTranslation();
 
     const user = getUserFromLocalStorage();
+    const isSentEmail = useSelector((state: RootState) => state.forgotPassword.isSentEmail)
+
+    useEffect(() => {
+        setIsModalOpen(isSentEmail);
+    }, [isSentEmail])
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -44,6 +52,7 @@ const Header: React.FC = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         setIsLoginForm(true);
+        store.dispatch(hideModal());
     }
 
     const openRegisterForm = () => {
