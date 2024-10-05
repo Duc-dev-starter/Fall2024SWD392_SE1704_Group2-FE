@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { PATHS } from '../../consts'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { forgotPassword } from '../../services';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -10,13 +10,11 @@ import { useTranslation } from 'react-i18next';
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const isLoading = useSelector((state: RootState) => state.loading.isLoading);
-    const navigate = useNavigate();
     const { t } = useTranslation();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await forgotPassword(email);
-            navigate(PATHS.HOME)
         } catch (error) {
             console.log(error);
         }

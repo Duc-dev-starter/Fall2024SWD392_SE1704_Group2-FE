@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import loadingReducer from './loadingSlice';
-import forgotPasswordReducer from './forgotPasswordSlice';
+import loadingReducer from './loadingSlice';  
 
 export const store = configureStore({
     reducer: {
-        loading: loadingReducer,
-        forgotPassword: forgotPasswordReducer,
+        loading: loadingReducer,  
     },
 });
 

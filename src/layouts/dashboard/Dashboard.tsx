@@ -45,14 +45,14 @@ const Dashboard: React.FC = () => {
         }
         if (location.pathname.includes('staff')) {
             setItems([
-                getItem('Competitions', '/staff/competition', <DesktopOutlined />),
+                getItem('Competition', '/staff/competition', <DesktopOutlined />),
                 getItem('Contest Registration', '/staff/contest-registration', <UserOutlined />),
                 getItem('Contest Report', '/staff/report', <UserOutlined />),
             ])
         }
         if (location.pathname.includes('referee')) {
             setItems([
-                getItem('Competitions', '/referee/competition', <DesktopOutlined />),
+                getItem('Competition', '/referee/competition', <DesktopOutlined />),
                 getItem('Score Koifish', '/referee/score', <UserOutlined />),
             ])
         }

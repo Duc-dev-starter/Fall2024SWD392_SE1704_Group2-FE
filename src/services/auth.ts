@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 import { BaseService } from "./BaseService";
 import { JwtPayload } from "../interfaces";
 import { jwtDecode } from "jwt-decode";
-import { store } from "../store";
-import { showModal } from "../store/forgotPasswordSlice";
 
 export const login = async (email: string, password: string) => {
   const response = await BaseService.post({
@@ -79,7 +77,6 @@ export const login = async (email: string, password: string) => {
 export const forgotPassword = async (email: string) => {
   await BaseService.put({ url: API_PATHS.FORGOT_PASSWORD, payload: { email } });
   toast.success('New password sent to your email. Please check your inbox.');
-  store.dispatch(showModal());
 }
 
 export const handleNavigateRole = async (token: string, navigate: ReturnType<typeof useNavigate>) => {
