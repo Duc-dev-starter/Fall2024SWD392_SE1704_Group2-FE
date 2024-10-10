@@ -36,6 +36,9 @@ export const login = async (email: string, password: string) => {
 
   const userRole = decodedToken.role;
 
+  console.log("user role", userRole);
+
+
   if (currentPath.includes(ROLES.REFEREE) && userRole !== ROLES.REFEREE) {
     toast.error("You don't have permission to access this page");
     return null;

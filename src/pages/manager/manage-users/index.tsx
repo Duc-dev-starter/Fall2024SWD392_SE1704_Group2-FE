@@ -36,6 +36,7 @@ import { changeStatusUser, changeUserRole, createUser, deleteUser, getUsers, upd
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { ROLES } from "../../../consts";
+import dayjs from 'dayjs';
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -90,6 +91,8 @@ const ManageUser: React.FC = () => {
 
 
 			setDataUsers(sortedUsers);
+			console.log("Manage users:", sortedUsers);
+
 			setPagination({
 				...pagination,
 				total: responseUsers.data.pageInfo.totalItems,
@@ -246,13 +249,13 @@ const ManageUser: React.FC = () => {
 			title: "Email",
 			dataIndex: "email",
 			key: "email",
-			width: "20%",
+			width: "18%",
 		},
 		{
-			title: "phoneNumber",
+			title: "Phone Number",
 			dataIndex: "phoneNumber",
 			key: "phoneNumber",
-			width: "20%",
+			width: "10%",
 		},
 		{
 			title: "Role",
@@ -262,7 +265,7 @@ const ManageUser: React.FC = () => {
 			render: (role: UserRole, record: User) => (
 				<CustomSelect
 					value={role}
-					options={[ROLES.REFEREE, ROLES.MANAGER, ROLES.STAFF, ROLES.CUSTOMER]}
+					options={[ROLES.REFEREE, ROLES.MANAGER, ROLES.STAFF, ROLES.MEMBER]}
 					getColor={getRoleColor}
 					getLabel={getRoleLabel}
 					onChange={(value) => handleRoleChange(value, record.id)}
@@ -274,15 +277,15 @@ const ManageUser: React.FC = () => {
 			title: "Created Date",
 			dataIndex: "createdAt",
 			key: "createdAt",
-			render: (createdAt: Date) => getFormattedDate(createdAt),
+			render: (createdAt: Date) => dayjs(createdAt).format('DD-MM-YYYY'),
 			width: "10%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedAt",
 			key: "updatedAt",
-			render: (updatedAt: Date) => getFormattedDate(updatedAt),
-			width: "10%",
+			render: (updatedAt: Date) => dayjs(updatedAt).format('DD-MM-YYYY'),
+			width: "12%",
 		},
 		{
 			title: "Status",
@@ -297,7 +300,7 @@ const ManageUser: React.FC = () => {
 		{
 			title: "Action",
 			key: "action",
-			width: "15%",
+			width: "20%",
 			render: (_: unknown, record: User) => (
 				<div>
 					<EditOutlined
@@ -364,7 +367,7 @@ const ManageUser: React.FC = () => {
 				<CustomSelect
 					className="w-full mt-2 mb-2 md:w-32 md:mt-0 md:ml-2"
 					value={selectedRole}
-					options={[ROLES.REFEREE, ROLES.CUSTOMER, ROLES.MANAGER, ROLES.STAFF, 'all']}
+					options={[ROLES.REFEREE, ROLES.MEMBER, ROLES.MANAGER, ROLES.STAFF, 'all']}
 					getColor={getRoleColor}
 					getLabel={getRoleLabel}
 					onChange={handleRolefilter}
