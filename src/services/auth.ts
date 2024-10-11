@@ -34,7 +34,7 @@ export const login = async (email: string, password: string) => {
 
   const currentPath = window.location.pathname;
 
-  const userRole = decodedToken.role;
+  const userRole = role;
 
   console.log("user role", userRole);
 

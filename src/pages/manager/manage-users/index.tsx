@@ -31,12 +31,13 @@ import {
 	UploadButton,
 	CustomBreadcrumb
 } from "../../../components";
-import { getFormattedDate, uploadFile, getBase64 } from "../../../utils";
+import { uploadFile, getBase64 } from "../../../utils";
 import { changeStatusUser, changeUserRole, createUser, deleteUser, getUsers, updateUser } from '../../../services';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { ROLES } from "../../../consts";
 import dayjs from 'dayjs';
+import { formartedDate } from '../../../utils/timeHelpers/index.ts';
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -277,14 +278,14 @@ const ManageUser: React.FC = () => {
 			title: "Created Date",
 			dataIndex: "createdAt",
 			key: "createdAt",
-			render: (createdAt: Date) => dayjs(createdAt).format('DD-MM-YYYY'),
+			render: (createdAt: Date) => formartedDate(createdAt),
 			width: "10%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedAt",
 			key: "updatedAt",
-			render: (updatedAt: Date) => dayjs(updatedAt).format('DD-MM-YYYY'),
+			render: (updatedAt: Date) => formartedDate(updatedAt),
 			width: "12%",
 		},
 		{
@@ -331,7 +332,9 @@ const ManageUser: React.FC = () => {
 					<CustomDeletePopconfirm
 						title="Delete the User"
 						description="Are you sure to delete this User?"
-						onConfirm={() => deleteUser(record.id, record.name, fetchUsers)}
+						onConfirm={() =>
+							deleteUser(record.id, record.name, fetchUsers)
+						}
 					/>
 				</div>
 			),
