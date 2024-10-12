@@ -22,18 +22,22 @@ export const login = async (email: string, password: string) => {
 
   const token = response.data.token;
   const decodedToken: JwtPayload = jwtDecode(token);
-  // const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  console.log(decodedToken);
+  const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
   // console.log(role);
 
 
-  if (!rolesArr.includes(decodedToken.role)) {
+  if (!rolesArr.includes(role)) {
     toast.error("Invalid user role");
     return null;
   }
 
   const currentPath = window.location.pathname;
 
-  const userRole = decodedToken.role;
+  const userRole = role;
+
+  console.log("user role", userRole);
+
 
   if (currentPath.includes(ROLES.REFEREE) && userRole !== ROLES.REFEREE) {
     toast.error("You don't have permission to access this page");
