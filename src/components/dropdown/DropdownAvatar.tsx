@@ -75,6 +75,15 @@ const DropdownAvatar: React.FC = () => {
             ),
             key: "2",
         },
+        {
+            label: (
+                <Link to={PATHS.REGISTER_KOI} className='text-lg flex items-center'>
+                    <RiFeedbackLine className='text-center mr-4 text-[1.3rem]' />
+                    Register Koi
+                </Link>
+            ),
+            key: "3",
+        },
         ...(dataUser.googleId
             ? []
             : [

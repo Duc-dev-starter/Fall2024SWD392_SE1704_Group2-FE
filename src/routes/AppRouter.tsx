@@ -7,7 +7,7 @@ import {
     BlogDetailPage, Notfound, DashboardLayout,
     ManagerDashboard, ManagerUsers, ManagerCategory,
     Managecompetition, ContestRegistration, ContestReport,
-    RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, ServerLogin
+    RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, ServerLogin, RegisterKoi
 } from "@/pages";
 
 const AppRouter: React.FC = () => {
@@ -21,6 +21,8 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.BLOG_DETAIL} element={<BlogDetailPage />} />
             <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
             <Route path={PATHS.TERMS} element={<Terms />} />
+            <Route path={PATHS.REGISTER_KOI} element={<RegisterKoi />} />
+
 
 
             {/* MEMBER ROUTE */}

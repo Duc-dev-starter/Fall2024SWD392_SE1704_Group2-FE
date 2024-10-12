@@ -10,6 +10,7 @@ export const PATHS = {
     LOGIN: '/login',
     CHANGE_PASSWORD: '/change-password',
     TERMS: '/terms',
+    REGISTER_KOI: '/register-koi',
 
     // member paths
     USER_PROFILE: '/profile',

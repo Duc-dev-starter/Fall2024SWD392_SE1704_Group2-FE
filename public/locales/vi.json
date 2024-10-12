@@ -61,5 +61,14 @@
     "opening_hours": "Giờ mở cửa",
     "address": "Địa chỉ",
     "phone_number": "SĐT",
-    "monday_friday": "Thứ 2 - Thứ 6"
+    "monday_friday": "Thứ 2 - Thứ 6",
+    "koi_name_label": "Tên",
+    "koi_name_error": "Vui lòng nhập tên!",
+    "description_label": "Mô tả",
+    "description_error": "Vui lòng nhập mô tả!",
+    "variety_label": "Giống loài",
+    "variety_error": "Vui lòng nhập giống loài!",
+    "size_label": "Kích thước",
+    "size_error": "Vui lòng nhập kích thước!",
+    "submit_koi_button": "Gửi KOI Của Bạn"
 }

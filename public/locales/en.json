@@ -61,5 +61,14 @@
     "opening_hours": "Opening Hours",
     "address": "Địa chỉ",
     "phone_number": "Phone Number",
-    "monday_friday": "Monday - Friday"
+    "monday_friday": "Monday - Friday",
+    "koi_name_label": "Name",
+    "koi_name_error": "Please input the name!",
+    "description_label": "Description",
+    "description_error": "Please input the description!",
+    "variety_label": "Variety",
+    "variety_error": "Please input the variety!",
+    "size_label": "Size",
+    "size_error": "Please input the size!",
+    "submit_koi_button": "Submit KOI"
 }

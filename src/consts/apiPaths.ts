@@ -9,5 +9,7 @@ export const API_PATHS = {
     GET_UPDATE_DELETE_USER: "/api/users",
     CHANGE_ROLE: "/api/users/change-role",
     CREATE_USER: "/api/users/create",
-    GET_USERS: "/api/users/search"
+    GET_USERS: "/api/users/search",
+
+    REGISTER_KOI: "/api/KoiFish/register"
 }
