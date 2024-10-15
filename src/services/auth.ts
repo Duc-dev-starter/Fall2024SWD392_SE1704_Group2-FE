@@ -22,18 +22,22 @@ export const login = async (email: string, password: string) => {
 
   const token = response.data.token;
   const decodedToken: JwtPayload = jwtDecode(token);
-  // const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  console.log(decodedToken);
+  const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
   // console.log(role);
 
 
-  if (!rolesArr.includes(decodedToken.role)) {
+  if (!rolesArr.includes(role)) {
     toast.error("Invalid user role");
     return null;
   }
 
   const currentPath = window.location.pathname;
 
-  const userRole = decodedToken.role;
+  const userRole = role;
+
+  console.log("user role", userRole);
+
 
   if (currentPath.includes(ROLES.REFEREE) && userRole !== ROLES.REFEREE) {
     toast.error("You don't have permission to access this page");
@@ -88,13 +92,13 @@ export const handleNavigateRole = async (token: string, navigate: ReturnType<typ
       navigate(PATHS.HOME);
       break;
     case ROLES.MANAGER:
-      navigate(PATHS.MANAGER_DASHBOARD);
+      navigate(PATHS.MANAGER_HOME);
       break;
     case ROLES.REFEREE:
-      navigate(PATHS.REFEREE_DASHBOARD);
+      navigate(PATHS.REFEREE_HOME);
       break;
     case ROLES.STAFF:
-      navigate(PATHS.STAFF_DASHBOARD);
+      navigate(PATHS.STAFF_HOME);
       break;
     default:
       navigate(PATHS.HOME);

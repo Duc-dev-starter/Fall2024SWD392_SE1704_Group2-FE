@@ -18,6 +18,7 @@ export const PATHS = {
 
     // manager paths
     MANAGER: '/manager/*',
+    MANAGER_HOME: '/manager/dashboard',
     MANAGER_LOGIN: '/manager/login',
     MANAGER_DASHBOARD: 'dashboard',
     MANAGER_USERS: 'manage-users',
@@ -25,6 +26,7 @@ export const PATHS = {
 
     // referee paths
     REFEREE: '/referee/*',
+    REFEREE_HOME: '/referee/dashboard',
     REFEREE_LOGIN: '/referee/login',
     REFEREE_DASHBOARD: 'dashboard',
     REFEREE_COMPETITION: 'competition',
@@ -33,6 +35,7 @@ export const PATHS = {
     // staff paths
     STAFF: '/staff/*',
     STAFF_LOGIN: '/staff/login',
+    STAFF_HOME: '/staff/dashboard',
     STAFF_DASHBOARD: 'dashboard',
     STAFF_REGISTRATION: 'contest-registration',
     STAFF_COMPETITION: 'competition',

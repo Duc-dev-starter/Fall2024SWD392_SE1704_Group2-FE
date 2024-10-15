@@ -59,7 +59,7 @@
     "newpassword_error": "Please input your new password!",
     "forgot_password": "Forgot Password?",
     "opening_hours": "Opening Hours",
-    "address": "Địa chỉ",
+    "address": "Address",
     "phone_number": "Phone Number",
     "monday_friday": "Monday - Friday",
     "koi_name_label": "Name",
@@ -70,5 +70,9 @@
     "variety_error": "Please input the variety!",
     "size_label": "Size",
     "size_error": "Please input the size!",
-    "submit_koi_button": "Submit KOI"
+    "submit_koi_button": "Submit KOI",
+    "full_name": "Full Name",
+    "dob": "Date of Birth",
+    "createDate": "Create Date",
+    "updatedDate": "Updated Date"
 }
