@@ -53,7 +53,6 @@ const Header: React.FC = () => {
 
     const navItems = [
         { link: t('home'), path: PATHS.HOME },
-        { link: t('about'), path: PATHS.ABOUT },
         { link: t('contest'), path: "contest" },
         { link: t('contact_us'), path: PATHS.CONTACT },
     ];

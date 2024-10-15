@@ -3,5 +3,6 @@ export default interface SectionProps {
     subtitle: string,
     description: string,
     imageFirst?: boolean,
-    bg?: string
+    bg?: string,
+    style?: string
 }
