@@ -5,6 +5,7 @@ import type { UploadFile, UploadProps } from "antd";
 import { getBase64, uploadFile } from "../../utils";
 import { UploadButton } from '../../components';
 import { registerKoiFish } from '../../services/koiFish';
+import { toast } from 'react-toastify';
 
 type FileType = Parameters<Required<UploadProps>["beforeUpload"]>[0];
 
@@ -36,11 +37,19 @@ function RegisterKoiPage() {
 			}
 		}
 
-		const response = await registerKoiFish(values);
+		try {
+			const response = await registerKoiFish(values);
+			console.log(response);
+			console.log('====================================');
+			console.log("[P]::::registered KoiFish: ", response);
+			console.log('====================================');
+			toast.success("Registered KoiFish successfully");
 
-		console.log('====================================');
-		console.log("[P]::::registered KoiFish: ", response);
-		console.log('====================================');
+			form.resetFields();
+			setFileList([]);
+		} catch (error) {
+			console.error("Error registering koi fish:", error);
+		}
 
 	};
 
@@ -127,7 +136,7 @@ function RegisterKoiPage() {
 							</Radio.Group>
 						</Form.Item>
 
-						<Form.Item label="Avatar" name="koiImage" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+						<Form.Item label="Koi Image" name="koiImage" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
 							<Upload
 								action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
 								listType="picture-card"
