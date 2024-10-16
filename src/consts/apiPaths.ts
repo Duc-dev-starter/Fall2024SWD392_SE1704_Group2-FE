@@ -11,5 +11,10 @@ export const API_PATHS = {
     CREATE_USER: "/api/users/create",
     GET_USERS: "/api/users/search",
 
-    REGISTER_KOI: "/api/KoiFish/register"
+    REGISTER_KOI: "/api/KoiFish/register",
+
+    CREATE_CATEGORY: "/api/category/create",
+    GET_CATEGORIES: "/api/category/search",
+    DELETE_CATEGORY: "/api/category",
+
 }
