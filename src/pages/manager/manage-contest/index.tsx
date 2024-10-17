@@ -258,6 +258,7 @@ const ManageContest: React.FC = () => {
 				// const newContest = response.data;
 				form.resetFields();
 				fetchCriterias();
+				fetchContest();
 				message.success(`Contest ${values.name} created successfully.`);
 				setIsModalVisible(false);
 
