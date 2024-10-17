@@ -9,6 +9,7 @@ import {
     Managecompetition, ContestRegistration, ContestReport,
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, ServerLogin, RegisterKoi
 } from "@/pages";
+import ManageContest from '../pages/manager/manage-contest';
 
 const AppRouter: React.FC = () => {
     const { canAccess } = useRoleRedirect();
@@ -35,6 +36,7 @@ const AppRouter: React.FC = () => {
                 <Route path={PATHS.MANAGER_DASHBOARD} element={<ManagerDashboard />} /> {/** MANAGER dashboard layout */}
                 <Route path={PATHS.MANAGER_USERS} element={<ManagerUsers />} /> {/** MANAGER manage user */}
                 <Route path={PATHS.MANAGER_BLOGS} element={<ManagerCategory />} /> {/** MANAGER manage blog */}
+                <Route path={PATHS.MANAGER_CONTEST} element={<ManageContest />} /> {/** MANAGER manage contest */}
             </Route>
 
             {/* STAFF ROUTE */}

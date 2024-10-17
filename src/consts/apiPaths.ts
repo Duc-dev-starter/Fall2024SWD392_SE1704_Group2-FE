@@ -17,4 +17,12 @@ export const API_PATHS = {
     GET_CATEGORIES: "/api/category/search",
     DELETE_CATEGORY: "/api/category",
 
+    GET_CONTEST: "/api/category/search",
+    CREATE_NEW_CONTEST: "/api/contest",
+    UPDATE_CONTEST: "/api/contest/update-contest",
+    DELETE_CONTEST: "/api/contest/delete",
+
+    // Update Rule and Criteria for Contest
+    UPDATE_RULE_CRITERIA: "/api/contest/update-rules",
+
 }

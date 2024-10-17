@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DesktopOutlined, UserOutlined } from '@ant-design/icons';
+import { DesktopOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Layout, Menu, MenuProps, Space, theme } from 'antd';
 import { Link, Outlet, useNavigate } from 'react-router-dom'; import { RiListUnordered } from 'react-icons/ri';
 ;
@@ -41,6 +41,7 @@ const Dashboard: React.FC = () => {
                 getItem('Dashboard', '/manager/dashboard', <DesktopOutlined />),
                 getItem('Manage Users', '/manager/manage-users', <UserOutlined />),
                 getItem('Manage Categories', '/manager/manage-categories', <RiListUnordered />),
+                getItem('Manage Contest', '/manager/manage-contest', <TrophyOutlined />),
             ]);
         }
         if (location.pathname.includes('staff')) {

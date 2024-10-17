@@ -23,6 +23,7 @@ export const PATHS = {
     MANAGER_DASHBOARD: 'dashboard',
     MANAGER_USERS: 'manage-users',
     MANAGER_BLOGS: 'manage-categories',
+    MANAGER_CONTEST: 'manage-contest',
 
     // referee paths
     REFEREE: '/referee/*',

@@ -1,7 +1,8 @@
 import { Badge, Card, Col, Image, Rate, Row, Skeleton } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CustomBreadcrumb } from '../../../components';
 import { Link } from 'react-router-dom';
+import { getContest } from '../../../services';
 
 
 const Dashboard = () => {
@@ -11,12 +12,15 @@ const Dashboard = () => {
     const [numStaffs, setNumStaffs] = useState(0);
     const [numberReferee, setNumberReferee] = useState(0);
     const [numberBlogs, setNumberBlogs] = useState(0);
+    const [numberContest, setNumberContest] = useState(0);
+
+    const [contestes, setContestes] = useState([]);
 
     const competitions = [
         {
             id: 1,
             name: "Koi Championship 2024",
-            image_url: "https://example.com/koi1.jpg",
+            image_url: "https://th.bing.com/th/id/R.fe131711f1a4a66ac7dfcbddc5e3001c?rik=yOnTO66ePnygwA&riu=http%3a%2f%2fhdoi.hr%2fwp-content%2fuploads%2f2023%2f07%2f20th-International-Conference-on-Operational-Research-1-1024x332.jpg&ehk=zRGI2Ev2Wzo6b2vp6tHhO2tX9Inx87OuLw2UvczkpI4%3d&risl=&pid=ImgRaw&r=0",
             instructor_name: "John Doe",
             category_name: "Koi Variety A",
             rank: 1,
@@ -25,7 +29,7 @@ const Dashboard = () => {
         {
             id: 2,
             name: "Regional Koi Contest",
-            image_url: "https://example.com/koi2.jpg",
+            image_url: "https://th.bing.com/th/id/OIP.IwewgbZFIFVGYQNrqrUhMgHaFr?rs=1&pid=ImgDetMain",
             instructor_name: "Jane Smith",
             category_name: "Koi Variety B",
             rank: 2,
@@ -34,7 +38,7 @@ const Dashboard = () => {
         {
             id: 3,
             name: "National Koi Show",
-            image_url: "https://example.com/koi3.jpg",
+            image_url: "https://th.bing.com/th/id/OIP.LWAP5SMiuJgZOWO3wxqwyQHaC0?rs=1&pid=ImgDetMain",
             instructor_name: "Michael Johnson",
             category_name: "Koi Variety C",
             rank: 3,
@@ -42,6 +46,15 @@ const Dashboard = () => {
         },
     ];
 
+    const fetchContestes = async () => {
+        const response = await getContest();
+        setContestes(response.data.pageData)
+        setNumberContest(response.data.pageData.length);
+    }
+
+    useEffect(() => {
+        fetchContestes()
+    }, [])
 
     return (
         <>
@@ -59,7 +72,7 @@ const Dashboard = () => {
                         <Badge.Ribbon text="Koichamp" color="blue">
                             <Card title="Total competitions in the system" bordered={false} style={{ width: 300 }}>
                                 <div className="flex justify-center gap-2">
-                                    <h1>{numCourses}</h1>
+                                    <h1>{numberContest}</h1>
                                     {/* <PlaySquareOutlined style={{ fontSize: "20px", color: "red" }} /> */}
                                 </div>
                             </Card>

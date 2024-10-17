@@ -20,6 +20,7 @@ export { default as ServerLogin } from './serverLogin'
 export { default as ManagerDashboard } from './manager/dashboard/Dashboard'
 export { default as ManagerUsers } from './manager/manage-users'
 export { default as ManagerCategory } from './manager/manage-categories'
+export { default as ManageContest } from './manager/manage-contest'
 
 // referees page exports
 export { default as RefereeDashboard } from './referee/dashboard'
