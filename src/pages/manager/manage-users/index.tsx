@@ -31,13 +31,11 @@ import {
 	UploadButton,
 	CustomBreadcrumb
 } from "../../../components";
-import { uploadFile, getBase64 } from "../../../utils";
+import { uploadFile, getBase64, formartedDate } from "../../../utils";
 import { changeStatusUser, changeUserRole, createUser, deleteUser, getUsers, updateUser } from '../../../services';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { ROLES } from "../../../consts";
-import dayjs from 'dayjs';
-import { formartedDate } from '../../../utils/timeHelpers/index.ts';
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 

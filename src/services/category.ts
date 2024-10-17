@@ -1,6 +1,7 @@
-import { url } from "inspector";
+import { toast } from "react-toastify";
 import { API_PATHS } from "../consts"
 import { BaseService } from "./BaseService"
+import { Category } from "../models";
 
 export const getCategories = async (
 	pageNum: number = 1,
@@ -24,9 +25,6 @@ export const getCategories = async (
 
 		return response;
 	} catch (error) {
-		console.log('====================================');
-		console.log(error);
-		console.log('====================================');
 		return {
 			data: {
 				pageInfo: {
@@ -41,28 +39,26 @@ export const getCategories = async (
 	}
 }
 
-export const createCategory = async (categoryName: string) => {
+export const createCategory = async (categoryData: Category) => {
 
-	console.log(categoryName);
+	const response = await BaseService.post({ url: API_PATHS.CREATE_CATEGORY, payload: categoryData })
 
-	const response = await BaseService.post({ url: API_PATHS.CREATE_CATEGORY, payload: categoryName })
-
-	console.log('====================================');
-	console.log(response.success);
-	console.log('====================================');
-
+	toast.success("Created new category successfully");
 	return response;
-
 }
 
-export const deleteCategory = async (id) => {
-	try {
+export const getCategoryDetail = async (id: string) => {
+	const response = await BaseService.get({ url: `${API_PATHS.GET_UPDATE_DELETE_CATEGORY}/${id}` });
+	return response;
+};
 
-		const response = await BaseService.delete({ url: `${API_PATHS.GET_UPDATE_DELETE_CATEGORY}/${id}`, payload: id });
-		if (response.success) {
-			return response.success
-		}
-	} catch (error) {
-		console.log(error);
-	}
+export const updateCategory = async (id: string, updateData: Category) => {
+	await BaseService.put({ url: `${API_PATHS.GET_UPDATE_DELETE_CATEGORY}/${id}`, payload: updateData });
+	toast.success("Category updated successfully");
 }
+
+export const deleteCategory = async (id: string, name: string, fetchCategories: () => Promise<void>) => {
+	await BaseService.delete({ url: `${API_PATHS.GET_UPDATE_DELETE_CATEGORY}/${id}` });
+	toast.success(`Deleted category ${name} successfully`);
+	await fetchCategories();
+};

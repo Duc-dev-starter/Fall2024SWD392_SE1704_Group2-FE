@@ -1,4 +1,6 @@
+import { toast } from "react-toastify";
 import { API_PATHS } from "../consts"
+import { Contest } from "../models";
 import { BaseService } from "./BaseService"
 
 // export const getContest = async () => {
@@ -7,7 +9,7 @@ import { BaseService } from "./BaseService"
 // }
 
 
-export const getContest = async (
+export const getContests = async (
 	status: "UpComing" | "Completed" | "Ongoing ",
 	pageNum: number = 1,
 	pageSize: number = 10
@@ -45,3 +47,27 @@ export const getContest = async (
 		}
 	}
 }
+
+export const createConstest = async (constestData: Contest) => {
+
+	const response = await BaseService.post({ url: API_PATHS.CREATE_CONTEST, payload: constestData })
+
+	toast.success("Created new contest successfully");
+	return response;
+}
+
+// export const getContestDetail = async (id: string) => {
+// 	const response = await BaseService.get({ url: `${API_PATHS.}/${id}` });
+// 	return response;
+// };
+
+export const updateContest = async (updateData: Contest) => {
+	await BaseService.put({ url: `${API_PATHS.UPDATE_CONTEST}`, payload: updateData });
+	toast.success("Contest updated successfully");
+}
+
+export const deleteContest = async (id: string, name: string, fetchContests: () => Promise<void>) => {
+	await BaseService.delete({ url: `${API_PATHS.DELETE_CONTEST}/${id}` });
+	toast.success(`Deleted contest ${name} successfully`);
+	await fetchContests();
+};
