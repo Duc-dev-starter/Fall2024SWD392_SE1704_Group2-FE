@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button, Input, Space, Table, Modal, Form, Pagination, Popconfirm, Select, message, } from "antd";
 import { DeleteOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
-import { Category } from "../../../models";
+import { Category, Criteria } from "../../../models";
 import { getCategories, createCategory, deleteCategory } from "../../../services";
 import type { TablePaginationConfig } from "antd/es/table/interface";
 import { ColumnType } from "antd/es/table";
@@ -31,6 +31,8 @@ const ManageCategory: React.FC = () => {
 		try {
 			const responseCategories = await getCategories(pagination.current, debouncedSearchTerm, pagination.pageSize);
 			setDataCategories(responseCategories.data.pageData || responseCategories.data);
+			console.log(responseCategories);
+
 			setPagination((prev) => ({
 				...prev,
 				total: responseCategories.data.pageInfo?.totalItems || responseCategories.data.length,
@@ -275,7 +277,7 @@ const ManageCategory: React.FC = () => {
 				<Table
 					columns={columns}
 					dataSource={dataCategories}
-					rowKey="_id"
+					rowKey={(record: Category) => record?.id || 'unknown'}
 					pagination={false}
 					onChange={handleTableChange}
 					className="overflow-auto"

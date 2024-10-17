@@ -2,8 +2,6 @@ import { Badge, Card, Col, Image, Rate, Row, Skeleton } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CustomBreadcrumb } from '../../../components';
 import { Link } from 'react-router-dom';
-import { getContest } from '../../../services';
-
 
 const Dashboard = () => {
 
@@ -46,15 +44,6 @@ const Dashboard = () => {
         },
     ];
 
-    const fetchContestes = async () => {
-        const response = await getContest();
-        setContestes(response.data.pageData)
-        setNumberContest(response.data.pageData.length);
-    }
-
-    useEffect(() => {
-        fetchContestes()
-    }, [])
 
     return (
         <>

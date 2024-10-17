@@ -31,7 +31,7 @@ const AppRouter: React.FC = () => {
 
             {/* MANAGER ROUTE */}
             <Route path={PATHS.MANAGER_LOGIN} element={<ServerLogin />} />  {/* MANAGER login page */}
-            <Route path={PATHS.MANAGER} element={canAccess([ROLES.STAFF]) ? <DashboardLayout /> : <Navigate to={PATHS.MANAGER_HOME} />}> {/* Layout */}
+            <Route path={PATHS.MANAGER} element={canAccess([ROLES.MANAGER]) ? <DashboardLayout /> : <Navigate to={PATHS.MANAGER_HOME} />}> {/* Layout */}
                 <Route path={PATHS.MANAGER_DASHBOARD} element={<ManagerDashboard />} /> {/** MANAGER dashboard layout */}
                 <Route path={PATHS.MANAGER_USERS} element={<ManagerUsers />} /> {/** MANAGER manage user */}
                 <Route path={PATHS.MANAGER_BLOGS} element={<ManagerCategory />} /> {/** MANAGER manage blog */}
