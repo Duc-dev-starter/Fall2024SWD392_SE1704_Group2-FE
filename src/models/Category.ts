@@ -2,23 +2,23 @@ export class Category {
   id: string;
   name: string;
   description: string;
-  isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
+  isDeleted?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 
   constructor(
     id: string = "",
     name: string = "",
     description: string = "",
     isDeleted: boolean = false,
-    createdDate: string = "",
-    updatedDate: string = ""
+    createdAt?: Date,
+    updatedAt?: Date,
   ) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.isDeleted = isDeleted;
-    this.createdAt = createdDate;
-    this.updatedAt = updatedDate;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
