@@ -3,6 +3,31 @@ import { useTranslation } from 'react-i18next';
 import { ReactTyped } from "react-typed";
 import image from '../../assets/banner.png'
 import { useScrollPosition } from '@/hooks';
+import ListSponsors from '../../components/sponsor';
+import { SectionProps } from '@interfaces';
+import { images } from '@/assets'
+import { Link } from 'react-router-dom';
+import { Contest } from '../../components/contest';
+
+const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink, style }: SectionProps) => (
+
+    <section className={`px-10 xl:px-0 flex flex-col justify-center ${bg}`}>
+        <div className='max-w-screen-md mx-auto'>
+            <h1 className='text-4xl text-center text-brandPrimary mb-12'>{title}</h1>
+            <div className={`flex flex-col ${imageFirst ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 mb-24 items-center`}>
+                {/* Left side - text content */}
+                <div className='lg:flex-1 flex flex-col gap-5 justify-center text-left'>
+                    <h2 className='text-2xl font-semibold'>{subtitle}</h2>
+                    <p className='text-lg text-gray-600'>{description}</p>
+                </div>
+                {/* Right side - image */}
+                <div className='lg:flex-1 h-40 flex lg:justify-center items-center relative'>
+                    <img src={imageLink} alt="Koi fish" className='object-right h-full w-full rounded-lg justify-center align-center' style={style?.image} />
+                </div>
+            </div>
+        </div>
+    </section>
+);
 
 const HomePage: React.FC = () => {
     const { t } = useTranslation();
@@ -31,9 +56,71 @@ const HomePage: React.FC = () => {
                     <button className='bg-[#d02a2a] w-[200px] text-white rounded-md font-medium mx-auto py-3'>{t('get_started_button')}</button>
                 </div>
             </section >
-            <section>
-                test
-            </section>
+
+            <div className="flex justify-center text-center py-10">
+                <div className="sm:max-w-lg text-center">
+                    <h3 className="text-3xl leading-none md:text-[45px] font-bold text-yellow-500">
+                        {t('about_title')}
+                    </h3>
+                </div>
+            </div>
+            <Section
+                // title={t('our_mission')}
+                subtitle={t('mission_subtitle')}
+                description={
+                    <>
+                        {t('mission_description').split('.')[0]}
+                        <div>
+                            <Link to="/about" className="text-brandPrimary underline">
+                                {t('learn_more')}
+                            </Link>
+                        </div>
+                    </>
+                }
+                imageLink={images.misson}
+                style={{ image: { width: '600', height: '200px' } }}
+            />
+
+            <Section
+                // title={t('our_vision')}
+                subtitle={t('vision_subtitle')}
+                description={
+                    <>
+                        {t('vision_description').split('.')[0]}{' '}
+                        <div>
+                            <Link to="/about" className="text-brandPrimary underline">
+                                {t('learn_more')}
+                            </Link>
+                        </div>
+                    </>
+                }
+                imageFirst={true}
+                bg="bg-neutralSilver"
+                imageLink={images.vision}
+                style={{ image: { width: '600', height: '200px' } }}
+            />
+
+            <Section
+                // title={t('why_choose_us')}
+                subtitle={t('why_choose_us_subtitle')}
+                description={
+                    <>
+                        {t('why_choose_us_description').split('.')[0]}
+                        <div>
+                            <Link to="/about" className="text-brandPrimary underline">
+                                {t('learn_more')}
+                            </Link>
+                        </div>
+                    </>
+                }
+                imageLink={images.takecare}
+                style={{ image: { width: '600', height: '200px' } }}
+            />
+
+            {/* fish and contest */}
+            <Contest />
+
+            <ListSponsors />
         </>
     )
 }

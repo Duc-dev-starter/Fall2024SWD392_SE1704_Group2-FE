@@ -5,7 +5,7 @@ import { Banner } from '@/components';
 import { images } from '@/assets'
 import { useScrollPosition } from '@/hooks';
 
-const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink }: SectionProps) => (
+export const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink, style }: SectionProps) => (
     <section className={`py-10 px-10 xl:px-0 ${bg}`}>
         <div className='max-w-6xl mx-auto'>
             <h1 className='text-4xl text-center text-brandPrimary mb-12'>{title}</h1>
@@ -17,7 +17,7 @@ const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-wh
                 </div>
                 {/* Right side - image */}
                 <div className='lg:flex-1 h-96 relative'>
-                    <img src={imageLink} alt="Koi fish" className='object-right h-full w-full rounded-lg' />
+                    <img src={imageLink} alt="Koi fish" className='object-right h-full w-full rounded-lg justify-center align-center' style={style?.image} />
                 </div>
             </div>
         </div>
