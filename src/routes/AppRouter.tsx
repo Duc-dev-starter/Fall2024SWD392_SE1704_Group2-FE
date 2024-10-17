@@ -36,7 +36,7 @@ const AppRouter: React.FC = () => {
                 <Route path={PATHS.MANAGER_USERS} element={<ManagerUsers />} /> {/** MANAGER manage user */}
                 <Route path={PATHS.MANAGER_BLOGS} element={<ManagerCategory />} /> {/** MANAGER manage blog */}
                 <Route path={PATHS.MANAGER_CONTEST} element={<ManageContest />} /> {/** MANAGER manage contest */}
-                <Route path={PATHS.MANAGE_CRITERIA} element={<ManageCriteria />} /> {/** MANAGER manage criteria */}
+                <Route path={PATHS.MANAGER_CRITERIA} element={<ManageCriteria />} /> {/** MANAGER manage criteria */}
             </Route>
 
             {/* STAFF ROUTE */}

@@ -43,23 +43,25 @@ const ManageCriteria: React.FC = () => {
 	const [form] = Form.useForm();
 	useEffect(() => {
 		fetchCriterias();
-	}, [pagination.current, pagination.pageSize, selectedStatus, debouncedSearch]);
+	}, [selectedStatus, debouncedSearch]);
 
 	const fetchCriterias = useCallback(async () => {
 		try {
 			const responseCriteria = await getCriterias();
-			const sortedCriterias = responseCriteria.data.pageData.sort((a: Criteria, b: Criteria) => {
+			console.log(responseCriteria);
+			const sortedCriterias = responseCriteria.data.sort((a: Criteria, b: Criteria) => {
 				const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
 				const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
 				return dateB - dateA;
 			});
+			console.log(sortedCriterias);
 
 
 			setDataCriterias(sortedCriterias);
 		} catch (error) {
 			console.log(error);
 		}
-	}, [pagination.current, pagination.pageSize, selectedStatus, searchText, debouncedSearch]);
+	}, [selectedStatus, searchText, debouncedSearch]);
 
 	const handlePaginationChange = (page: number, pageSize?: number) => {
 		setPagination((prev) => ({
@@ -76,7 +78,6 @@ const ManageCriteria: React.FC = () => {
 	const handleAddNewCriteria = useCallback(
 		async (values: Criteria) => {
 			try {
-
 
 				const criteriaData = { ...values };
 				const response = await createCriteria(criteriaData);

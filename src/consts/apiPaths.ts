@@ -38,7 +38,7 @@ export const API_PATHS = {
     DELETE_CONTEST: "/api/contest",
     UPDATE_RULE_CRITERIA: "/api/contest/update-rules",
     //CRITERIA API
-    CREATE_CRITERIA: "/api/criteria",
+    CREATE_CRITERIA: "/api/criteria/create",
     GET_CRITERIAS: "/api/criteria/search",
     GET_UPDATE_DELETE_CRITERIA: "/api/criteria"
 }
