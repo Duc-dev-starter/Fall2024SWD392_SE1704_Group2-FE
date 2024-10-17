@@ -56,7 +56,6 @@ const ManageCriteria: React.FC = () => {
 			});
 			console.log(sortedCriterias);
 
-
 			setDataCriterias(sortedCriterias);
 		} catch (error) {
 			console.log(error);
