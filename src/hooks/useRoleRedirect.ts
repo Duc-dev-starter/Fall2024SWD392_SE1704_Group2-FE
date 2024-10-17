@@ -12,13 +12,13 @@ const useRoleRedirect = () => {
     if (user.role) {
       redirectBasedOnRole();
     }
-    if(user.googleId){
-      if(location.pathname.includes(PATHS.CHANGE_PASSWORD)){
+    if (user.googleId) {
+      if (location.pathname.includes(PATHS.CHANGE_PASSWORD)) {
         navigate(PATHS.LOGIN)
       }
     }
   }, [user.role, location.pathname]);
-  
+
 
   const redirectBasedOnRole = () => {
     const path = location.pathname;
@@ -31,19 +31,19 @@ const useRoleRedirect = () => {
         break;
       case ROLES.REFEREE:
         if (!path.includes(ROLES.REFEREE) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
-          navigate(PATHS.REFEREE_DASHBOARD);
+          navigate(PATHS.REFEREE_HOME);
         }
         break;
       case ROLES.MANAGER:
-        if (!path.includes(ROLES.MANAGER)|| path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
-          navigate(PATHS.MANAGER_DASHBOARD);
+        if (!path.includes(ROLES.MANAGER) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
+          navigate(PATHS.MANAGER_HOME);
         }
         break;
-        case ROLES.STAFF:
-          if (!path.includes(ROLES.STAFF)|| path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
-            navigate(PATHS.MANAGER_DASHBOARD);
-          }
-          break;
+      case ROLES.STAFF:
+        if (!path.includes(ROLES.STAFF) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
+          navigate(PATHS.STAFF_HOME);
+        }
+        break;
     }
   };
   const canAccess = (allowedRoles: string[]) => {

@@ -21,6 +21,7 @@ export { default as ManagerDashboard } from './manager/dashboard/Dashboard'
 export { default as ManagerUsers } from './manager/manage-users'
 export { default as ManagerCategory } from './manager/manage-categories'
 export { default as ManageContest } from './manager/manage-contest'
+export { default as ManageCriteria } from './manager/manage-criteria'
 
 // referees page exports
 export { default as RefereeDashboard } from './referee/dashboard'

@@ -24,6 +24,7 @@ export const PATHS = {
     MANAGER_USERS: 'manage-users',
     MANAGER_BLOGS: 'manage-categories',
     MANAGER_CONTEST: 'manage-contest',
+    MANAGER_CRITERIA: 'manage-criteria',
 
     // referee paths
     REFEREE: '/referee/*',

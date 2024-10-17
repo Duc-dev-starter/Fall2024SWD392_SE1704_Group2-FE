@@ -209,13 +209,13 @@ const ManageCategory: React.FC = () => {
 			title: "Created Date",
 			dataIndex: "createdDate",
 			key: "createdDate",
-			render: (createdDate: Date) => formartedDate(createdDate),
+			render: (createdAt: Date) => formartedDate(createdAt),
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedDate",
 			key: "updatedDate",
-			render: (updatedDate: Date) => formartedDate(updatedDate),
+			render: (updatedAt: Date) => formartedDate(updatedAt),
 		},
 		{
 			title: "Description",

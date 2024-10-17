@@ -58,7 +58,7 @@ export const createCategory = async (categoryName: string) => {
 export const deleteCategory = async (id) => {
 	try {
 
-		const response = await BaseService.delete({ url: `${API_PATHS.DELETE_CATEGORY}/${id}`, payload: id });
+		const response = await BaseService.delete({ url: `${API_PATHS.GET_UPDATE_DELETE_CATEGORY}/${id}`, payload: id });
 		if (response.success) {
 			return response.success
 		}
