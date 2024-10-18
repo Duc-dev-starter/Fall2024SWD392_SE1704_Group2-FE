@@ -32,6 +32,8 @@ export const updateCriteria = async (id: string, updateData: Criteria) => {
 }
 
 export const deleteCriteria = async (id: string, name: string, fetchCriterias: () => Promise<void>) => {
+    console.log(id);
+
     await BaseService.delete({ url: `${API_PATHS.GET_UPDATE_DELETE_CRITERIA}/${id}` });
     toast.success(`Deleted criteria ${name} successfully`);
     await fetchCriterias();

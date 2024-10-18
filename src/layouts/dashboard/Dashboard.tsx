@@ -42,6 +42,8 @@ const Dashboard: React.FC = () => {
                 getItem('Manage Users', '/manager/manage-users', <UserOutlined />),
                 getItem('Manage Categories', '/manager/manage-categories', <RiListUnordered />),
                 getItem('Manage Contest', '/manager/manage-contest', <TrophyOutlined />),
+                getItem('Manage Criteria', '/manager/manage-criteria', <TrophyOutlined />),
+                getItem('Manage Blogs', '/manager/manage-blogs', <TrophyOutlined />),
             ]);
         }
         if (location.pathname.includes('staff')) {

@@ -15,6 +15,7 @@ export const API_PATHS = {
     GET_USERS: "/api/users/search",
 
     REGISTER_KOI: "/api/KoiFish/register",
+    KOI_VARIETY: "/api/variety",
 
     //CATEGORY API
     CREATE_CATEGORY: "/api/category/create",
@@ -38,7 +39,11 @@ export const API_PATHS = {
     DELETE_CONTEST: "/api/contest",
     UPDATE_RULE_CRITERIA: "/api/contest/update-rules",
     //CRITERIA API
-    CREATE_CRITERIA: "/api/criteria",
+    CREATE_CRITERIA: "/api/criteria/create",
     GET_CRITERIAS: "/api/criteria/search",
-    GET_UPDATE_DELETE_CRITERIA: "/api/criteria"
+    GET_UPDATE_DELETE_CRITERIA: "/api/criteria",
+
+
+    // Dashboard 
+    DASHBOARD_COUNT: "/api/dashboard/count"
 }

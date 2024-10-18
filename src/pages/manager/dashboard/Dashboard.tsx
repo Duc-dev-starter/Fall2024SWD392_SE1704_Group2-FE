@@ -2,19 +2,31 @@ import { Badge, Card, Col, Image, Rate, Row, Skeleton } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CustomBreadcrumb } from '../../../components';
 import { Link } from 'react-router-dom';
-import { getContest } from '../../../services';
-
+import { getDashboard } from '../../../services';
 
 const Dashboard = () => {
 
     const [loading, setLoading] = useState(false);
-    const [numCourses, setNumCourses] = useState(0);
     const [numStaffs, setNumStaffs] = useState(0);
     const [numberReferee, setNumberReferee] = useState(0);
     const [numberBlogs, setNumberBlogs] = useState(0);
     const [numberContest, setNumberContest] = useState(0);
 
-    const [contestes, setContestes] = useState([]);
+    const fetchDashboard = async () => {
+        try {
+            const response = await getDashboard();
+            setNumberContest(response.totalContests);
+            setNumberBlogs(response.totalBlogs);
+            setNumberReferee(response.totalReferees);
+            setNumStaffs(response.totalStaffs);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchDashboard();
+    }, [])
 
     const competitions = [
         {
@@ -46,15 +58,6 @@ const Dashboard = () => {
         },
     ];
 
-    const fetchContestes = async () => {
-        const response = await getContest();
-        setContestes(response.data.pageData)
-        setNumberContest(response.data.pageData.length);
-    }
-
-    useEffect(() => {
-        fetchContestes()
-    }, [])
 
     return (
         <>

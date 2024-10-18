@@ -32,7 +32,7 @@ import {
 	RoleTags
 } from "../../../components";
 import { uploadFile, getBase64, formartedDate } from "../../../utils";
-import { changeStatusUser, createUser, deleteUser, getUsers, updateUser } from '../../../services';
+import { changeStatusUser, createUser, deleteUser, getUsers, updateUser, user } from '../../../services';
 import { ROLES } from "../../../consts";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -154,7 +154,6 @@ const ManageUser: React.FC = () => {
 	// 	await changeUserRole(userId, value);
 	// 	setDataUsers((prevData: User[]) => prevData.map((user) => (user.id === userId ? { ...user, role: value } : user)));
 	// };
-
 
 	const handleUserStatus = (userId: string, status: boolean) => {
 		const updateData = dataUsers.map((user) => (user.id === userId ? { ...user, status: status } : user));
@@ -315,13 +314,15 @@ const ManageUser: React.FC = () => {
 							);
 						}}
 					/>
-					<CustomDeletePopconfirm
-						title="Delete the User"
-						description="Are you sure to delete this User?"
-						onConfirm={() =>
-							deleteUser(record.id, record.name, fetchUsers)
-						}
-					/>
+					{record.id !== user.id && (
+						<CustomDeletePopconfirm
+							title="Delete the User"
+							description="Are you sure to delete this User?"
+							onConfirm={() =>
+								deleteUser(record.id, record.name, fetchUsers)
+							}
+						/>
+					)}
 				</div>
 			),
 		},

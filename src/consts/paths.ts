@@ -22,9 +22,10 @@ export const PATHS = {
     MANAGER_LOGIN: '/manager/login',
     MANAGER_DASHBOARD: 'dashboard',
     MANAGER_USERS: 'manage-users',
-    MANAGER_BLOGS: 'manage-categories',
+    MANAGER_CATEGORY: 'manage-categories',
     MANAGER_CONTEST: 'manage-contest',
     MANAGER_CRITERIA: 'manage-criteria',
+    MANAGER_BLOGS: 'manage-blogs',
 
     // referee paths
     REFEREE: '/referee/*',

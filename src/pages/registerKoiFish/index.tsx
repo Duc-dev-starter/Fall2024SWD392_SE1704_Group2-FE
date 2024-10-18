@@ -1,10 +1,10 @@
-import { Button, Col, Form, Image, Input, Radio, Upload } from 'antd';
+import { Button, Col, DatePicker, Form, Image, Input, Radio, Upload } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { UploadFile, UploadProps } from "antd";
 import { getBase64, uploadFile } from "../../utils";
 import { UploadButton } from '../../components';
-import { registerKoiFish } from '../../services/koiFish';
+import { getVariety, registerKoiFish } from '../../services/koiFish';
 import { toast } from 'react-toastify';
 
 type FileType = Parameters<Required<UploadProps>["beforeUpload"]>[0];
@@ -15,10 +15,24 @@ function RegisterKoiPage() {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState("");
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
+	const [variety, setVariety] = useState([]);
+
+	useEffect(() => {
+		fetchVariety();
+	}, [])
+
+	const fetchVariety = async () => {
+		try {
+			const response = await getVariety();
+			console.log(response);
+			setVariety(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	useEffect(() => {
 		const user = localStorage.getItem('user');
-
 		if (user) {
 			const userId = JSON.parse(user).id;
 			form.setFieldsValue({ ownerId: userId });
@@ -93,26 +107,18 @@ function RegisterKoiPage() {
 						</Form.Item>
 						<Form.Item
 							label={t('variety_label')}
-							name="variety"
+							name="varietyId"
 							rules={[{ required: true, message: t('variety_error') }]}
 						>
-							<Radio.Group className='flex gap-10'>
-								<div className="flex flex-col gap-3 w-1/2">
-									<Radio value="Kohaku">Kohaku</Radio>
-									<Radio value="Taisho Sanke">Taisho Sanke</Radio>
-									<Radio value="Showa">Showa</Radio>
-									<Radio value="Utsurimono">Utsurimono</Radio>
-									<Radio value="Asagi & Shusui">Asagi & Shusui</Radio>
-									<Radio value="Koromo & Goshiki">Koromo & Goshiki</Radio>
-								</div>
-								<div className="flex flex-col gap-3 w-1/2">
-									<Radio value="Kawarimono (including Bekko)">Kawarimono (including Bekko)</Radio>
-									<Radio value="Hikarimono (Hikarimoyo / HikariUtsuri / Hikari Muji)">Hikarimono (Hikarimoyo / HikariUtsuri / Hikari Muji)</Radio>
-									<Radio value="Tancho">Tancho</Radio>
-									<Radio value="Kin Ginrin">Kin Ginrin</Radio>
-									<Radio value="Hirenaga">Hirenaga</Radio>
-								</div>
+							<Radio.Group className='grid grid-cols-2 gap-4'>
+								{variety.map((item, index) => (
+									<Radio key={item.id} value={item.id} className={`flex w-1/2 ${index >= 2 ? 'mt-4' : ''}`}>{item.name}</Radio>
+								))}
 							</Radio.Group>
+						</Form.Item>
+
+						<Form.Item label="Date of Birth" name="DateOfBirth">
+							<DatePicker />
 						</Form.Item>
 
 						<Form.Item
@@ -122,16 +128,15 @@ function RegisterKoiPage() {
 						>
 							<Radio.Group className="flex gap-6">
 								<div className="flex flex-col gap-3 w-1/2">
-									<Radio value="15 Bu">15 Bu - Under 15cm or 6”</Radio>
-									<Radio value="25 Bu">25 Bu - 15-25cm or 6-10”</Radio>
-									<Radio value="35 Bu">35 Bu - 25-35cm or 10-12”</Radio>
-									<Radio value="45 Bu">45 Bu - 35-45cm or 12-18”</Radio>
+									<Radio value={15}>15 Bu - Under 15cm or 6”</Radio>
+									<Radio value={25}>25 Bu - 15-25cm or 6-10”</Radio>
+									<Radio value={35}>35 Bu - 25-35cm or 10-12”</Radio>
+									<Radio value={45}>45 Bu - 35-45cm or 12-18”</Radio>
 								</div>
 								<div className="flex flex-col gap-3 w-1/2">
-									<Radio value="55 Bu">55 Bu - 45-55cm or 18-22”</Radio>
-									<Radio value="65 Bu">65 Bu - 55-65cm or 22-26”</Radio>
-									<Radio value="75 Bu">75 Bu - 65-75cm or 26-30”</Radio>
-									<Radio value="75 Bu +">75 Bu + - 30” +</Radio>
+									<Radio value={55}>55 Bu - 45-55cm or 18-22”</Radio>
+									<Radio value={65}>65 Bu - 55-65cm or 22-26”</Radio>
+									<Radio value={75}>75 Bu - 65-75cm or 26-30”</Radio>
 								</div>
 							</Radio.Group>
 						</Form.Item>
@@ -179,7 +184,7 @@ function RegisterKoiPage() {
 					/>
 				)}
 
-			</div>
+			</div >
 		</>
 
 	);

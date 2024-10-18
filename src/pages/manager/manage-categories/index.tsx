@@ -224,7 +224,7 @@ const ManageCategory: React.FC = () => {
 				<Table
 					columns={columns}
 					dataSource={dataCategories}
-					rowKey="_id"
+					rowKey={(record: Category) => record?.id || 'unknown'}
 					pagination={false}
 					onChange={handleTableChange}
 					className="overflow-auto"

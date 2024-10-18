@@ -4,3 +4,6 @@ export { changePassword, changeStatusUser, changeUserRole, createUser, deleteUse
 export { getCategories, createCategory, deleteCategory,getCategoryDetail,updateCategory } from './category'
 export { getContests, createConstest, deleteContest, updateContest } from './contest'
 export { createCriteria, deleteCriteria, getCriteriaDetail, getCriterias, updateCriteria } from './criteria'
+export { createBlog, deleteBlog, getBlog, getBlogs, handleGetBlogDetail, updateBlog } from './blog'
+export { getVariety } from './koiFish'
+export { getDashboard } from './dashboard'

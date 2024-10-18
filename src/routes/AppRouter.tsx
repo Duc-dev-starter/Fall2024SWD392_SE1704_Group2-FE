@@ -6,7 +6,7 @@ import {
     HomePage, AboutPage, BlogPage, ContactPage,
     BlogDetailPage, Notfound, DashboardLayout,
     ManagerDashboard, ManagerUsers, ManagerCategory,
-    Managecompetition, ContestRegistration, ContestReport,
+    Managecompetition, ContestRegistration, ContestReport, ManageBlogs,
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, ServerLogin, RegisterKoi, ManageContest, ManageCriteria
 } from "@/pages";
 
@@ -31,12 +31,13 @@ const AppRouter: React.FC = () => {
 
             {/* MANAGER ROUTE */}
             <Route path={PATHS.MANAGER_LOGIN} element={<ServerLogin />} />  {/* MANAGER login page */}
-            <Route path={PATHS.MANAGER} element={canAccess([ROLES.STAFF]) ? <DashboardLayout /> : <Navigate to={PATHS.MANAGER_HOME} />}> {/* Layout */}
+            <Route path={PATHS.MANAGER} element={canAccess([ROLES.MANAGER]) ? <DashboardLayout /> : <Navigate to={PATHS.MANAGER_HOME} />}> {/* Layout */}
                 <Route path={PATHS.MANAGER_DASHBOARD} element={<ManagerDashboard />} /> {/** MANAGER dashboard layout */}
                 <Route path={PATHS.MANAGER_USERS} element={<ManagerUsers />} /> {/** MANAGER manage user */}
-                <Route path={PATHS.MANAGER_BLOGS} element={<ManagerCategory />} /> {/** MANAGER manage blog */}
+                <Route path={PATHS.MANAGER_CATEGORY} element={<ManagerCategory />} /> {/** MANAGER manage category */}
                 <Route path={PATHS.MANAGER_CONTEST} element={<ManageContest />} /> {/** MANAGER manage contest */}
-                <Route path={PATHS.MANAGE_CRITERIA} element={<ManageCriteria />} /> {/** MANAGER manage criteria */}
+                <Route path={PATHS.MANAGER_CRITERIA} element={<ManageCriteria />} /> {/** MANAGER manage criteria */}
+                <Route path={PATHS.MANAGER_BLOGS} element={<ManageBlogs />} /> {/** MANAGER manage blogs */}
             </Route>
 
             {/* STAFF ROUTE */}
