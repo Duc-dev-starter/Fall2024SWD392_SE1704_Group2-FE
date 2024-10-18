@@ -1,24 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Input, Space, Table, Modal, Form, Pagination, Popconfirm, Select, message, } from "antd";
+import { Button, Input, Space, Table, Modal, Form, Pagination, Popconfirm, message, } from "antd";
 import { DeleteOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
 import { Category } from "../../../models";
-import { getCategories, createCategory, deleteCategory } from "../../../services";
+import { getCategories, createCategory, deleteCategory, updateCategory } from "../../../services";
 import type { TablePaginationConfig } from "antd/es/table/interface";
 import { ColumnType } from "antd/es/table";
-// import { API_CREATE_CATEGORY, API_DELETE_CATEGORY, API_UPDATE_CATEGORY } from "../../../consts";
 import { useDebounce } from "../../../hooks";
-import { CustomBreadcrumb, LoadingOverlay, NameFormItem } from "../../../components";
+import { CustomBreadcrumb, DescriptionFormItem, NameFormItem } from "../../../components";
 import { formartedDate } from "../../../utils/timeHelpers";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
 const ManageCategory: React.FC = () => {
 	const [dataCategories, setDataCategories] = useState<Category[]>([]);
 	const [searchText, setSearchText] = useState<string>("");
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [validateOnOpen, setValidateOnOpen] = useState(false);
-	const isLoading = useSelector((state: RootState) => state.loading.isLoading);
+	const [formData, setFormData] = useState<Partial<Category>>({});
+	const [modalMode, setModalMode] = useState<"Add" | "Edit">("Add");
 	const [form] = Form.useForm();
-	const [loading, setLoading] = useState<boolean>(false);
 
 	const debouncedSearchTerm = useDebounce(searchText, 500);
 	const [pagination, setPagination] = useState<TablePaginationConfig>({
@@ -27,158 +23,120 @@ const ManageCategory: React.FC = () => {
 		total: 0,
 	});
 
-	const fetchCategories = useCallback(async () => {
-		try {
-			const responseCategories = await getCategories(pagination.current, debouncedSearchTerm, pagination.pageSize);
-			setDataCategories(responseCategories.data.pageData || responseCategories.data);
-			setPagination((prev) => ({
-				...prev,
-				total: responseCategories.data.pageInfo?.totalItems || responseCategories.data.length,
-				current: responseCategories.data.pageInfo?.pageNum || 1,
-				pageSize: responseCategories.data.pageInfo?.pageSize || prev.pageSize,
-			}));
-		} finally {
-			// setLoading(false);
-		}
-	}, [pagination.current, debouncedSearchTerm, pagination.pageSize, searchText]);
 
 	useEffect(() => {
 		fetchCategories();
-	}, [fetchCategories, searchText]);
+	}, [debouncedSearchTerm, pagination.current, pagination.pageSize]);
 
-	const handleOpenModal = useCallback(() => {
-		form.resetFields();
+
+	const fetchCategories = useCallback(async () => {
+		try {
+			const responseCategories = await getCategories(debouncedSearchTerm, pagination.current, pagination.pageSize);
+			const sortedCaterogies = responseCategories.data.pageData.sort((a: Category, b: Category) => {
+				const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+				const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+				return dateB - dateA;
+			});
+			setDataCategories(sortedCaterogies);
+
+			setPagination({
+				...pagination,
+				total: responseCategories.data.pageInfo.totalItems,
+				current: responseCategories.data.pageInfo.pageNum,
+				pageSize: responseCategories.data.pageInfo.pageSize,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}, [pagination.current, debouncedSearchTerm, pagination.pageSize]);
+
+	const handleOpenModalAdd = () => {
+		setModalMode("Add");
 		setIsModalVisible(true);
-		setValidateOnOpen(true);
-	}, [form]);
+		form.resetFields();
+		setFormData({});
+	};
+
+	const handleOpenModalUpdate = (record: Category) => {
+		setModalMode("Edit");
+		setIsModalVisible(true);
+		form.setFieldsValue(record);
+		setFormData(record);
+	}
+
+	const handleModalCancel = () => {
+		setIsModalVisible(false);
+		setFormData({});
+		form.resetFields();
+	};
 
 	const handleDelete = async (id: string, name: string) => {
-		await deleteCategory(id);
+		await deleteCategory(id, name, fetchCategories);
 		message.success(`Category ${name} deleted successfully.`);
 		await fetchCategories();
 	};
 
-	// const updateCategory = useCallback(
-	// 	async (values: Partial<Category> & { _id: string | null }, originalCreatedAt: string) => {
-	// 		let parentCategoryId = null;
-
-	// 		if (values.parent_category_id && values.parent_category_id !== "none") {
-	// 			parentCategoryId = values.parent_category_id;
-	// 		}
-	// 		setLoading(true);
-	// 		const updatedCategory: Category = {
-	// 			_id: values._id!,
-	// 			name: values.name ?? "",
-	// 			description: values.description ?? "",
-	// 			parent_category_id: parentCategoryId,
-	// 			user_id: values.user_id ?? "",
-	// 			is_deleted: values.is_deleted ?? false,
-	// 			created_at: originalCreatedAt,
-	// 			updated_at: new Date().toISOString(),
-	// 		};
-
-	// 		try {
-	// 			const response = await axiosInstance.put(`${API_UPDATE_CATEGORY}/${values._id}`, updatedCategory);
-
-	// 			if (response.data) {
-	// 				setDataCategories((prevData) =>
-	// 					prevData.map((category) =>
-	// 						category._id === values._id
-	// 							? { ...category, ...response.data }
-	// 							: category
-	// 					)
-	// 				);
-	// 				setIsModalVisible(false);
-	// 				form.resetFields();
-	// 				message.success(`Category ${values.name} updated successfully.`);
-	// 			}
-	// 		} finally {
-	// 			setLoading(false);
-	// 		}
-	// 	},
-	// 	[dataCategories, form]
-	// );
-
-	// const handleEditCategory = useCallback(
-	// 	async (category: Category) => {
-	// 		form.resetFields();
-	// 		await fetchCategories();
-
-	// 		Modal.confirm({
-	// 			title: `Edit Category - ${category.name}`,
-	// 			content: (
-	// 				<Form
-	// 					form={form}
-	// 					onFinish={(values) => {
-	// 						updateCategory(values, category.created_at);
-	// 					}}
-	// 					initialValues={{
-	// 						_id: category._id,
-	// 						name: category.name,
-	// 						parent_category_id: category.parent_category_id,
-	// 						description: category.description,
-	// 					}}
-	// 					labelCol={{ span: 24 }}
-	// 				>
-	// 					<Form.Item name="_id" style={{ display: "none" }}>
-	// 						<Input />
-	// 					</Form.Item>
-
-	// 					<NameFormItem />
-	// 					<Form.Item label="Parent Category" name="parent_category_id" rules={[{ required: false }]}>
-	// 						<Select placeholder="Select parent category">
-	// 							<Select.Option key="none" value="none">
-	// 								None
-	// 							</Select.Option>
-	// 							{parentCategories
-	// 								.filter((parentCategory) => parentCategory._id !== form.getFieldValue("_id"))
-	// 								.map((parentCategory) => (
-	// 									<Select.Option key={parentCategory._id} value={parentCategory._id}>
-	// 										{parentCategory.name}
-	// 									</Select.Option>
-	// 								))}
-	// 						</Select>
-	// 					</Form.Item>
-
-	// 					<Form.Item label="Description" name="description" rules={[{ required: false }]}>
-	// 						<Input.TextArea rows={4} />
-	// 					</Form.Item>
-	// 				</Form>
-	// 			),
-	// 			okText: "Save",
-	// 			onOk: () => {
-	// 				form.submit();
-	// 			},
-	// 			onCancel: () => {
-	// 				form.resetFields();
-	// 			},
-	// 		});
-	// 	},
-	// 	[form, updateCategory, fetchCategories, dataCategories]
-	// );
-
-	const addNewCategory = useCallback(
-		async (values) => {
-			setLoading(true);
-
+	const handleAddNewCategory = useCallback(
+		async (values: Category) => {
 			try {
-				console.log(values);
 
-				const response = await createCategory(values);
-				const success = response.success;
-				if (success) {
-					// const newCategory = response.data;
-					form.resetFields();
-					fetchCategories();
-					message.success(`Category ${values.name} created successfully.`);
-					setIsModalVisible(false);
-				}
-			} finally {
-				setLoading(false);
+				const categoryData = { ...values };
+				const response = await createCategory(categoryData);
+				const newCategory = response.data.data;
+				setDataCategories((prevData) => [newCategory, ...prevData]);
+				setIsModalVisible(false);
+				form.resetFields();
+				fetchCategories();
+			} catch (error) {
+				console.log(error);
 			}
 		},
-		[dataCategories, form, fetchCategories]
+		[fetchCategories, form]
 	);
+
+	const handleEditCategory = async (values: Category) => {
+		console.log(values)
+		const updatedCategory = {
+			...values,
+			name: values.name,
+			description: values.description
+		};
+
+		console.log(updatedCategory);
+
+		await updateCategory(formData.id, updateCategory);
+
+		setDataCategories((prevData) =>
+			prevData.map((category) =>
+				category.id === formData.id
+					? {
+						...category,
+						...updatedCategory,
+					}
+					: category
+			)
+		);
+
+		setIsModalVisible(false);
+		form.resetFields();
+		setFormData({});
+		fetchCategories();
+	};
+
+	const onFinish = (values: Category) => {
+		if (modalMode === "Edit") {
+			if (formData.id) {
+				handleEditCategory({
+					...formData,
+					...values,
+				});
+			}
+		} else {
+			handleAddNewCategory(values);
+		}
+		setIsModalVisible(false);
+	};
+
 
 	const handleTableChange = (pagination: TablePaginationConfig) => {
 		setPagination(pagination);
@@ -190,14 +148,7 @@ const ManageCategory: React.FC = () => {
 			current: page,
 			pageSize: pageSize || 10,
 		}));
-		fetchCategories();
 	};
-	const handleSearch = useCallback(() => {
-		setPagination((prev) => ({
-			...prev,
-			current: 1,
-		}));
-	}, [fetchCategories]);
 
 	const columns: ColumnType<Category>[] = [
 		{
@@ -231,7 +182,7 @@ const ManageCategory: React.FC = () => {
 					<EditOutlined
 						className="text-blue-500"
 						style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
-					// onClick={() => handleEditCategory(record)}
+						onClick={() => handleOpenModalUpdate(record)}
 					/>
 					<Popconfirm
 						title="Are you sure to delete this category?"
@@ -253,12 +204,11 @@ const ManageCategory: React.FC = () => {
 	};
 	return (
 		<>
-			{isLoading ?? <LoadingOverlay />}
 			<div>
 				<div className="flex justify-between items-center ">
 					<CustomBreadcrumb />
 
-					<Button type="primary" onClick={handleOpenModal}>
+					<Button type="primary" onClick={handleOpenModalAdd}>
 						Add New Category
 					</Button>
 				</div>
@@ -267,7 +217,6 @@ const ManageCategory: React.FC = () => {
 						placeholder="Search By Name"
 						value={searchText}
 						onChange={handleSearchText}
-						onSearch={handleSearch}
 						style={{ width: 200 }}
 						enterButton={<SearchOutlined className="text-white" />}
 					/>
@@ -292,25 +241,22 @@ const ManageCategory: React.FC = () => {
 					/>
 				</div>
 				<Modal
-					title="Add New Category"
+					title={modalMode === "Edit" ? "Edit Category" : "Add New Category"}
 					open={isModalVisible}
-					onCancel={() => {
-						form.resetFields();
-						setIsModalVisible(false);
-						setValidateOnOpen(false);
-					}}
+					onCancel={handleModalCancel}
 					footer={null}
+					destroyOnClose={true}
 				>
 					<Form
 						form={form}
-						onFinish={addNewCategory}
-						labelCol={{ span: 24 }}
-						validateTrigger={validateOnOpen ? "onSubmit" : "onChange"}
+						onFinish={onFinish}
+						layout="vertical"
 					>
 						<NameFormItem />
+						<DescriptionFormItem />
 						<Form.Item>
-							<Button loading={loading} type="primary" htmlType="submit">
-								Add
+							<Button type="primary" htmlType="submit">
+								{modalMode === "Edit" ? "Edit Category" : "Add Category"}
 							</Button>
 						</Form.Item>
 					</Form>

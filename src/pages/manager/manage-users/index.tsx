@@ -17,7 +17,7 @@ import {
 } from "antd";
 import { EditOutlined, SearchOutlined, UserAddOutlined } from "@ant-design/icons";
 import type { GetProp, TableColumnsType, TablePaginationConfig, UploadFile, UploadProps } from "antd";
-import { User, UserRole } from "../../../models/User.ts";
+import { User } from "../../../models";
 
 import { getRoleColor, getRoleLabel, roleRules } from "../../../consts";
 import { useDebounce } from "../../../hooks";
@@ -25,16 +25,14 @@ import {
 	CustomDeletePopconfirm,
 	CustomSelect,
 	EmailFormItem,
-	LoadingOverlay,
 	NameFormItem,
 	PasswordFormItem,
 	UploadButton,
-	CustomBreadcrumb
+	CustomBreadcrumb,
+	RoleTags
 } from "../../../components";
 import { uploadFile, getBase64, formartedDate } from "../../../utils";
-import { changeStatusUser, changeUserRole, createUser, deleteUser, getUsers, updateUser } from '../../../services';
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { changeStatusUser, createUser, deleteUser, getUsers, updateUser } from '../../../services';
 import { ROLES } from "../../../consts";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -54,7 +52,6 @@ const ManageUser: React.FC = () => {
 	const [modalMode, setModalMode] = useState<"Add" | "Edit">("Add");
 	const [selectedRole, setSelectedRole] = useState<string>("All");
 	const [selectedStatus, setSelectedStatus] = useState<string>("true");
-	const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 	const handlePreview = async (file: UploadFile) => {
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj as FileType);
@@ -90,7 +87,6 @@ const ManageUser: React.FC = () => {
 
 
 			setDataUsers(sortedUsers);
-			console.log("Manage users:", sortedUsers);
 
 			setPagination({
 				...pagination,
@@ -101,7 +97,7 @@ const ManageUser: React.FC = () => {
 		} catch (error) {
 			console.log(error);
 		}
-	}, [pagination.current, pagination.pageSize, selectedRole, selectedStatus, searchText, debouncedSearch]);
+	}, [pagination.current, pagination.pageSize, selectedRole, selectedStatus, debouncedSearch]);
 
 	const handlePaginationChange = (page: number, pageSize?: number) => {
 		setPagination((prev) => ({
@@ -154,11 +150,11 @@ const ManageUser: React.FC = () => {
 		form.resetFields();
 	};
 
-	const handleRoleChange = async (value: UserRole, userId: string) => {
-		await changeUserRole(userId, value);
-		setDataUsers((prevData: User[]) => prevData.map((user) => (user.id === userId ? { ...user, role: value } : user)));
-	};
-	;
+	// const handleRoleChange = async (value: UserRole, userId: string) => {
+	// 	await changeUserRole(userId, value);
+	// 	setDataUsers((prevData: User[]) => prevData.map((user) => (user.id === userId ? { ...user, role: value } : user)));
+	// };
+
 
 	const handleUserStatus = (userId: string, status: boolean) => {
 		const updateData = dataUsers.map((user) => (user.id === userId ? { ...user, status: status } : user));
@@ -194,7 +190,6 @@ const ManageUser: React.FC = () => {
 					? {
 						...user,
 						...updatedUser,
-						role: values.role,
 					}
 					: user
 			)
@@ -261,15 +256,8 @@ const ManageUser: React.FC = () => {
 			dataIndex: "role",
 			key: "role",
 			width: "10%",
-			render: (role: UserRole, record: User) => (
-				<CustomSelect
-					value={role}
-					options={[ROLES.REFEREE, ROLES.MANAGER, ROLES.STAFF, ROLES.MEMBER]}
-					getColor={getRoleColor}
-					getLabel={getRoleLabel}
-					onChange={(value) => handleRoleChange(value, record.id)}
-					className="w-full"
-				/>
+			render: (_, record: User) => (
+				<RoleTags role={record.role} />
 			),
 		},
 		{
@@ -346,7 +334,6 @@ const ManageUser: React.FC = () => {
 
 	return (
 		<div>
-			{isLoading && <LoadingOverlay />}
 			<div className="flex flex-row md:flex-row justify-between items-center mb-4">
 				<div className="flex flex-row justify-between w-full mt-3 md:mt-0">
 					<CustomBreadcrumb />
@@ -368,7 +355,7 @@ const ManageUser: React.FC = () => {
 				<CustomSelect
 					className="w-full mt-2 mb-2 md:w-32 md:mt-0 md:ml-2"
 					value={selectedRole}
-					options={[ROLES.REFEREE, ROLES.MEMBER, ROLES.MANAGER, ROLES.STAFF, 'all']}
+					options={[ROLES.REFEREE, ROLES.MEMBER, ROLES.MANAGER, ROLES.STAFF, '']}
 					getColor={getRoleColor}
 					getLabel={getRoleLabel}
 					onChange={handleRolefilter}
@@ -403,7 +390,7 @@ const ManageUser: React.FC = () => {
 			<Modal
 				title={modalMode === "Edit" ? "Edit User" : "Add New User"}
 				open={isModalVisible}
-				onCancel={() => handleModalCancel()}
+				onCancel={handleModalCancel}
 				footer={null}
 				destroyOnClose={true}
 			>
@@ -423,7 +410,7 @@ const ManageUser: React.FC = () => {
 
 						<Form.Item name="role" rules={roleRules} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="mb-3">
 							<Radio.Group>
-								<Radio value={ROLES.CUSTOMER}>Customer</Radio>
+								<Radio value={ROLES.MEMBER}>Customer</Radio>
 								<Radio value={ROLES.STAFF}>Staff</Radio>
 								<Radio value={ROLES.REFEREE}>Referee</Radio>
 								<Radio value={ROLES.MANAGER}>Manager</Radio>

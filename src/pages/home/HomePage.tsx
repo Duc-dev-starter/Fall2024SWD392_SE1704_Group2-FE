@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { ReactTyped } from "react-typed";
 import image from '../../assets/banner.png'
 import { useScrollPosition } from '@/hooks';
-import ListSponsors from '../../components/sponsor';
 import { SectionProps } from '@interfaces';
 import { images } from '@/assets'
 import { Link } from 'react-router-dom';
-import { Contest } from '../../components/contest';
+import { ContestComponent, ListSponsors } from '../../components';
 
 const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink, style }: SectionProps) => (
 
@@ -70,55 +69,18 @@ const HomePage: React.FC = () => {
                 description={
                     <>
                         {t('mission_description').split('.')[0]}
-                        <div>
+                        <span>
                             <Link to="/about" className="text-brandPrimary underline">
                                 {t('learn_more')}
                             </Link>
-                        </div>
+                        </span>
                     </>
                 }
                 imageLink={images.misson}
                 style={{ image: { width: '600', height: '200px' } }}
             />
-
-            <Section
-                // title={t('our_vision')}
-                subtitle={t('vision_subtitle')}
-                description={
-                    <>
-                        {t('vision_description').split('.')[0]}{' '}
-                        <div>
-                            <Link to="/about" className="text-brandPrimary underline">
-                                {t('learn_more')}
-                            </Link>
-                        </div>
-                    </>
-                }
-                imageFirst={true}
-                bg="bg-neutralSilver"
-                imageLink={images.vision}
-                style={{ image: { width: '600', height: '200px' } }}
-            />
-
-            <Section
-                // title={t('why_choose_us')}
-                subtitle={t('why_choose_us_subtitle')}
-                description={
-                    <>
-                        {t('why_choose_us_description').split('.')[0]}
-                        <div>
-                            <Link to="/about" className="text-brandPrimary underline">
-                                {t('learn_more')}
-                            </Link>
-                        </div>
-                    </>
-                }
-                imageLink={images.takecare}
-                style={{ image: { width: '600', height: '200px' } }}
-            />
-
             {/* fish and contest */}
-            <Contest />
+            <ContestComponent />
 
             <ListSponsors />
         </>

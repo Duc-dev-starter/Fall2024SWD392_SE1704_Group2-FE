@@ -68,11 +68,11 @@ BlogItem.propTypes = {
 	blog: PropTypes.object.isRequired,
 };
 
-export const Contest = () => {
+const ContestComponent: React.FC = () => {
 	const { t } = useTranslation();
 
 	return (
-		<section className="ezy__blog9 light py-14 md:py-24 text-stone-800 bg-white dark:bg-[#0b1727] dark:text-white flex flex-col">
+		<section className="py-5 md:py-8 text-stone-800 bg-white dark:bg-[#0b1727] dark:text-white flex flex-col">
 			<div className="px-8 md:px-24" >
 				<div className="grid grid-cols-12 justify-center">
 					<div className="col-span-12 lg:col-span-8 lg:col-start-1 lg:col-end-13 text-center">
@@ -102,3 +102,4 @@ export const Contest = () => {
 	);
 };
 
+export default ContestComponent

@@ -1,15 +1,15 @@
 export const getRoleColor = (role: string) => {
 	switch (role) {
 		case "member":
-			return "text-blue-800";
+			return "green";
 		case "manager":
-			return "text-green-700";
+			return "orange";
 		case "staff":
-			return "text-orange-500";
+			return "blue";
 		case "referee":
-			return "text-violet-500";
+			return "cyan";
 		default:
-			return "";
+			return "default";
 	}
 };
 
@@ -24,7 +24,7 @@ export const getRoleLabel = (role: string) => {
 			return "Staff";
 		case "referee":
 			return "Referee";
-		case "all":
+		case "":
 			return "All";
 		default:
 			return "";

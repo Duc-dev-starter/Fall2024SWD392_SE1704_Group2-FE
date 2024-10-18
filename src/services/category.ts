@@ -4,8 +4,8 @@ import { BaseService } from "./BaseService"
 import { Category } from "../models";
 
 export const getCategories = async (
-	pageNum: number = 1,
 	keyword: string = "",
+	pageNum: number = 1,
 	pageSize: number = 10
 
 ) => {
