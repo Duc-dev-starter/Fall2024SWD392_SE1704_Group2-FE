@@ -6,3 +6,4 @@ export { getContests, createConstest, deleteContest, updateContest } from './con
 export { createCriteria, deleteCriteria, getCriteriaDetail, getCriterias, updateCriteria } from './criteria'
 export { createBlog, deleteBlog, getBlog, getBlogs, handleGetBlogDetail, updateBlog } from './blog'
 export { getVariety } from './koiFish'
+export { getDashboard } from './dashboard'

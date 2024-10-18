@@ -11,9 +11,10 @@ import { CustomBreadcrumb, DescriptionFormItem, LoadingOverlay, NameFormItem } f
 import { formartedDate } from "../../../utils/timeHelpers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { createConstest, getCategories, getContests, getCriterias } from "../../../services";
+import { createConstest, getCategories, getContests, getCriterias, deleteContest } from "../../../services";
 import { Option } from "antd/es/mentions";
 import dayjs from "dayjs";
+import { Category, Contest } from "../../../models";
 
 const ManageContest: React.FC = () => {
 	const [dataContest, setDataContest] = useState<Contest[]>([]);
@@ -132,33 +133,29 @@ const ManageContest: React.FC = () => {
 		setValidateOnOpen(true);
 	}, [form]);
 
-	// const handleDelete = async (id: string, name: string) => {
-	// 	await deleteContest(id);
-	// 	message.success(`Contest ${name} deleted successfully.`);
-	// 	await fetchCategories();
-	// };
+	const handleDelete = async (id: string, name: string) => {
+		await deleteContest(id);
+		message.success(`Contest ${name} deleted successfully.`);
+		await fetchCategories();
+	};
 
 	// const updateContest = useCallback(
 	// 	async (values: Partial<Contest> & { _id: string | null }, originalCreatedAt: string) => {
 	// 		let parentContestId = null;
 
-	// 		if (values.parent_Contest_id && values.parent_Contest_id !== "none") {
-	// 			parentContestId = values.parent_Contest_id;
-	// 		}
 	// 		setLoading(true);
 	// 		const updatedContest: Contest = {
-	// 			_id: values._id!,
+	// 			id: values._id!,
 	// 			name: values.name ?? "",
 	// 			description: values.description ?? "",
-	// 			parent_Contest_id: parentContestId,
 	// 			user_id: values.user_id ?? "",
 	// 			is_deleted: values.is_deleted ?? false,
-	// 			created_at: originalCreatedAt,
-	// 			updated_at: new Date().toISOString(),
+	// 			createdAt: originalCreatedAt,
+	// 			updatedAt: new Date().toISOString(),
 	// 		};
 
 	// 		try {
-	// 			const response = await axiosInstance.put(`${API_UPDATE_Contest}/${values._id}`, updatedContest);
+	// 			const response = ;
 
 	// 			if (response.data) {
 	// 				setDataContest((prevData) =>
@@ -282,12 +279,12 @@ const ManageContest: React.FC = () => {
 		}));
 		// fetchCategories();
 	};
-	// const handleSearch = useCallback(() => {
-	// 	setPagination((prev) => ({
-	// 		...prev,
-	// 		current: 1,
-	// 	}));
-	// }, [fetchCategories]);
+	const handleSearch = useCallback(() => {
+		setPagination((prev) => ({
+			...prev,
+			current: 1,
+		}));
+	}, [fetchCategories]);
 
 	const columns: ColumnType<Contest>[] = [
 		{
@@ -362,7 +359,7 @@ const ManageContest: React.FC = () => {
 						placeholder="Search By Name"
 						value={searchText}
 						onChange={handleSearchText}
-						// onSearch={handleSearch}
+						onSearch={handleSearch}
 						style={{ width: 200 }}
 						enterButton={<SearchOutlined className="text-white" />}
 					/>
@@ -487,7 +484,7 @@ const ManageContest: React.FC = () => {
 											setCategories(newCategories);
 										}}
 									>
-										{categories.map((category, index) => (
+										{categories.map((category: Category, index) => (
 											<Option key={category.id} value={category.id}>
 												{category.name}
 											</Option>

@@ -41,5 +41,9 @@ export const API_PATHS = {
     //CRITERIA API
     CREATE_CRITERIA: "/api/criteria/create",
     GET_CRITERIAS: "/api/criteria/search",
-    GET_UPDATE_DELETE_CRITERIA: "/api/criteria"
+    GET_UPDATE_DELETE_CRITERIA: "/api/criteria",
+
+
+    // Dashboard 
+    DASHBOARD_COUNT: "/api/dashboard/count"
 }

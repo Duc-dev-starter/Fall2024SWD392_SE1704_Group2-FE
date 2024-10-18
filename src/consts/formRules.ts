@@ -59,7 +59,7 @@ export const ratingRules: Rule[] = [
 ]
 
 export const contentRules: Rule[] = [
-  { required: true, message: "Please enter the content!" },
+  {},
   { min: 10, message: "Content must be at least 10 characters!" },
 ]
 
