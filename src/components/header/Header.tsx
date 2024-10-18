@@ -6,7 +6,7 @@ import LanguageSwitcher from '../language/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { images } from '@/assets';
 import { Modal, DropdownAvatar } from '@/components';
-import { getUserFromLocalStorage } from '../../utils';
+import { user } from '../../services';
 
 
 const Header: React.FC = () => {
@@ -16,7 +16,6 @@ const Header: React.FC = () => {
     const [isLoginForm, setIsLoginForm] = useState(true);
     const { t } = useTranslation();
 
-    const user = getUserFromLocalStorage();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -80,7 +79,7 @@ const Header: React.FC = () => {
 
                         <span className='hidden lg:inline-block'><LanguageSwitcher /></span>
 
-                        {user ? <div className='ml-auto'><DropdownAvatar /></div> :
+                        {user ? <div className='ml-auto'><DropdownAvatar dataUser={user} /></div> :
                             <div className='lg:space-x-6 flex gap-2'>
                                 <button onClick={openRegisterForm} className='lg:flex items-center justify-center text-nowrap text-brandPrimary hover:text-gray900 align-middle'>
                                     {t('register_button')}  {/* Translation for "Register" */}

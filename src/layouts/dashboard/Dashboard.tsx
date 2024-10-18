@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DesktopOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Layout, Menu, MenuProps, Space, theme } from 'antd';
+import { Layout, Menu, MenuProps, Space, theme } from 'antd';
 import { Link, Outlet, useNavigate } from 'react-router-dom'; import { RiListUnordered } from 'react-icons/ri';
+import { ROLES } from '../../consts';
+import { DropdownAvatar } from '../../components';
+import { logout, user } from '../../services';
+import { IoLogOutOutline } from 'react-icons/io5';
 ;
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -12,6 +16,19 @@ const Dashboard: React.FC = () => {
     const [itemsNav, setItems] = useState<MenuItem[]>([]);
     const [collapsed, setCollapsed] = useState(false);
 
+    const [dataUser, setDataUser] = useState<{
+        name: string | null;
+        email: string | null;
+        avatar: string | null;
+        google_id?: string,
+        role: string | null
+    }>({
+        name: null,
+        email: null,
+        avatar: null,
+        role: null
+    });
+
     const navigate = useNavigate();
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -20,6 +37,18 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         loadItems();
     }, []);
+
+    useEffect(() => {
+        if (user.role && user) {
+            setDataUser({
+                name: user.name,
+                email: user.email,
+                avatar: user.avatar,
+                googleId: user.googleId,
+                role: user.role
+            });
+        }
+    }, [user.role]);
 
     const getItem = (
         label: React.ReactNode,
@@ -36,24 +65,24 @@ const Dashboard: React.FC = () => {
     };
 
     const loadItems = async () => {
-        if (location.pathname.includes('manager')) {
+        if (location.pathname.includes(ROLES.MANAGER)) {
             setItems([
                 getItem('Dashboard', '/manager/dashboard', <DesktopOutlined />),
                 getItem('Manage Users', '/manager/manage-users', <UserOutlined />),
-                getItem('Manage Categories', '/manager/manage-categories', <RiListUnordered />),
                 getItem('Manage Contest', '/manager/manage-contest', <TrophyOutlined />),
                 getItem('Manage Criteria', '/manager/manage-criteria', <TrophyOutlined />),
+                getItem('Manage Categories', '/manager/manage-categories', <RiListUnordered />),
                 getItem('Manage Blogs', '/manager/manage-blogs', <TrophyOutlined />),
             ]);
         }
-        if (location.pathname.includes('staff')) {
+        if (location.pathname.includes(ROLES.STAFF)) {
             setItems([
                 getItem('Competition', '/staff/competition', <DesktopOutlined />),
                 getItem('Contest Registration', '/staff/contest-registration', <UserOutlined />),
                 getItem('Contest Report', '/staff/report', <UserOutlined />),
             ])
         }
-        if (location.pathname.includes('referee')) {
+        if (location.pathname.includes(ROLES.REFEREE)) {
             setItems([
                 getItem('Competition', '/referee/competition', <DesktopOutlined />),
                 getItem('Score Koifish', '/referee/score', <UserOutlined />),
@@ -87,15 +116,20 @@ const Dashboard: React.FC = () => {
             <Layout className="bg-stone-100">
                 <Header className='flex justify-between items-center drop-shadow-xl bg-white'>
                     <div>
-                        <p>Welcome back</p>
+                        <p>Welcome back {user.role}</p>
                     </div>
-                    <Space>
-                        <Avatar
-                            className="hover:cursor-pointer border border-black"
-                            size={40}
-                            icon={<UserOutlined />}
-                        />
-                    </Space>
+                    {dataUser.role !== ROLES.MANAGER ? (
+                        <DropdownAvatar dataUser={dataUser} />
+                    ) : (
+                        <Space>
+                            <button
+                                onClick={() => logout(navigate)}
+                                className="flex gap-1 items-center text-base text-white border border-red-300 bg-red-500 hover:border-red-700 hover:bg-red-700 px-3 py-1 rounded transition-colors duration-300"
+                            >
+                                <IoLogOutOutline /><span className='mb-[0.1rem]'>Sign out</span>
+                            </button>
+                        </Space>
+                    )}
                 </Header>
                 <Content style={{ margin: '30px 10px', flexGrow: 1 }}>
                     <div

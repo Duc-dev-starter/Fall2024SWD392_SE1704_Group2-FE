@@ -7,6 +7,7 @@ import { SectionProps } from '@interfaces';
 import { images } from '@/assets'
 import { Link } from 'react-router-dom';
 import { ContestComponent, ListSponsors } from '../../components';
+import { PATHS } from '../../consts';
 
 const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink, style }: SectionProps) => (
 
@@ -70,7 +71,7 @@ const HomePage: React.FC = () => {
                     <>
                         {t('mission_description').split('.')[0]}
                         <span>
-                            <Link to="/about" className="text-brandPrimary underline">
+                            <Link to={PATHS.ABOUT} className="text-brandPrimary underline">
                                 {t('learn_more')}
                             </Link>
                         </span>
