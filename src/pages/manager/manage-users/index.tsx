@@ -17,7 +17,7 @@ import {
 } from "antd";
 import { EditOutlined, SearchOutlined, UserAddOutlined } from "@ant-design/icons";
 import type { GetProp, TableColumnsType, TablePaginationConfig, UploadFile, UploadProps } from "antd";
-import { User, UserRole } from "../../../models/User.ts";
+import { User } from "../../../models";
 
 import { getRoleColor, getRoleLabel, roleRules } from "../../../consts";
 import { useDebounce } from "../../../hooks";
@@ -29,10 +29,11 @@ import {
 	NameFormItem,
 	PasswordFormItem,
 	UploadButton,
-	CustomBreadcrumb
+	CustomBreadcrumb,
+	RoleTags
 } from "../../../components";
 import { uploadFile, getBase64, formartedDate } from "../../../utils";
-import { changeStatusUser, changeUserRole, createUser, deleteUser, getUsers, updateUser } from '../../../services';
+import { changeStatusUser, createUser, deleteUser, getUsers, updateUser, user } from '../../../services';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { ROLES } from "../../../consts";
@@ -154,11 +155,11 @@ const ManageUser: React.FC = () => {
 		form.resetFields();
 	};
 
-	const handleRoleChange = async (value: UserRole, userId: string) => {
-		await changeUserRole(userId, value);
-		setDataUsers((prevData: User[]) => prevData.map((user) => (user.id === userId ? { ...user, role: value } : user)));
-	};
-	;
+	// const handleRoleChange = async (value: UserRole, userId: string) => {
+	// 	await changeUserRole(userId, value);
+	// 	setDataUsers((prevData: User[]) => prevData.map((user) => (user.id === userId ? { ...user, role: value } : user)));
+	// };
+	// ;
 
 	const handleUserStatus = (userId: string, status: boolean) => {
 		const updateData = dataUsers.map((user) => (user.id === userId ? { ...user, status: status } : user));
@@ -261,15 +262,8 @@ const ManageUser: React.FC = () => {
 			dataIndex: "role",
 			key: "role",
 			width: "10%",
-			render: (role: UserRole, record: User) => (
-				<CustomSelect
-					value={role}
-					options={[ROLES.REFEREE, ROLES.MANAGER, ROLES.STAFF, ROLES.MEMBER]}
-					getColor={getRoleColor}
-					getLabel={getRoleLabel}
-					onChange={(value) => handleRoleChange(value, record.id)}
-					className="w-full"
-				/>
+			render: () => (
+				<RoleTags roles={[ROLES.REFEREE, ROLES.MANAGER, ROLES.STAFF]} />
 			),
 		},
 		{
@@ -327,13 +321,15 @@ const ManageUser: React.FC = () => {
 							);
 						}}
 					/>
-					<CustomDeletePopconfirm
-						title="Delete the User"
-						description="Are you sure to delete this User?"
-						onConfirm={() =>
-							deleteUser(record.id, record.name, fetchUsers)
-						}
-					/>
+					{record.id !== user.id && (
+						<CustomDeletePopconfirm
+							title="Delete the User"
+							description="Are you sure to delete this User?"
+							onConfirm={() =>
+								deleteUser(record.id, record.name, fetchUsers)
+							}
+						/>
+					)}
 				</div>
 			),
 		},
@@ -423,7 +419,7 @@ const ManageUser: React.FC = () => {
 
 						<Form.Item name="role" rules={roleRules} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="mb-3">
 							<Radio.Group>
-								<Radio value={ROLES.CUSTOMER}>Customer</Radio>
+								<Radio value={ROLES.MEMBER}>Customer</Radio>
 								<Radio value={ROLES.STAFF}>Staff</Radio>
 								<Radio value={ROLES.REFEREE}>Referee</Radio>
 								<Radio value={ROLES.MANAGER}>Manager</Radio>
