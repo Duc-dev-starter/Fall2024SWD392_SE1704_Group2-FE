@@ -4,8 +4,9 @@ import { Layout, Menu, MenuProps, Space, theme } from 'antd';
 import { Link, Outlet, useNavigate } from 'react-router-dom'; import { RiListUnordered } from 'react-icons/ri';
 import { ROLES } from '../../consts';
 import { DropdownAvatar } from '../../components';
-import { logout, user } from '../../services';
+import { logout } from '../../services';
 import { IoLogOutOutline } from 'react-icons/io5';
+import { getUserFromLocalStorage } from '../../utils';
 ;
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -38,6 +39,7 @@ const Dashboard: React.FC = () => {
         loadItems();
     }, []);
 
+    const user = getUserFromLocalStorage();
     useEffect(() => {
         if (user.role && user) {
             setDataUser({
