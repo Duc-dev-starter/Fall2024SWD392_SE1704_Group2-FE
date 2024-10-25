@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DesktopOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
+import { DesktopOutlined, ProfileOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Menu, MenuProps, Space, theme } from 'antd';
 import { Link, Outlet, useNavigate } from 'react-router-dom'; import { RiListUnordered } from 'react-icons/ri';
 import { ROLES } from '../../consts';
@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
                 getItem('Manage Contest', '/manager/manage-contest', <TrophyOutlined />),
                 getItem('Manage Criteria', '/manager/manage-criteria', <TrophyOutlined />),
                 getItem('Manage Categories', '/manager/manage-categories', <RiListUnordered />),
-                getItem('Manage Blogs', '/manager/manage-blogs', <TrophyOutlined />),
+                getItem('Manage Blogs', '/manager/manage-blogs', <ProfileOutlined />),
             ]);
         }
         if (location.pathname.includes(ROLES.STAFF)) {

@@ -154,32 +154,32 @@ const ManageCriteria: React.FC = () => {
 			title: "Name",
 			dataIndex: "name",
 			key: "name",
-			width: "20%",
+			width: "15%",
 		},
 		{
 			title: "Description",
 			dataIndex: "description",
 			key: "description",
-			width: "10%",
+			width: "20%",
 		},
 		{
 			title: "Created Date",
 			dataIndex: "createdAt",
 			key: "createdAt",
 			render: (createdAt: Date) => formartedDate(createdAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedAt",
 			key: "updatedAt",
 			render: (updatedAt: Date) => formartedDate(updatedAt),
-			width: "12%",
+			width: "15%",
 		},
 		{
 			title: "Action",
 			key: "action",
-			width: "20%",
+			width: "10%",
 			render: (_: unknown, record: Criteria) => (
 				<div>
 					<EditOutlined

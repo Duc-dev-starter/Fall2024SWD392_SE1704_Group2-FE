@@ -44,6 +44,10 @@ const useRoleRedirect = () => {
           navigate(PATHS.STAFF_HOME);
         }
         break;
+        default:
+          navigate(PATHS.HOME);
+          break;
+        
     }
   };
   const canAccess = (allowedRoles: string[]) => {
