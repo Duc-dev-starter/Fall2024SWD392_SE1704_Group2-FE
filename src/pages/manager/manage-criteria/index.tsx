@@ -232,7 +232,7 @@ const ManageCriteria: React.FC = () => {
 				/>
 
 
-				<Select value={selectedStatus} onChange={handleStatus} className="w-full mt-2 mb-2 md:w-32 md:mt-0 md:ml-2">
+				<Select value={selectedStatus} onChange={handleStatus} className="w-full mt-2 md:w-32 md:mt-0 md:ml-2">
 					<Select.Option value="true">Active</Select.Option>
 					<Select.Option value="false">Inactive</Select.Option>
 				</Select>
