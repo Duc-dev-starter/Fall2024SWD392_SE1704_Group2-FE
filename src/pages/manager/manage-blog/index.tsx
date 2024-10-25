@@ -84,7 +84,7 @@ const AdminManageBlogs: React.FC = () => {
         setIsModalVisible(true);
         try {
             const response = await getBlog(id);
-            const blogData = response.data;
+            const blogData: Blog = response.data;
             setCurrentBlog(blogData);
             form.setFieldsValue({
                 title: blogData.title,

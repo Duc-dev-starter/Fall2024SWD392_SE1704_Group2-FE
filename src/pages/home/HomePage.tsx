@@ -65,12 +65,10 @@ const HomePage: React.FC = () => {
                 </div>
             </div>
             <Section
-                // title={t('our_mission')}
                 subtitle={t('mission_subtitle')}
                 description={
                     <>
-                        {t('mission_description').split('.')[0]}
-                        <span>
+                        {t('mission_description').split('.')[0]} <span>
                             <Link to={PATHS.ABOUT} className="text-brandPrimary underline">
                                 {t('learn_more')}
                             </Link>
