@@ -1,7 +1,7 @@
 import { Avatar, Col, Dropdown, MenuProps, Row, Space } from 'antd';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout, user } from '../../services';
+import { logout } from '../../services';
 import { HistoryOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { BiHelpCircle } from 'react-icons/bi';
 import { RiFeedbackLine, RiLockPasswordLine } from 'react-icons/ri';
@@ -13,7 +13,7 @@ import { avatarReplace, PATHS, ROLES } from '../../consts';
 const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
     const navigate = useNavigate();
 
-    const items: MenuProps['items'] = dataUser.role === ROLES.MANAGER
+    const items: MenuProps['items'] = dataUser.role === ROLES.REFEREE || dataUser.role === ROLES.STAFF
         ? [
             {
                 label: (
@@ -33,7 +33,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                                         <p className="text-[1.2rem] font-bold">{dataUser.name}</p>
                                     </Row>
                                     <div>
-                                        <p className="text-[0.875rem] mt-[0.8rem]">{dataUser.email}</p>
+                                        <p className="text-[0.875rem]">{dataUser.email}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -142,7 +142,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
             { type: 'divider' },
             {
                 label: (
-                    <Link className="text-lg" to="">
+                    <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
                         View History
                     </Link>
@@ -217,8 +217,8 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 <Space>
                     <Avatar
                         src={
-                            typeof user.avatar === "string"
-                                ? user.avatar
+                            typeof dataUser.avatar === "string"
+                                ? dataUser.avatar
                                 : undefined
                         }
                         className="hover:cursor-pointer border border-black"

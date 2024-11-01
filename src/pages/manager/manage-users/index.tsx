@@ -31,8 +31,8 @@ import {
 	CustomBreadcrumb,
 	RoleTags
 } from "../../../components";
-import { uploadFile, getBase64, formartedDate } from "../../../utils";
-import { changeStatusUser, createUser, deleteUser, getUsers, updateUser, user } from '../../../services';
+import { uploadFile, getBase64, formartedDate, getUserFromLocalStorage } from "../../../utils";
+import { changeStatusUser, createUser, deleteUser, getUsers, updateUser } from '../../../services';
 import { ROLES } from "../../../consts";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -52,6 +52,7 @@ const ManageUser: React.FC = () => {
 	const [modalMode, setModalMode] = useState<"Add" | "Edit">("Add");
 	const [selectedRole, setSelectedRole] = useState<string>("All");
 	const [selectedStatus, setSelectedStatus] = useState<string>("true");
+	const user = getUserFromLocalStorage();
 	const handlePreview = async (file: UploadFile) => {
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj as FileType);
@@ -413,7 +414,6 @@ const ManageUser: React.FC = () => {
 							<Radio.Group>
 								<Radio value={ROLES.STAFF}>Staff</Radio>
 								<Radio value={ROLES.REFEREE}>Referee</Radio>
-								<Radio value={ROLES.MANAGER}>Manager</Radio>
 							</Radio.Group>
 						</Form.Item>
 					)}

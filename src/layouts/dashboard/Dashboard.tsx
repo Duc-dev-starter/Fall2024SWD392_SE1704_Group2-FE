@@ -17,19 +17,6 @@ const Dashboard: React.FC = () => {
     const [itemsNav, setItems] = useState<MenuItem[]>([]);
     const [collapsed, setCollapsed] = useState(false);
 
-    const [dataUser, setDataUser] = useState<{
-        name: string | null;
-        email: string | null;
-        avatar: string | null;
-        google_id?: string,
-        role: string | null
-    }>({
-        name: null,
-        email: null,
-        avatar: null,
-        role: null
-    });
-
     const navigate = useNavigate();
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -40,17 +27,6 @@ const Dashboard: React.FC = () => {
     }, []);
 
     const user = getUserFromLocalStorage();
-    useEffect(() => {
-        if (user.role && user) {
-            setDataUser({
-                name: user.name,
-                email: user.email,
-                avatar: user.avatar,
-                googleId: user.googleId,
-                role: user.role
-            });
-        }
-    }, [user.role]);
 
     const getItem = (
         label: React.ReactNode,
@@ -120,8 +96,8 @@ const Dashboard: React.FC = () => {
                     <div>
                         <p>Welcome back {user.role}</p>
                     </div>
-                    {dataUser.role !== ROLES.MANAGER ? (
-                        <DropdownAvatar dataUser={dataUser} />
+                    {user.role !== ROLES.MANAGER ? (
+                        <DropdownAvatar dataUser={user} />
                     ) : (
                         <Space>
                             <button

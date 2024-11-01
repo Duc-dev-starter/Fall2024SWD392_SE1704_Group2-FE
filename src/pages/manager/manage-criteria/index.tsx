@@ -212,7 +212,6 @@ const ManageCriteria: React.FC = () => {
 
 	return (
 		<div>
-			{isLoading && <LoadingOverlay />}
 			<div className="flex flex-row md:flex-row justify-between items-center mb-4">
 				<div className="flex flex-row justify-between w-full mt-3 md:mt-0">
 					<CustomBreadcrumb />

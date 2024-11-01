@@ -6,7 +6,7 @@ const Pagination: React.FC = ({ onPageChange, currentPage, items, pageSize }) =>
         return Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
             <li key={pageNumber} className="pagination-item">
                 <a
-                    href="#"
+                    href=""
                     onClick={() => onPageChange(pageNumber)}
                     className={pageNumber === currentPage ? "bg-orange-500 rounded-[4px] text-white" : ""}
                 >

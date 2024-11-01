@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "@/secret";
 import { toast } from "react-toastify";
 import { getUserFromLocalStorage } from "../utils";
-import { HttpStatus, PATHS, ROLES } from "../consts";
+import { HttpStatus, PATHS } from "../consts";
 
 export const axiosInstance = axios.create({
   baseURL: config.BASE_URL,
@@ -56,22 +56,7 @@ axiosInstance.interceptors.response.use(
               const user = getUserFromLocalStorage();
               setTimeout(() => {
                 if (user) {
-                  const userRole = user.role;
-                  switch (userRole) {
-                    case ROLES.MANAGER:
-                      // window.location.href = PATH.ADMIN_LOGIN;
-                      console.log(window.location.href = PATHS.MANAGER_LOGIN)
-                      break;
-                    case ROLES.STAFF:
-                      window.location.href = PATHS.STAFF_LOGIN;
-                      break;
-                    case ROLES.REFEREE:
-                      window.location.href = PATHS.REFEREE_LOGIN;
-                      break;
-                    default:
-                      window.location.href = PATHS.HOME;
-                      break;
-                  }
+                  window.location.href = PATHS.HOME
                 } else {
                   return;
                 }
@@ -85,7 +70,7 @@ axiosInstance.interceptors.response.use(
 
           case HttpStatus.NotFound:
             toast.error(data.message);
-            // window.location.href = PATH.NOTFOUND;
+            //window.location.href = PATHS.NOTFOUND;
             break;
 
           case HttpStatus.InternalServerError:

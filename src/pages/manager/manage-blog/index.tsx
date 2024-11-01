@@ -237,7 +237,6 @@ const AdminManageBlogs: React.FC = () => {
 
     return (
         <div>
-            {isLoading && <LoadingOverlay />}
             <div className="flex justify-between">
                 <CustomBreadcrumb />
                 <div className="py-6">

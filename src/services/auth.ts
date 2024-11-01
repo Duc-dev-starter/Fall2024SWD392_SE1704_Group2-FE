@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { User } from "../models";
-import { getUserFromLocalStorage } from "../utils";
 import { API_PATHS, PATHS, ROLES, rolesArr } from "../consts";
 import { toast } from "react-toastify";
 import { BaseService } from "./BaseService";
@@ -110,24 +108,11 @@ export const handleNavigateRole = async (token: string, navigate: ReturnType<typ
 export const getCurrentLoginUser = async () => {
   const response = await BaseService.get({ url: API_PATHS.GET_CURRENT_LOGIN_USER });
   localStorage.setItem("user", JSON.stringify(response.data));
+  return response.data;
 };
 
 export const logout = async (navigate: ReturnType<typeof useNavigate>) => {
-  await BaseService.get({ url: API_PATHS.LOGOUT });
-  const user: User = getUserFromLocalStorage();
-  switch (user.role) {
-    case ROLES.MANAGER:
-      navigate(PATHS.MANAGER_LOGIN)
-      break;
-    case ROLES.STAFF:
-      navigate(PATHS.STAFF_LOGIN)
-      break;
-    case ROLES.REFEREE:
-      navigate(PATHS.REFEREE_LOGIN)
-      break;
-    default:
-      navigate(PATHS.HOME);
-  }
-  toast.info("You logout from the system");
   localStorage.clear();
+  navigate(PATHS.HOME);
+  toast.info("You logout from the system");
 };

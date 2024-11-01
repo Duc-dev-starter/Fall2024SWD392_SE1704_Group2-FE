@@ -16,6 +16,15 @@ export const nameRules: Rule[] = [
   { required: true, message: "Please input your name!" },
   { min: 4, message: "Name must be at least 4 characters!" },
   { max: 20, message: "Name must be at most 20 characters!" },
+  {
+    validator: (_, value) => {
+      const cleanedValue = value.trim().replace(/\s+/g, " ");
+      if (cleanedValue.length === 0) {
+        return Promise.reject(new Error("Name cannot be empty or only spaces"));
+      }
+      return Promise.resolve();
+    },
+  }
 ]
 
 export const roleRules: Rule[] = [
@@ -64,7 +73,16 @@ export const contentRules: Rule[] = [
 ]
 
 export const titleRules: Rule[] = [
-  { required: true, message: "Please input the title!" }
+  { required: true, message: "Please input the title!" },
+  {
+    validator: (_, value) => {
+      const cleanedValue = value.trim().replace(/\s+/g, " ");
+      if (cleanedValue.length === 0) {
+        return Promise.reject(new Error("Title cannot be empty or only spaces"));
+      }
+      return Promise.resolve();
+    },
+  }
 ]
 
 export const rejectRules: Rule[] = [
