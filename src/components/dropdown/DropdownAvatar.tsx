@@ -45,7 +45,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
             { type: 'divider' },
             {
                 label: (
-                    <Link className="text-lg" to="">
+                    <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
                         View History
                     </Link>

@@ -14,7 +14,7 @@ const History: React.FC = () => (
                 children: <RegisterContest />, // Sử dụng ComponentA trong Tab 1
             },
             {
-                label: 'Tab 2',
+                label: 'Registed Koi',
                 key: '2',
                 children: <RegisterKoi />, // Sử dụng ComponentB trong Tab 2
             },

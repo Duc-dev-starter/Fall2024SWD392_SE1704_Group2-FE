@@ -10,7 +10,6 @@ export const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-
 export const uploadFile = async (file: File) => {
   const storageRef = ref(storage, file.name);
   const response = await uploadBytes(storageRef, file);

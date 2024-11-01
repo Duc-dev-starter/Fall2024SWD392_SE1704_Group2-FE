@@ -1,13 +1,14 @@
 import { Button, Col, DatePicker, Form, Image, Input, Radio, Upload } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { UploadFile, UploadProps } from "antd";
+import type { GetProp, UploadFile, UploadProps } from "antd";
 import { getBase64, uploadFile } from "../../utils";
-import { UploadButton } from '../../components';
+import { PlusOutlined } from '@ant-design/icons';
 import { getVariety, registerKoiFish } from '../../services/koiFish';
 import { toast } from 'react-toastify';
 
-type FileType = Parameters<Required<UploadProps>["beforeUpload"]>[0];
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
 
 function RegisterKoiPage() {
 	const [form] = Form.useForm();
@@ -43,13 +44,27 @@ function RegisterKoiPage() {
 		console.log('Form values:', values);
 
 		if (fileList.length > 0) {
-			const file = fileList[0];
-			if (file.originFileObj) {
-				const imageKoi = await uploadFile(file.originFileObj as File);
-				console.log(imageKoi);
-				values.koiImage = imageKoi;
+			const imageUrls: string[] = [];
+
+			for (const file of fileList) {
+				if (file.originFileObj) {
+					try {
+						const imageKoi = await uploadFile(file.originFileObj as File);
+						console.log("Uploaded image URL:", imageKoi);
+						imageUrls.push(imageKoi);
+					} catch (error) {
+						console.error("Error uploading file:", error);
+					}
+				}
 			}
+
+			values.koiFishs = imageUrls;
+
+			console.log("Final values with image URLs (array):", values.koiFishs);
 		}
+		console.log('====================================');
+		console.log("file list", values.koiFishs);
+		console.log('====================================');
 
 		try {
 			const response = await registerKoiFish(values);
@@ -76,6 +91,25 @@ function RegisterKoiPage() {
 	};
 
 	const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => setFileList(newFileList);
+
+	const uploadButton = (
+		<button
+			style={{
+				border: 0,
+				background: 'none',
+			}}
+			type="button"
+		>
+			<PlusOutlined />
+			<div
+				style={{
+					marginTop: 8,
+				}}
+			>
+				Upload
+			</div>
+		</button>
+	);
 
 	return (
 		<>
@@ -141,7 +175,9 @@ function RegisterKoiPage() {
 							</Radio.Group>
 						</Form.Item>
 
-						<Form.Item label="Koi Image" name="koiImage" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+						<Form.Item label="Koi Image" name="koiFishs" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+
+
 							<Upload
 								action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
 								listType="picture-card"
@@ -149,8 +185,9 @@ function RegisterKoiPage() {
 								onPreview={handlePreview}
 								onChange={handleChange}
 							>
-								{fileList.length >= 1 ? null : <UploadButton />}
+								{fileList.length >= 4 ? null : uploadButton}
 							</Upload>
+
 						</Form.Item>
 
 						<Form.Item
@@ -174,11 +211,11 @@ function RegisterKoiPage() {
 				</Col>
 				{previewImage && (
 					<Image
-						wrapperStyle={{ display: "none" }}
+						wrapperStyle={{ display: 'none' }}
 						preview={{
 							visible: previewOpen,
 							onVisibleChange: (visible) => setPreviewOpen(visible),
-							afterOpenChange: (visible) => !visible && setPreviewImage(""),
+							afterOpenChange: (visible) => !visible && setPreviewImage(''),
 						}}
 						src={previewImage}
 					/>
