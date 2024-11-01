@@ -70,7 +70,7 @@ axiosInstance.interceptors.response.use(
 
           case HttpStatus.NotFound:
             toast.error(data.message);
-            window.location.href = PATHS.NOTFOUND;
+            //window.location.href = PATHS.NOTFOUND;
             break;
 
           case HttpStatus.InternalServerError:

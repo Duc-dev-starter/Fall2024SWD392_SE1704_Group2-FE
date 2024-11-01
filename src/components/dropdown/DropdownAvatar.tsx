@@ -13,7 +13,7 @@ import { avatarReplace, PATHS, ROLES } from '../../consts';
 const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
     const navigate = useNavigate();
 
-    const items: MenuProps['items'] = dataUser.role === ROLES.REFEREE
+    const items: MenuProps['items'] = dataUser.role === ROLES.REFEREE || dataUser.role === ROLES.STAFF
         ? [
             {
                 label: (
@@ -33,7 +33,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                                         <p className="text-[1.2rem] font-bold">{dataUser.name}</p>
                                     </Row>
                                     <div>
-                                        <p className="text-[0.875rem] mt-[0.8rem]">{dataUser.email}</p>
+                                        <p className="text-[0.875rem]">{dataUser.email}</p>
                                     </div>
                                 </Col>
                             </Row>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { getBlogs } from '../../services';
 
 const Sidebar = () => {
     const [popularBlogs, setPopularBlogs] = useState<Blog[]>([]);
@@ -15,9 +16,9 @@ const Sidebar = () => {
     }, []);
 
     async function fetchBlogs() {
-        const response = await BaseService.get({ url: 'https://665b3286003609eda4602205.mockapi.io/blogs' });
-        setPopularBlogs(response.data);
+        const response = await getBlogs();
         console.log(response)
+        setPopularBlogs(response.data.pageData);
     }
 
     return (
@@ -29,8 +30,8 @@ const Sidebar = () => {
                         <div>Loading...</div>
                     ) : (
                         popularBlogs.slice(0, 5).map((blog: Blog) => (
-                            <div key={blog._id} className='my-5 border-b-2 border-spacing-2 px-4'>
-                                <h4 className='font-medium mb-2'>{blog.name}</h4>
+                            <div key={blog.id} className='my-5 border-b-2 border-spacing-2 px-4'>
+                                <h4 className='font-medium mb-2'>{blog.title}</h4>
                                 <Link to="/" className='text-base pb-2 hover:text-orange-500 inline-flex items-center py-1'>
                                     Read now <FaArrowRight className='mt-1 ml-2' />
                                 </Link>
@@ -46,8 +47,8 @@ const Sidebar = () => {
                         <div>Loading...</div>
                     ) : (
                         popularBlogs.slice(6, 10).map((blog: Blog) => (
-                            <div key={blog._id} className='my-5 border-b-2 border-spacing-2 px-4'>
-                                <h4 className='font-medium mb-2'>{blog.name}</h4>
+                            <div key={blog.id} className='my-5 border-b-2 border-spacing-2 px-4'>
+                                <h4 className='font-medium mb-2'>{blog.title}</h4>
                                 <Link to="/" className='text-base pb-2 hover:text-orange-500 inline-flex items-center py-1'>
                                     Read now <FaArrowRight className='mt-1 ml-2' />
                                 </Link>

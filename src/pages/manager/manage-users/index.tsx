@@ -414,7 +414,6 @@ const ManageUser: React.FC = () => {
 							<Radio.Group>
 								<Radio value={ROLES.STAFF}>Staff</Radio>
 								<Radio value={ROLES.REFEREE}>Referee</Radio>
-								<Radio value={ROLES.MANAGER}>Manager</Radio>
 							</Radio.Group>
 						</Form.Item>
 					)}
