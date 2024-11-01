@@ -6,7 +6,6 @@ import { UserRole } from "../models/User";
 import { getUserFromLocalStorage } from "../utils";
 import { ValuesChangePassword } from "../interfaces";
 
-export const user = getUserFromLocalStorage();
 
 
 export const register = async (values) => {

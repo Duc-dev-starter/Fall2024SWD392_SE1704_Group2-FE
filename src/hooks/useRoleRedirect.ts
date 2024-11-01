@@ -14,7 +14,7 @@ const useRoleRedirect = () => {
     }
     if (user.googleId) {
       if (location.pathname.includes(PATHS.CHANGE_PASSWORD)) {
-        navigate(PATHS.LOGIN)
+        navigate(PATHS.HOME)
       }
     }
   }, [user.role, location.pathname]);
@@ -26,7 +26,7 @@ const useRoleRedirect = () => {
     switch (user.role) {
       case ROLES.MEMBER:
         if (path.includes(ROLES.REFEREE) || path.includes(ROLES.MANAGER) || path.includes(PATHS.FORGOT_PASSWORD) || path.includes(ROLES.STAFF)) {
-          navigate(PATHS.HOME);
+          navigate(PATHS.NOTFOUND);
         }
         break;
       case ROLES.REFEREE:
@@ -45,7 +45,7 @@ const useRoleRedirect = () => {
         }
         break;
         default:
-          navigate(PATHS.HOME);
+          navigate(PATHS.NOTFOUND);
           break;
         
     }

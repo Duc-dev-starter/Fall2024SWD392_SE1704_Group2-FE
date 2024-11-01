@@ -6,7 +6,7 @@ import LanguageSwitcher from '../language/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { images } from '@/assets';
 import { Modal, DropdownAvatar } from '@/components';
-import { user } from '../../services';
+import { getUserFromLocalStorage } from '../../utils';
 
 
 const Header: React.FC = () => {
@@ -15,6 +15,7 @@ const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoginForm, setIsLoginForm] = useState(true);
     const { t } = useTranslation();
+    const user = getUserFromLocalStorage();
 
 
     const toggleMenu = () => {
@@ -35,6 +36,8 @@ const Header: React.FC = () => {
             window.addEventListener('scroll', handleScroll);
         }
     }, [])
+
+
 
     const openModal = () => {
         setIsModalOpen(true);
