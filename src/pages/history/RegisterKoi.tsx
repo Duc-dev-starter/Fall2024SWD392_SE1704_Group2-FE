@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Space, Table, Pagination, Image } from "antd";
+import { Input, Space, Table, Pagination, Image, Modal, Form } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { KoiEntry } from "@/models";
 import { getKois } from "@/services";
@@ -7,15 +7,20 @@ import type { TablePaginationConfig } from "antd/es/table/interface";
 import { useDebounce } from "@/hooks";
 import { CustomBreadcrumb } from "@/components";
 import { formartedDate } from "../../utils";
+import { useForm } from "antd/es/form/Form";
 
 const RegisterKoiy: React.FC = () => {
     const [dataKois, setDataKois] = useState<KoiEntry[]>([]);
     const [searchText, setSearchText] = useState<string>("");
+    const [form] = useForm();
     const [pagination, setPagination] = useState<TablePaginationConfig>({
         current: 1,
         pageSize: 10,
         total: 0,
     });
+
+    const [selectedKoi, setSelectedKoi] = useState<KoiEntry>(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const debouncedSearchTerm = useDebounce(searchText, 500);
 
@@ -53,6 +58,25 @@ const RegisterKoiy: React.FC = () => {
             current: page,
             pageSize: pageSize || 10,
         }));
+    };
+
+    const handleRowClick = (record: KoiEntry) => {
+        setSelectedKoi(record);
+        form.setFieldsValue({
+            name: record.name,
+            varietyName: record.varietyName,
+            size: record.size,
+            dateOfBirth: formartedDate(record.dateOfBirth),
+            createdAt: formartedDate(record.createdAt),
+            updatedAt: formartedDate(record.updatedAt),
+        });
+        setIsModalVisible(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalVisible(false);
+        setSelectedKoi(null);
+        form.resetFields();
     };
 
     const columns = [
@@ -122,22 +146,11 @@ const RegisterKoiy: React.FC = () => {
             </Space>
             <Table
                 columns={columns}
-                expandable={{
-                    expandedRowRender: (record: KoiEntry) => (
-                        <div>
-                            {record.koiImages.map((image, index) => (
-                                <Image
-                                    key={index}
-                                    src={image}
-                                    alt={`Koi Fish ${index + 1}`}
-                                    style={{ margin: "5px", maxWidth: "100px" }}
-                                />
-                            ))}
-                        </div>
-                    ),
-                }}
                 dataSource={dataKois}
                 rowKey="id"
+                onRow={(record) => ({
+                    onClick: () => handleRowClick(record), // Handle row click
+                })}
             />
             <div className="flex justify-end py-8">
                 <Pagination
@@ -148,6 +161,49 @@ const RegisterKoiy: React.FC = () => {
                     showSizeChanger
                 />
             </div>
+
+            <Modal
+                title="Detail Koi"
+                open={isModalVisible}
+                onCancel={handleModalClose}
+                footer={null}
+                destroyOnClose={true}
+            >
+                <Form layout="vertical" form={form}>
+                    <Form.Item label="Name" name="name">
+                        <Input readOnly />
+                    </Form.Item>
+                    <Form.Item label="Variety" name="varietyName">
+                        <Input readOnly />
+                    </Form.Item>
+                    <Form.Item label="Size" name="size">
+                        <Input readOnly />
+                    </Form.Item>
+                    <Form.Item label="Date of Birth" name="dateOfBirth">
+                        <Input readOnly />
+                    </Form.Item>
+                    <Form.Item label="Created Date" name="createdAt">
+                        <Input readOnly />
+                    </Form.Item>
+                    <Form.Item label="Updated Date" name="updatedAt">
+                        <Input readOnly />
+                    </Form.Item>
+                    <Form.Item label="Images" name="koiImages">
+                        <Space>
+                            {selectedKoi?.koiImages?.map((image, index) => (
+                                <Image
+                                    key={index}
+                                    src={image}
+                                    width={100}
+                                    height={100}
+                                    style={{ objectFit: "cover" }}
+                                />
+                            ))}
+                        </Space>
+                    </Form.Item>
+                </Form>
+            </Modal>
+
         </div>
     );
 };
