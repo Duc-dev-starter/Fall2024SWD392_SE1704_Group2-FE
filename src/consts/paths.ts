@@ -11,6 +11,8 @@ export const PATHS = {
     CHANGE_PASSWORD: '/change-password',
     TERMS: '/terms',
     REGISTER_KOI: '/register-koi',
+    SUCCESS: '/success',
+    CANCEL: '/cancel',
 
     // member paths
     USER_PROFILE: '/profile',

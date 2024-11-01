@@ -7,7 +7,8 @@ import {
     BlogDetailPage, Notfound, DashboardLayout,
     ManagerDashboard, ManagerUsers, ManagerCategory,
     Managecompetition, ContestRegistration, ContestReport, ManageBlogs,
-    RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, ServerLogin, RegisterKoi, ManageContest, ManageCriteria
+    RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, RegisterKoi, ManageContest, ManageCriteria,
+    CancelPage, SuccessPage, History
 } from "@/pages";
 
 const AppRouter: React.FC = () => {
@@ -22,6 +23,9 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
             <Route path={PATHS.TERMS} element={<Terms />} />
             <Route path={PATHS.REGISTER_KOI} element={<RegisterKoi />} />
+            <Route path={PATHS.SUCCESS} element={< SuccessPage />} />
+            <Route path={PATHS.CANCEL} element={<CancelPage />} />
+            <Route path={PATHS.USER_HISTORY} element={<History />} />
 
 
 
@@ -30,7 +34,6 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.USER_PROFILE} element={<Profile />} />
 
             {/* MANAGER ROUTE */}
-            <Route path={PATHS.MANAGER_LOGIN} element={<ServerLogin />} />  {/* MANAGER login page */}
             <Route path={PATHS.MANAGER} element={canAccess([ROLES.MANAGER]) ? <DashboardLayout /> : <Navigate to={PATHS.HOME} />}> {/* Layout */}
                 <Route path={PATHS.MANAGER_DASHBOARD} element={<ManagerDashboard />} /> {/** MANAGER dashboard layout */}
                 <Route path={PATHS.MANAGER_USERS} element={<ManagerUsers />} /> {/** MANAGER manage user */}
@@ -41,7 +44,6 @@ const AppRouter: React.FC = () => {
             </Route>
 
             {/* STAFF ROUTE */}
-            <Route path={PATHS.STAFF_LOGIN} element={<ServerLogin />} />
             <Route path={PATHS.STAFF} element={canAccess([ROLES.STAFF]) ? <DashboardLayout /> : <Navigate to={PATHS.HOME} />}> {/* Layout */}
                 <Route path={PATHS.STAFF_REGISTRATION} element={<ContestRegistration />} /> {/* contest registration */}
                 <Route path={PATHS.STAFF_COMPETITION} element={<Managecompetition />} /> {/* manage competition */}
@@ -49,7 +51,6 @@ const AppRouter: React.FC = () => {
 
             {/* REFEREE ROUTE */}
             {/* login */}
-            <Route path={PATHS.REFEREE_LOGIN} element={<ServerLogin />} />
             <Route path={PATHS.REFEREE} element={canAccess([ROLES.REFEREE]) ? <DashboardLayout /> : <Navigate to={PATHS.HOME} />}> {/* Layout */}
                 <Route path={PATHS.REFEREE_COMPETITION} element={<RefereeCompetition />} /> {/* Assigned Competition */}
                 <Route path={PATHS.REFEREE_SCORE} element={<RefereeScored />} /> {/* Score Koifish */}

@@ -63,6 +63,7 @@ const AdminManageBlogs: React.FC = () => {
         try {
             const responseBlog = await getBlogs("", pagination.current, pagination.pageSize);
             setDataBlogs(responseBlog.data.pageData);
+            console.log(responseBlog.data.pageData[0].category)
             setPagination({
                 ...pagination,
                 total: responseBlog.data.pageInfo.totalItems,
@@ -85,10 +86,11 @@ const AdminManageBlogs: React.FC = () => {
         try {
             const response = await getBlog(id);
             const blogData: Blog = response.data;
+            console.log(blogData)
             setCurrentBlog(blogData);
             form.setFieldsValue({
                 title: blogData.title,
-                categoryId: blogData.categoryId,
+                categoryId: blogData.category.id,
                 imgUrl: blogData.imgUrl,
                 description: blogData.description,
                 content: blogData.content,
@@ -124,8 +126,9 @@ const AdminManageBlogs: React.FC = () => {
             }
         }
         const user = getUserFromLocalStorage();
-        const payload = { ...values, content, userId: user.id, image_url: avatarUrl };
+        const payload = { ...values, content, userId: user.id, imageUrl: avatarUrl };
         try {
+            console.log(payload)
             if (isUpdateMode && currentBlog) {
                 await updateBlog(currentBlog.id, payload);
             } else {
@@ -180,7 +183,7 @@ const AdminManageBlogs: React.FC = () => {
         },
         {
             title: "Category",
-            dataIndex: "categoryName",
+            dataIndex: "category.name",
             key: "categoryName",
             width: "15%",
         },
@@ -247,7 +250,7 @@ const AdminManageBlogs: React.FC = () => {
             <Table
                 columns={columns}
                 dataSource={dataBlogs}
-                rowKey="_id"
+                rowKey={(record: Blog) => record?.id || "unknown"}
                 onChange={handleTableChange}
                 pagination={false}
                 className="overflow-auto"
@@ -286,7 +289,7 @@ const AdminManageBlogs: React.FC = () => {
                         </Select>
                     </Form.Item>
                     <Form.Item
-                        name="imgUrl"
+                        name="imageUrl"
                         label="Image"
                         rules={[{ required: true, message: "Please input the image URL!" }]}
                     >

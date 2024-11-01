@@ -4,7 +4,7 @@ import React from "react";
 
 const TitleFormItem: React.FC = () => {
     return (
-        <Form.Item name="name" label="Title" rules={titleRules}>
+        <Form.Item name="title" label="Title" rules={titleRules}>
             <Input placeholder="Enter Title" />
         </Form.Item>
     )

@@ -13,9 +13,11 @@ export { default as Profile } from './profile/Profile'
 export { default as Terms } from './terms'
 export { default as DashboardLayout } from '../layouts/dashboard/Dashboard'
 export { default as RegisterKoi } from './registerKoiFish'
+export { default as SuccessPage } from './payout/success'
+export { default as CancelPage } from './payout/cancel'
+export {default as History} from './history'
 
 
-export { default as ServerLogin } from './serverLogin'
 // manager page exports
 export { default as ManagerDashboard } from './manager/dashboard/Dashboard'
 export { default as ManagerUsers } from './manager/manage-users'
