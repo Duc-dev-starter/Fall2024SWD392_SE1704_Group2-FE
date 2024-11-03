@@ -45,5 +45,8 @@ export const API_PATHS = {
 
 
     // Dashboard 
-    DASHBOARD_COUNT: "/api/dashboard/count"
+    DASHBOARD_COUNT: "/api/dashboard/count",
+
+    //Evaluation
+    EVALUATE: "/api/evaluation/create"
 }

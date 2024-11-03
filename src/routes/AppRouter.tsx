@@ -8,7 +8,7 @@ import {
     ManagerDashboard, ManagerUsers, ManagerCategory,
     Managecompetition, ContestRegistration, ContestReport, ManageBlogs,
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, RegisterKoi, ManageContest, ManageCriteria,
-    CancelPage, SuccessPage, History
+    CancelPage, SuccessPage, History, EvaluateKoi
 } from "@/pages";
 
 const AppRouter: React.FC = () => {
@@ -58,6 +58,7 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.REFEREE} element={canAccess([ROLES.REFEREE]) ? <DashboardLayout /> : <Navigate to={PATHS.NOTFOUND} />}> {/* Layout */}
                 <Route path={PATHS.REFEREE_COMPETITION} element={<RefereeCompetition />} /> {/* Assigned Competition */}
                 <Route path={PATHS.REFEREE_SCORE} element={<RefereeScored />} /> {/* Score Koifish */}
+                <Route path={PATHS.STAFF_EVALUATE} element={<EvaluateKoi />} /> {/* report */}
                 <Route path="*" element={<Notfound />} />
             </Route>
 

@@ -18,6 +18,7 @@ const BlogDetailPage: React.FC = () => {
     useEffect(() => {
         if (blogId) {
             fetchBlog();
+            window.scrollTo(0, 0);
         }
     }, [blogId]);
 

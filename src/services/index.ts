@@ -7,3 +7,4 @@ export { createCriteria, deleteCriteria, getCriteriaDetail, getCriterias, update
 export { createBlog, deleteBlog, getBlog, getBlogs, handleGetBlogDetail, updateBlog } from './blog'
 export { getVariety } from './koiFish'
 export { getDashboard } from './dashboard'
+export {evaluate} from './evaluation'
