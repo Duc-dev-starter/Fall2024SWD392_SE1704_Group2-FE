@@ -63,7 +63,6 @@ const Dashboard: React.FC = () => {
         if (location.pathname.includes(ROLES.REFEREE)) {
             setItems([
                 getItem('Competition', '/referee/competition', <DesktopOutlined />),
-                getItem('Score Koifish', '/referee/score', <UserOutlined />),
             ])
         }
     };

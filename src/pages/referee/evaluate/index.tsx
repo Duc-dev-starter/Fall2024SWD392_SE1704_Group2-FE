@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Table, InputNumber, Typography, Image } from 'antd';
-import { evaluate } from '../../../services';
+import { BaseService, evaluate } from '../../../services';
 import { getUserFromLocalStorage } from '../../../utils';
+import { useParams } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -9,24 +10,29 @@ const EvaluateKoi = () => {
     const [form] = Form.useForm();
     const [averageScore, setAverageScore] = useState(0);
     const user = getUserFromLocalStorage();
+    const [koi, setKoi] = useState<any>({});
+    const { id, roundId } = useParams<{ id: string, roundId: string }>();
+    useEffect(() => {
+        const fetchKoi = async () => {
+            try {
+                const koi = await BaseService.getById({ url: '/api/KoiFish', id })
+                setKoi(koi);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchKoi();
+    }, [])
 
-    const koiData = {
-        name: 'Beautiful Koi',
-        imageUrl: 'https://example.com/koi-image.jpg',
-        detail: 'A high-quality Koi fish with unique colors.',
-        roundName: 'Round 1',
-        fishId: '10305cf1-378b-491e-aaf4-9dfe59d764d2',
-        refereeId: 'ee82b937-3942-49c1-bca1-45982d8c8fb3',
-        roundId: '96d273c2-7384-4c81-9d0c-0e89f88011e7'
-    };
+
 
     const handleFinish = async (values) => {
         const dataToSend = {
             ...values,
-            averageScore: averageScore.toFixed(1),
-            fishId: koiData.fishId,
+            averageScore: averageScore.toFixed(0),
+            fishId: id,
             refereeId: user.id,
-            roundId: koiData.roundId
+            roundId: roundId
         };
         console.log('Submit Data:', dataToSend);
         try {
@@ -77,11 +83,9 @@ const EvaluateKoi = () => {
         <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
             {/* Koi Information */}
             <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '30px' }}>
-                <Image src={koiData.imageUrl} alt={koiData.name} style={{ maxHeight: '200px', borderRadius: '8px' }} />
                 <div>
-                    <Title level={3}>{koiData.name}</Title>
-                    <p>{koiData.detail}</p>
-                    <p><strong>Round:</strong> {koiData.roundName}</p>
+                    <Title level={3}>{koi.name}</Title>
+                    <p>{koi.description}</p>
                 </div>
             </div>
 
@@ -97,7 +101,7 @@ const EvaluateKoi = () => {
                         style={{ marginBottom: '20px' }}
                     />
                     <Form.Item label="Average Score">
-                        <InputNumber value={averageScore.toFixed(1)} disabled />
+                        <InputNumber value={averageScore.toFixed(0)} disabled />
                     </Form.Item>
                     <Form.Item label="Comments" name="comment" rules={[{ required: true, message: 'Please enter your comments' }]}>
                         <Input.TextArea rows={4} />
