@@ -17,6 +17,7 @@ export const API_PATHS = {
     REGISTER_KOI: "/api/koiFish/register",
     KOI_VARIETY: "/api/variety",
     GET_USER_KOI: '/api/member/koi-fish',
+    GET_CONTEST_REGISTRATION: '/api/member/registration',
 
     //CATEGORY API
     CREATE_CATEGORY: "/api/category/create",

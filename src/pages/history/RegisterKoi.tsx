@@ -9,7 +9,11 @@ import { CustomBreadcrumb } from "@/components";
 import { formartedDate } from "../../utils";
 import { useForm } from "antd/es/form/Form";
 
-const RegisterKoiy: React.FC = () => {
+interface RegisterKoiyProps {
+    activeTab: string;
+}
+
+const RegisterKoiy: React.FC<RegisterKoiyProps> = ({ activeTab }) => {
     const [dataKois, setDataKois] = useState<KoiEntry[]>([]);
     const [searchText, setSearchText] = useState<string>("");
     const [form] = useForm();
@@ -23,6 +27,12 @@ const RegisterKoiy: React.FC = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const debouncedSearchTerm = useDebounce(searchText, 500);
+
+    useEffect(() => {
+        if (activeTab === "2") {
+            fetchKois();
+        }
+    }, [activeTab, debouncedSearchTerm, pagination.current, pagination.pageSize]);
 
     useEffect(() => {
         fetchKois();
@@ -132,9 +142,6 @@ const RegisterKoiy: React.FC = () => {
 
     return (
         <div className="px-24">
-            <div className="flex justify-between items-center ">
-                <CustomBreadcrumb />
-            </div>
             <Space>
                 <Input.Search
                     placeholder="Search By Name"

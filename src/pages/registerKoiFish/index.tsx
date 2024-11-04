@@ -115,7 +115,7 @@ function RegisterKoiPage() {
 		<>
 			<div className='text-red-900 font-bold text-5xl text-center w-full py-10'>
 				REGISTER YOUR KOI HERE
-				<p className='font-medium text-xl'>Add your koi entries here and pay $5/entry fee.</p>
+				{/* <p className='font-medium text-xl'>Add your koi entries here and pay $5/entry fee.</p> */}
 			</div>
 			<h1 className='text-4xl font-bold text-center'>6th Koi Show: Add Koi Entry - Single Koi Entry</h1>
 			<div className='flex justify-center gap-10'>

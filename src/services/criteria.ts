@@ -11,7 +11,18 @@ export const createCriteria = async (criteriaData: Criteria) => {
 
 export const getCriterias = async () => {
     try {
-        const response = await BaseService.get({ url: API_PATHS.GET_CRITERIAS });
+        const response = await BaseService.post({
+            url: API_PATHS.GET_CRITERIAS, payload: {
+                searchCondition: {
+                    keyword: "",
+                    isDeleted: false,
+                },
+                pageInfo: {
+                    pageNum: 1,
+                    pageSize: 10,
+                }
+            }
+        });
         return response;
     } catch (error) {
         console.log(error);

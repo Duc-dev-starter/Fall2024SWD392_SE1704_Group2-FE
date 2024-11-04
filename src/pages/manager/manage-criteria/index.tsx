@@ -49,7 +49,7 @@ const ManageCriteria: React.FC = () => {
 		try {
 			const responseCriteria = await getCriterias();
 			console.log(responseCriteria);
-			const sortedCriterias = responseCriteria.data.sort((a: Criteria, b: Criteria) => {
+			const sortedCriterias = responseCriteria.data.pageData.sort((a: Criteria, b: Criteria) => {
 				const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
 				const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
 				return dateB - dateA;
