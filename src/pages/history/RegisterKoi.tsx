@@ -157,6 +157,8 @@ const RegisterKoiy: React.FC<RegisterKoiyProps> = ({ activeTab }) => {
             <Table
                 columns={columns}
                 dataSource={dataKois}
+                pagination={false}
+
                 rowKey="id"
                 onRow={(record) => ({
                     onClick: () => handleRowClick(record), // Handle row click

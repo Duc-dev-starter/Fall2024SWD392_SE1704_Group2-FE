@@ -11,10 +11,10 @@ import { CustomBreadcrumb, DescriptionFormItem, LoadingOverlay, NameFormItem } f
 import { formartedDate } from "../../../utils/timeHelpers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { createConstest, getCategories, getContests, getCriterias, deleteContest } from "../../../services";
+import { createConstest, getCategories, getContests, getCriterias, deleteContest, getUsers } from "../../../services";
 import { Option } from "antd/es/mentions";
 import dayjs from "dayjs";
-import { Category, Contest } from "../../../models";
+import { Category, Contest, User } from "../../../models";
 
 const ManageContest: React.FC = () => {
 	const [dataContest, setDataContest] = useState<Contest[]>([]);
@@ -27,13 +27,15 @@ const ManageContest: React.FC = () => {
 	const [criteria, setCriteria] = useState([]);
 	const [criterias, setCriterias] = useState([{ id: '', percentage: '' }]);
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	const [selectedStatus, setSelectedStatus] = useState(null);
+	const [selectedStatus, setSelectedStatus] = useState('');
 	const [categories, setCategories] = useState([]);
 	const [rules, setRules] = useState(['']); // Initial state for rules
 	const [categorieContest, setCategorieContest] = useState([{ id: '' }])
 	const maxRows = 100; // Maximum number of criteria rows
 	const maxRules = 100; // Maximum number of rules (optional)
 	const debouncedSearchTerm = useDebounce(searchText, 500);
+	const [referee, setReferee] = useState<User[]>([]);
+	const [staff, setStaff] = useState<User[]>([]);
 
 	useEffect(() => {
 		fetchContest();
@@ -97,6 +99,26 @@ const ManageContest: React.FC = () => {
 		total: 0,
 	});
 
+	const fetchReferee = useCallback(async () => {
+		try {
+			const response = await getUsers('', 'Referee');
+			setReferee(response.data.pageData);
+
+		} catch (error) {
+			console.error("Error fetching criteria:", error);
+		}
+	}, [])
+
+	const fetchStaff = useCallback(async () => {
+		try {
+			const response = await getUsers('', 'Staff');
+			setStaff(response.data.pageData);
+
+		} catch (error) {
+			console.error("Error fetching criteria:", error);
+		}
+	}, [])
+
 
 	const fetchCriterias = useCallback(async () => {
 		try {
@@ -109,14 +131,17 @@ const ManageContest: React.FC = () => {
 		}
 	}, [])
 
+
+
 	useEffect(() => {
 		fetchCriterias();
 	}, [isModalVisible])
 
 	const fetchContest = useCallback(async () => {
 		try {
-			const responseContest = await getContests(debouncedSearchTerm, '', '', pagination.current, pagination.pageSize);
-			console.log(responseContest);
+			const responseContest = await getContests(debouncedSearchTerm, selectedStatus, selectedCategory, pagination.current, pagination.pageSize);
+			console.log(selectedStatus);
+			console.log(selectedCategory);
 
 			setDataContest(responseContest.data.pageData || responseContest.data);
 			setPagination((prev) => ({
@@ -128,17 +153,12 @@ const ManageContest: React.FC = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [pagination.current, debouncedSearchTerm, pagination.pageSize, searchText]);
+	}, [pagination.current, debouncedSearchTerm, pagination.pageSize, selectedCategory, selectedStatus]);
 
 	useEffect(() => {
 		fetchContest();
-	}, [fetchContest, searchText]);
+	}, [fetchContest, searchText, selectedCategory, selectedStatus]);
 
-	useEffect(() => {
-		fetchCategories();
-		fetchCriterias();
-		fetchContest();
-	}, [fetchContest]);
 	const handleCategoryChange = (value) => {
 		setSelectedCategory(value);
 		setPagination((prev) => ({ ...prev, current: 1 }));
@@ -399,6 +419,7 @@ const ManageContest: React.FC = () => {
 	};
 
 	const handleStatusChange = (value) => {
+		console.log(value)
 		setSelectedStatus(value);
 		setPagination((prev) => ({ ...prev, current: 1 }));
 		fetchContest();
