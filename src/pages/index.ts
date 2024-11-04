@@ -15,7 +15,8 @@ export { default as DashboardLayout } from '../layouts/dashboard/Dashboard'
 export { default as RegisterKoi } from './registerKoiFish'
 export { default as SuccessPage } from './payout/success'
 export { default as CancelPage } from './payout/cancel'
-export {default as History} from './history'
+export { default as History } from './history'
+export { default as ContestPage } from './contest'
 
 
 // manager page exports
@@ -30,7 +31,7 @@ export { default as ManageBlogs } from './manager/manage-blog'
 export { default as RefereeDashboard } from './referee/dashboard'
 export { default as RefereeCompetition } from './referee/competition'
 export { default as RefereeScored } from './referee/scored-koi'
-export {default as EvaluateKoi} from './referee/evaluate'
+export { default as EvaluateKoi } from './referee/evaluate'
 
 // staff page exports
 export { default as StaffDashboard } from './staff/dashboard'

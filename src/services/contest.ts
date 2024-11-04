@@ -10,7 +10,7 @@ import { BaseService } from "./BaseService"
 
 
 export const getContests = async (
-	status: "UpComing" | "Completed" | "Ongoing ",
+	status: "UpComing" | "Completed" | "Ongoing",
 	pageNum: number = 1,
 	pageSize: number = 10
 ) => {

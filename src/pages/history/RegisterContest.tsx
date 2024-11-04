@@ -8,7 +8,12 @@ import { KoiEntry } from "../../models/KoiEntry";
 import { formartedDate } from "../../utils";
 import { useTranslation } from "react-i18next";
 
-const RegisterContest: React.FC = () => {
+interface RegisterContestProps {
+    activeTab: string;
+}
+
+
+const RegisterContest: React.FC<RegisterContestProps> = () => {
     const [dataContest, setDataContest] = useState([]);
     const [searchText, setSearchText] = useState<string>("");
     const [pagination, setPagination] = useState<TablePaginationConfig>({

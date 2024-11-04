@@ -94,8 +94,11 @@ const ManageContest: React.FC = () => {
 	const fetchCriterias = async () => {
 		try {
 			const responseCriteria = await getCriterias();
-			setCriteria(responseCriteria.data);
-			console.log(criteria);
+			console.log('====================================');
+			console.log("response criteria", responseCriteria);
+			console.log('====================================');
+			setCriteria(responseCriteria.data.pageData);
+			console.log("this is criteria", criteria);
 
 		} catch (error) {
 			console.error("Error fetching criteria:", error);
@@ -127,6 +130,12 @@ const ManageContest: React.FC = () => {
 		fetchContest();
 	}, [fetchContest, searchText]);
 
+	useEffect(() => {
+		fetchCategories();
+		fetchCriterias();
+		fetchContest();
+	}, [fetchContest]);
+
 	const handleOpenModal = useCallback(() => {
 		form.resetFields();
 		setIsModalVisible(true);
@@ -137,6 +146,7 @@ const ManageContest: React.FC = () => {
 		await deleteContest(id);
 		message.success(`Contest ${name} deleted successfully.`);
 		await fetchCategories();
+		await fetchContest();
 	};
 
 	// const updateContest = useCallback(
@@ -441,9 +451,10 @@ const ManageContest: React.FC = () => {
 											setCriterias(newCriteria);
 										}}
 									>
-										{/* Replace this with your actual criteria options */}
-										{criteria.map((criteria, index) => (
-											<Option value={criteria.id}>{criteria.name}</Option>
+										{criteria.map((item, index) => (
+											<Option key={item.id} value={item.id}>
+												{item.name}
+											</Option>
 										))}
 									</Select>
 								</Form.Item>

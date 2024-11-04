@@ -8,7 +8,7 @@ import {
     ManagerDashboard, ManagerUsers, ManagerCategory,
     Managecompetition, ContestRegistration, ContestReport, ManageBlogs,
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, RegisterKoi, ManageContest, ManageCriteria,
-    CancelPage, SuccessPage, History, EvaluateKoi
+    CancelPage, SuccessPage, History, EvaluateKoi, ContestPage
 } from "@/pages";
 import RegistrationContest from '../pages/registration';
 
@@ -27,13 +27,14 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.SUCCESS} element={< SuccessPage />} />
             <Route path={PATHS.CANCEL} element={<CancelPage />} />
             <Route path={PATHS.USER_HISTORY} element={<History />} />
+            <Route path={PATHS.CONTEST} element={<ContestPage />} />
 
 
 
             {/* MEMBER ROUTE */}
             <Route path={PATHS.CHANGE_PASSWORD} element={<ChangePassword />} />
             <Route path={PATHS.USER_PROFILE} element={<Profile />} />
-            <Route path='/contest-registration' element={<RegistrationContest />} />
+            <Route path='/contest-registration/:id' element={<RegistrationContest />} />
 
             {/* MANAGER ROUTE */}
             <Route path={PATHS.MANAGER} element={canAccess([ROLES.MANAGER]) ? <DashboardLayout /> : <Navigate to={PATHS.NOTFOUND} />}> {/* Layout */}

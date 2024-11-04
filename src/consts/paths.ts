@@ -6,6 +6,7 @@ export const PATHS = {
     BLOG_DETAIL: '/blog/:id',
     INTERNAL_SERVER_ERROR: '/500',
     NOTFOUND: '/404',
+    CONTEST: '/contest',
     FORGOT_PASSWORD: '/forgot-password',
     LOGIN: '/login',
     CHANGE_PASSWORD: '/change-password',

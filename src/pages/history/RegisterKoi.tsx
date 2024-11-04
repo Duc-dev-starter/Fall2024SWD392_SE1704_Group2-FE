@@ -133,7 +133,7 @@ const RegisterKoiy: React.FC<RegisterKoiyProps> = ({ activeTab }) => {
             dataIndex: "koiImages",
             render: (images: string[]) => (
                 <Image
-                    src={images[0]}
+                    src={images[0]?.imageUrl}
                     alt="Koi fish"
                     width={50}
                     height={50}
@@ -203,7 +203,7 @@ const RegisterKoiy: React.FC<RegisterKoiyProps> = ({ activeTab }) => {
                             {selectedKoi?.koiImages?.map((image, index) => (
                                 <Image
                                     key={index}
-                                    src={image}
+                                    src={image?.imageUrl}
                                     width={100}
                                     height={100}
                                     style={{ objectFit: "cover" }}

@@ -175,9 +175,7 @@ function RegisterKoiPage() {
 							</Radio.Group>
 						</Form.Item>
 
-						<Form.Item label="Koi Image" name="koiFishs" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-
-
+						<Form.Item label="Koi Image" name="koiImages" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
 							<Upload
 								action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
 								listType="picture-card"
