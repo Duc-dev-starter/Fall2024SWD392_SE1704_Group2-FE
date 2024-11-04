@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
         }
         if (location.pathname.includes(ROLES.STAFF)) {
             setItems([
-                getItem('Competition', '/staff/competition', <DesktopOutlined />),
+                getItem('Round Assign', '/staff/competition', <DesktopOutlined />),
                 getItem('Contest Registration', '/staff/contest-registration', <UserOutlined />),
                 getItem('Contest Report', '/staff/report', <UserOutlined />),
             ])

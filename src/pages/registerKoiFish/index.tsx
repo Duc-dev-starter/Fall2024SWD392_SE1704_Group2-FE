@@ -6,6 +6,7 @@ import { getBase64, uploadFile } from "../../utils";
 import { PlusOutlined } from '@ant-design/icons';
 import { getVariety, registerKoiFish } from '../../services/koiFish';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -17,6 +18,7 @@ function RegisterKoiPage() {
 	const [previewImage, setPreviewImage] = useState("");
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
 	const [variety, setVariety] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		fetchVariety();
@@ -58,8 +60,8 @@ function RegisterKoiPage() {
 				}
 			}
 
-			values.koiFishs = imageUrls;
-
+			values.koiImages = imageUrls;
+			navigate('/history');
 			console.log("Final values with image URLs (array):", values.koiFishs);
 		}
 		console.log('====================================');

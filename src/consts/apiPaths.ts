@@ -46,6 +46,9 @@ export const API_PATHS = {
     GET_CRITERIAS: "/api/criteria/search",
     GET_UPDATE_DELETE_CRITERIA: "/api/criteria",
 
+    // STAFF API
+    STAFF_CHECK_IN_LIST: "/api/round/check-in-list",
+
 
     // Dashboard 
     DASHBOARD_COUNT: "/api/dashboard/count",
