@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Space, Table, Pagination } from "antd";
+import { Input, Space, Table, Tabs, Pagination } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import type { TablePaginationConfig } from "antd/es/table/interface";
 import { useDebounce } from "@/hooks";
@@ -7,11 +7,7 @@ import { getContestRegistration } from "../../services/koiFish";
 import { KoiEntry } from "../../models/KoiEntry";
 import { formartedDate } from "../../utils";
 
-interface RegisterContestProps {
-    activeTab: string; // Add the activeTab prop type
-}
-
-const RegisterContest: React.FC<RegisterContestProps> = ({ activeTab }) => {
+const RegisterContest: React.FC = () => {
     const [dataContest, setDataContest] = useState([]);
     const [searchText, setSearchText] = useState<string>("");
     const [pagination, setPagination] = useState<TablePaginationConfig>({
@@ -19,25 +15,20 @@ const RegisterContest: React.FC<RegisterContestProps> = ({ activeTab }) => {
         pageSize: 10,
         total: 0,
     });
+    const [activeTab, setActiveTab] = useState<string>("Pending"); // Set default to pending
 
     const debouncedSearchTerm = useDebounce(searchText, 500);
 
-    useEffect(() => {
-        if (activeTab === "1") {
-            fetchContestRegistration();
-        }
-    }, [activeTab, debouncedSearchTerm, pagination.current, pagination.pageSize]);
-
-
+    // Fetch contest data based on the active tab (status)
     useEffect(() => {
         fetchContestRegistration();
-    }, [debouncedSearchTerm, pagination.current, pagination.pageSize]);
+    }, [activeTab, debouncedSearchTerm, pagination.current, pagination.pageSize]);
 
     const fetchContestRegistration = useCallback(async () => {
         try {
             const currentPage = pagination.current ?? 1;
             const pageSize = pagination.pageSize ?? 10;
-            const response = await getContestRegistration(status, searchText, currentPage, pageSize);
+            const response = await getContestRegistration(activeTab, searchText, currentPage, pageSize); // Use activeTab as the status
             const sortedKois = response.pageData.sort((a: KoiEntry, b: KoiEntry) => {
                 const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
                 const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
@@ -53,7 +44,7 @@ const RegisterContest: React.FC<RegisterContestProps> = ({ activeTab }) => {
         } catch (error) {
             console.log(error);
         }
-    }, [status, searchText, pagination.current, pagination.pageSize]);
+    }, [activeTab, searchText, pagination.current, pagination.pageSize]);
 
     const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
@@ -65,6 +56,11 @@ const RegisterContest: React.FC<RegisterContestProps> = ({ activeTab }) => {
             current: page,
             pageSize: pageSize || 10,
         }));
+    };
+
+    const handleTabChange = (key: string) => {
+        setActiveTab(key); // Update the active tab (status) on change
+        setPagination({ ...pagination, current: 1 }); // Reset pagination on tab change
     };
 
     const columns = [
@@ -135,6 +131,31 @@ const RegisterContest: React.FC<RegisterContestProps> = ({ activeTab }) => {
 
     return (
         <div className="px-24">
+            <Tabs
+                defaultActiveKey="Pending"
+                activeKey={activeTab}
+                onChange={handleTabChange}
+                centered
+                tabBarStyle={{
+                    color: "#ffffff",
+                    backgroundColor: "#3b5998",
+                    fontWeight: "bold"
+                }}
+                items={[
+                    {
+                        key: "Pending",
+                        label: <span style={{ color: activeTab === "Pending" ? "#1890ff" : "#ffffff" }}>Pending</span>,
+                    },
+                    {
+                        key: "Approved",
+                        label: <span style={{ color: activeTab === "Approved" ? "#52c41a" : "#ffffff" }}>Approved</span>,
+                    },
+                    {
+                        key: "Rejected",
+                        label: <span style={{ color: activeTab === "Rejected" ? "#ff4d4f" : "#ffffff" }}>Rejected</span>,
+                    },
+                ]}
+            />
             <Space>
                 <Input.Search
                     placeholder="Search By Name"
