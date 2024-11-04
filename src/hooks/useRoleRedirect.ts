@@ -31,7 +31,7 @@ const useRoleRedirect = () => {
         break;
       case ROLES.REFEREE:
         if (!path.includes(ROLES.REFEREE) || path.includes(PATHS.LOGIN) || path.includes(PATHS.FORGOT_PASSWORD)) {
-          navigate(PATHS.REFEREE_HOME);
+          navigate('/referee/competition');
         }
         break;
       case ROLES.MANAGER:

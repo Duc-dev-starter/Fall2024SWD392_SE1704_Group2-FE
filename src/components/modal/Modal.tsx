@@ -2,7 +2,6 @@ import { GoogleLogin } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiCloseLargeLine } from "react-icons/ri";
-import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store'
 import { LoadingOverlay } from '@/components';
