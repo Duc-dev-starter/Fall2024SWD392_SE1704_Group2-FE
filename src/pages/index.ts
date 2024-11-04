@@ -30,6 +30,7 @@ export { default as ManageBlogs } from './manager/manage-blog'
 export { default as RefereeDashboard } from './referee/dashboard'
 export { default as RefereeCompetition } from './referee/competition'
 export { default as RefereeScored } from './referee/scored-koi'
+export {default as EvaluateKoi} from './referee/evaluate'
 
 // staff page exports
 export { default as StaffDashboard } from './staff/dashboard'

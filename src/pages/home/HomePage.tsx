@@ -6,7 +6,7 @@ import { useScrollPosition } from '@/hooks';
 import { SectionProps } from '@interfaces';
 import { images } from '@/assets'
 import { Link } from 'react-router-dom';
-import { ContestComponent, ListSponsors } from '../../components';
+import { ContestComponent, ListBlogs, ListSponsors } from '../../components';
 import { PATHS } from '../../consts';
 
 const Section = ({ title, subtitle, description, imageFirst = false, bg = 'bg-white', imageLink, style }: SectionProps) => (
@@ -82,6 +82,7 @@ const HomePage: React.FC = () => {
             <ContestComponent />
 
             <ListSponsors />
+            <ListBlogs />
         </>
     )
 }

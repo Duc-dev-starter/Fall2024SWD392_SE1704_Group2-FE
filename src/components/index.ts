@@ -18,3 +18,4 @@ export { EmailFormItem, PasswordFormItem, ButtonFormItem, NameFormItem, VideoFor
 export { default as RoleTags } from './roleTags'
 export { default as ContestComponent } from './contest'
 export { default as ListSponsors } from './sponsor'
+export { default as ListBlogs } from './blog'

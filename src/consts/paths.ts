@@ -45,4 +45,5 @@ export const PATHS = {
     STAFF_REGISTRATION: 'contest-registration',
     STAFF_COMPETITION: 'competition',
     STAFF_REPORT: 'report',
+    STAFF_EVALUATE: 'evaluate'
 }

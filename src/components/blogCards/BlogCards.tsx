@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { BlogCardsProps } from "@/interfaces";
 import { Blog } from "@/models";
+import { formartedDate } from '../../utils/timeHelpers/index';
 
 const BlogCards: React.FC<BlogCardsProps> = ({ blogs, currentPage, selectedCategory, pageSize }) => {
     const { t } = useTranslation();
@@ -29,7 +30,7 @@ const BlogCards: React.FC<BlogCardsProps> = ({ blogs, currentPage, selectedCateg
                         {blog.manager.name}
                     </p>
                     <p className='text-sm text-gray-500'>
-                        {t('blog_published', { date: new Date(blog.created_at).toLocaleDateString() })}
+                        {t('blog_published')}: {formartedDate(blog.createdAt)}
                     </p>
                 </Link>
             ))}

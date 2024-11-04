@@ -93,7 +93,7 @@ export const handleNavigateRole = async (token: string, navigate: ReturnType<typ
       navigate(PATHS.MANAGER_HOME);
       break;
     case ROLES.REFEREE:
-      navigate(PATHS.REFEREE_HOME);
+      navigate(PATHS.REFEREE_COMPETITION);
       break;
     case ROLES.STAFF:
       navigate(PATHS.STAFF_HOME);
