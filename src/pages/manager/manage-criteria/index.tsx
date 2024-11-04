@@ -80,11 +80,14 @@ const ManageCriteria: React.FC = () => {
 
 				const criteriaData = { ...values };
 				const response = await createCriteria(criteriaData);
-				const newCriteria = response.data.data;
-				setDataCriterias((prevData) => [newCriteria, ...prevData]);
+				console.log('====================================');
+				console.log("add new response", response);
+				console.log('====================================');
+				// const newCriteria = response.data.data;
+				// setDataCriterias((prevData) => [newCriteria, ...prevData]);
 				setIsModalVisible(false);
 				form.resetFields();
-				fetchCriterias();
+				await fetchCriterias();
 			} catch (error) {
 				console.log(error);
 			}
