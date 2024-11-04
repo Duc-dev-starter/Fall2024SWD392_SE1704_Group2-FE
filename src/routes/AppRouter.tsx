@@ -28,6 +28,7 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.CANCEL} element={<CancelPage />} />
             <Route path={PATHS.USER_HISTORY} element={<History />} />
             <Route path={PATHS.CONTEST} element={<ContestPage />} />
+            <Route path={PATHS.INTERNAL_SERVER_ERROR} element={<InternalServerError />} />
 
 
 

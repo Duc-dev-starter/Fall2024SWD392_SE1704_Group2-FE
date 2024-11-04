@@ -9,26 +9,36 @@ export const createCriteria = async (criteriaData: Criteria) => {
     return response;
 }
 
-export const getCriterias = async () => {
+export const getCriterias = async (keyword: string = "",
+	pageNum: number = 1,
+	pageSize: number = 10) => {
     try {
         const response = await BaseService.post({
             url: API_PATHS.GET_CRITERIAS, payload: {
                 searchCondition: {
-                    keyword: "",
-                    isDeleted: false,
-                },
-                pageInfo: {
-                    pageNum: 1,
-                    pageSize: 10,
-                }
+					keyword: keyword || "",
+					isDeleted: false
+				},
+				pageInfo: {
+					pageNum: pageNum,
+					pageSize: pageSize,
+				},
             }
         });
         return response;
     } catch (error) {
         console.log(error);
         return {
-            data: []
-        }
+			data: {
+				pageInfo: {
+					totalItems: 0,
+					totalPages: 0,
+					pageNum,
+					pageSize
+				},
+				pageData: []
+			}
+		}
     };
 }
 

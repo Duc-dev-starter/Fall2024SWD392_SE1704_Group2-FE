@@ -47,7 +47,7 @@ const ManageCriteria: React.FC = () => {
 
 	const fetchCriterias = useCallback(async () => {
 		try {
-			const responseCriteria = await getCriterias();
+			const responseCriteria = await getCriterias(debouncedSearch, pagination.current, pagination.pageSize);
 			console.log(responseCriteria);
 			const sortedCriterias = responseCriteria.data.pageData.sort((a: Criteria, b: Criteria) => {
 				const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
@@ -57,6 +57,12 @@ const ManageCriteria: React.FC = () => {
 			console.log(sortedCriterias);
 
 			setDataCriterias(sortedCriterias);
+			setPagination({
+				...pagination,
+				total: responseCriteria.data.pageInfo.totalItems,
+				current: responseCriteria.data.pageInfo.pageNum,
+				pageSize: responseCriteria.data.pageInfo.pageSize,
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -233,11 +239,6 @@ const ManageCriteria: React.FC = () => {
 					enterButton={<SearchOutlined className="text-white" />}
 				/>
 
-
-				<Select value={selectedStatus} onChange={handleStatus} className="w-full mt-2 md:w-32 md:mt-0 md:ml-2">
-					<Select.Option value="true">Active</Select.Option>
-					<Select.Option value="false">Inactive</Select.Option>
-				</Select>
 
 			</Space>
 
