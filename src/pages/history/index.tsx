@@ -10,19 +10,27 @@ const History: React.FC = () => {
         setActiveTab(key);
     };
 
+    const items = [
+        {
+            key: '1',
+            label: 'Registered Contest',
+            children: <RegisterContest activeTab={activeTab} />, // Render the content for this tab
+        },
+        {
+            key: '2',
+            label: 'Registered Koi',
+            children: <RegisterKoi activeTab={activeTab} />, // Render the content for this tab
+        },
+    ];
+
+
     return (
         <Tabs
             activeKey={activeTab}
             onChange={handleTabChange}
             centered
-        >
-            <Tabs.TabPane tab="Registered Contest" key="1">
-                <RegisterContest activeTab={activeTab} /> {/* Pass activeTab prop */}
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Registered Koi" key="2">
-                <RegisterKoi activeTab={activeTab} /> {/* Pass activeTab prop */}
-            </Tabs.TabPane>
-        </Tabs>
+            items={items}
+        />
     );
 };
 
