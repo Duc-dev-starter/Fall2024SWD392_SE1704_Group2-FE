@@ -3,7 +3,6 @@ import { API_PATHS } from "../consts";
 import { User } from "../models";
 import { BaseService } from "./BaseService";
 import { UserRole } from "../models/User";
-import { getUserFromLocalStorage } from "../utils";
 import { ValuesChangePassword } from "../interfaces";
 
 

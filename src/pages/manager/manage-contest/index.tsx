@@ -11,10 +11,10 @@ import { CustomBreadcrumb, DescriptionFormItem, LoadingOverlay, NameFormItem } f
 import { formartedDate } from "../../../utils/timeHelpers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { createConstest, getCategories, getContests, getCriterias, deleteContest } from "../../../services";
+import { createConstest, getCategories, getContests, getCriterias, deleteContest, getUsers } from "../../../services";
 import { Option } from "antd/es/mentions";
 import dayjs from "dayjs";
-import { Category, Contest } from "../../../models";
+import { Category, Contest, User } from "../../../models";
 
 const ManageContest: React.FC = () => {
 	const [dataContest, setDataContest] = useState<Contest[]>([]);
@@ -34,6 +34,8 @@ const ManageContest: React.FC = () => {
 	const maxRows = 100; // Maximum number of criteria rows
 	const maxRules = 100; // Maximum number of rules (optional)
 	const debouncedSearchTerm = useDebounce(searchText, 500);
+	const [referee, setReferee] = useState<User[]>([]);
+	const [staff, setStaff] = useState<User[]>([]);
 
 	useEffect(() => {
 		fetchContest();
@@ -97,6 +99,26 @@ const ManageContest: React.FC = () => {
 		total: 0,
 	});
 
+	const fetchReferee = useCallback(async () => {
+		try {
+			const response = await getUsers('', 'Referee');
+			setReferee(response.data.pageData);
+
+		} catch (error) {
+			console.error("Error fetching criteria:", error);
+		}
+	}, [])
+
+	const fetchStaff = useCallback(async () => {
+		try {
+			const response = await getUsers('', 'Staff');
+			setStaff(response.data.pageData);
+
+		} catch (error) {
+			console.error("Error fetching criteria:", error);
+		}
+	}, [])
+
 
 	const fetchCriterias = useCallback(async () => {
 		try {
@@ -108,6 +130,8 @@ const ManageContest: React.FC = () => {
 			console.error("Error fetching criteria:", error);
 		}
 	}, [])
+
+
 
 	useEffect(() => {
 		fetchCriterias();
