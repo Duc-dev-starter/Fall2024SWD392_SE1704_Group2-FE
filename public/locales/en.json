@@ -111,5 +111,7 @@
     "koi_dob": "Date of Birth",
     "koi_create": "Created Date",
     "koi_update": "Updated Date",
-    "koi_image": "Image"
+    "koi_image": "Image",
+    "view_regis": "View Registration",
+    "view_koi": "View All Koi"
 }

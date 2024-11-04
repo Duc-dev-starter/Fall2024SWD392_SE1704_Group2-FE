@@ -144,7 +144,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
-                        View Registration
+                        {t('view_regis')}
                     </Link>
                 ),
                 key: '2',
@@ -153,7 +153,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
-                        View All Koi
+                        {t('view_koi')}
                     </Link>
                 ),
                 key: '3',

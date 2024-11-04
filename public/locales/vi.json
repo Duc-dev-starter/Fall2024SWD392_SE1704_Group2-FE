@@ -100,6 +100,7 @@
     "pending": "Đang chờ xử lý",
     "approved": "Đã phê duyệt",
     "rejected": "Đã từ chối",
+    "process_by": "Nhân Viên Xử Lý",
     "name_registered": "Tên đã đăng ký",
     "koi_registered": "Cá Koi đã đăng ký",
     "status": "Trạng thái đăng ký",
@@ -110,5 +111,7 @@
     "koi_dob": "Ngày Sinh",
     "koi_create": "Ngày đăng ký",
     "koi_update": "Ngày cập nhật",
-    "koi_image": "Hình ảnh"
+    "koi_image": "Hình ảnh",
+    "view_regis": "Lịch sử đăng ký",
+    "view_koi": "Koi đã đăng ký"
 }
