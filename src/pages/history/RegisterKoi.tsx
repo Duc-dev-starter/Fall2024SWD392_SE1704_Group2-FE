@@ -8,6 +8,7 @@ import { useDebounce } from "@/hooks";
 import { CustomBreadcrumb } from "@/components";
 import { formartedDate } from "../../utils";
 import { useForm } from "antd/es/form/Form";
+import { useTranslation } from "react-i18next";
 
 interface RegisterKoiyProps {
     activeTab: string;
@@ -22,6 +23,8 @@ const RegisterKoiy: React.FC<RegisterKoiyProps> = ({ activeTab }) => {
         pageSize: 10,
         total: 0,
     });
+
+    const { t } = useTranslation();
 
     const [selectedKoi, setSelectedKoi] = useState<KoiEntry>(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -91,41 +94,41 @@ const RegisterKoiy: React.FC<RegisterKoiyProps> = ({ activeTab }) => {
 
     const columns = [
         {
-            title: "Name",
+            title: t('koi_register_name'),
             dataIndex: "name",
             key: "name",
         },
         {
-            title: "Variety",
+            title: t('koi_variety'),
             dataIndex: "varietyName",
             key: "varietyName",
         },
         {
-            title: "Size",
+            title: t('size'),
             dataIndex: "size",
             key: "size",
             render: (size: number) => `${size} cm`,
         },
         {
-            title: "Date of Birth",
+            title: t('koi_dob'),
             dataIndex: "dateOfBirth",
             key: "dateOfBirth",
             render: (dateOfBirth: Date) => formartedDate(dateOfBirth),
         },
         {
-            title: "Created Date",
+            title: t('koi_create'),
             dataIndex: "createdAt",
             key: "createdAt",
             render: (createdAt: Date) => formartedDate(createdAt),
         },
         {
-            title: "Updated Date",
+            title: t('koi_update'),
             dataIndex: "updatedAt",
             key: "updatedAt",
             render: (updatedAt: Date) => formartedDate(updatedAt),
         },
         {
-            title: "Image",
+            title: t('koi_image'),
             key: "koiImages",
             dataIndex: "koiImages",
             render: (images: string[]) => (

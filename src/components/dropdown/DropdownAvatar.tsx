@@ -8,10 +8,12 @@ import { RiFeedbackLine, RiLockPasswordLine } from 'react-icons/ri';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { DropdownAvatarProps } from '../../interfaces';
 import { avatarReplace, PATHS, ROLES } from '../../consts';
+import { useTranslation } from 'react-i18next';
 
 
 const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const items: MenuProps['items'] = dataUser.role === ROLES.REFEREE || dataUser.role === ROLES.STAFF
         ? [
@@ -47,7 +49,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
-                        View History
+                        {t('view_history')}
                     </Link>
                 ),
                 key: '2',
@@ -57,7 +59,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                     <Link className="text-lg mb-0" to={PATHS.CHANGE_PASSWORD}>
                         <div className="flex items-center">
                             <RiLockPasswordLine className="text-center text-[1.5rem] mr-3 ml-[-3px]" />
-                            Change Password
+                            {t('change_pass')}
                         </div>
                     </Link>
                 ),
@@ -71,7 +73,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                             className="text-lg hover:cursor-pointer mb-0"
                         >
                             <LogoutOutlined className="mr-4" />
-                            Sign out
+                            {t('sign_out')}
                         </p>
                     </div>
                 ),
@@ -82,7 +84,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link to="/settings" className="text-lg mb-0 flex">
                         <IoSettingsOutline className="text-center mr-4 text-[1.3rem] mt-1" />
-                        Settings
+                        {t('setting')}
                     </Link>
                 ),
                 key: '6',
@@ -93,7 +95,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                     <Link to="/help" className="text-lg mb-0">
                         <div className="flex items-center">
                             <BiHelpCircle className="text-center text-[1.5rem] mr-4 mt-[0.1rem]" />
-                            Help
+                            {t('help')}
                         </div>
                     </Link>
                 ),
@@ -104,7 +106,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                     <Link to="/feedback" className="text-lg mb-0">
                         <div className="flex items-center">
                             <RiFeedbackLine className="text-center text-[1.5rem] mr-4 mt-1" />
-                            Feedback
+                            {t('feed')}
                         </div>
                     </Link>
                 ),
@@ -144,7 +146,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
-                        View History
+                        {t('view_history')}
                     </Link>
                 ),
                 key: '2',
@@ -154,7 +156,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                     <Link className="text-lg mb-0" to={PATHS.CHANGE_PASSWORD}>
                         <div className="flex items-center">
                             <RiLockPasswordLine className="text-center text-[1.5rem] mr-3 ml-[-3px]" />
-                            Change Password
+                            {t('change_pass')}
                         </div>
                     </Link>
                 ),
@@ -168,7 +170,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                             className="text-lg hover:cursor-pointer mb-0"
                         >
                             <LogoutOutlined className="mr-4" />
-                            Sign out
+                            {t('sign_out')}
                         </p>
                     </div>
                 ),
@@ -179,7 +181,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link to="/settings" className="text-lg mb-0 flex">
                         <IoSettingsOutline className="text-center mr-4 text-[1.3rem] mt-1" />
-                        Settings
+                        {t('setting')}
                     </Link>
                 ),
                 key: '6',
@@ -190,7 +192,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                     <Link to="/help" className="text-lg mb-0">
                         <div className="flex items-center">
                             <BiHelpCircle className="text-center text-[1.5rem] mr-4 mt-[0.1rem]" />
-                            Help
+                            {t('help')}
                         </div>
                     </Link>
                 ),
@@ -201,7 +203,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                     <Link to="/feedback" className="text-lg mb-0">
                         <div className="flex items-center">
                             <RiFeedbackLine className="text-center text-[1.5rem] mr-4 mt-1" />
-                            Feedback
+                            {t('feed')}
                         </div>
                     </Link>
                 ),

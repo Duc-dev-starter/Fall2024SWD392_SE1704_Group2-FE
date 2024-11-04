@@ -6,6 +6,7 @@ import { useDebounce } from "@/hooks";
 import { getContestRegistration } from "../../services/koiFish";
 import { KoiEntry } from "../../models/KoiEntry";
 import { formartedDate } from "../../utils";
+import { useTranslation } from "react-i18next";
 
 const RegisterContest: React.FC = () => {
     const [dataContest, setDataContest] = useState([]);
@@ -16,6 +17,7 @@ const RegisterContest: React.FC = () => {
         total: 0,
     });
     const [activeTab, setActiveTab] = useState<string>("Pending"); // Set default to pending
+    const { t } = useTranslation();
 
     const debouncedSearchTerm = useDebounce(searchText, 500);
 
@@ -65,33 +67,33 @@ const RegisterContest: React.FC = () => {
 
     const columns = [
         {
-            title: "Contest",
+            title: t('contest'),
             dataIndex: "contestName",
             key: "contestName",
         },
         {
-            title: "Name Registered",
+            title: t('name_registered'),
             key: "displayName",
             dataIndex: "displayName",
         },
         {
-            title: "Process By",
+            title: t('process_by'),
             dataIndex: "staffName",
             key: "staffName",
         },
         {
-            title: "Fish Registered",
+            title: t('koi_registered'),
             dataIndex: "fish",
             key: "fish",
             render: (fishKoi: { name: string }) => fishKoi?.name || 'N/A',
         },
         {
-            title: "Entry Status",
+            title: t('status'),
             dataIndex: "status",
             key: "status",
         },
         {
-            title: "Payment Status",
+            title: t('pay_status'),
             dataIndex: "paymentStatus",
             key: "paymentStatus",
         },
@@ -144,15 +146,15 @@ const RegisterContest: React.FC = () => {
                 items={[
                     {
                         key: "Pending",
-                        label: <span style={{ color: activeTab === "Pending" ? "#1890ff" : "#ffffff" }}>Pending</span>,
+                        label: <span style={{ color: activeTab === "Pending" ? "#1890ff" : "#ffffff" }}>{t('pending')}</span>,
                     },
                     {
                         key: "Approved",
-                        label: <span style={{ color: activeTab === "Approved" ? "#52c41a" : "#ffffff" }}>Approved</span>,
+                        label: <span style={{ color: activeTab === "Approved" ? "#52c41a" : "#ffffff" }}>{t('approved')}</span>,
                     },
                     {
                         key: "Rejected",
-                        label: <span style={{ color: activeTab === "Rejected" ? "#ff4d4f" : "#ffffff" }}>Rejected</span>,
+                        label: <span style={{ color: activeTab === "Rejected" ? "#ff4d4f" : "#ffffff" }}>{t('rejected')}</span>,
                     },
                 ]}
             />
