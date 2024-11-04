@@ -19,28 +19,26 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
         ? [
             {
                 label: (
-                    <Link to={PATHS.USER_PROFILE}>
-                        <div className="text-[0.7rem] leading-[0.5rem]">
-                            <Row>
-                                <Col span={6} className="pt-2 pb-2">
-                                    <Avatar
-                                        src={dataUser.avatar ? dataUser.avatar : avatarReplace}
-                                        className="hover:cursor-pointer mt-1 border border-black"
-                                        size={40}
-                                        icon={<UserOutlined />}
-                                    />
-                                </Col>
-                                <Col span={16} className="pt-3 pr-4 pl-1">
-                                    <Row>
-                                        <p className="text-[1.2rem] font-bold">{dataUser.name}</p>
-                                    </Row>
-                                    <div>
-                                        <p className="text-[0.875rem]">{dataUser.email}</p>
-                                    </div>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Link>
+                    <div className="text-[0.7rem] leading-[0.5rem]">
+                        <Row>
+                            <Col span={6} className="pt-2 pb-2">
+                                <Avatar
+                                    src={dataUser.avatar ? dataUser.avatar : avatarReplace}
+                                    className="hover:cursor-pointer mt-1 border border-black"
+                                    size={40}
+                                    icon={<UserOutlined />}
+                                />
+                            </Col>
+                            <Col span={16} className="pt-3 pr-4 pl-1">
+                                <Row>
+                                    <p className="text-[1.2rem] font-bold">{dataUser.name}</p>
+                                </Row>
+                                <div>
+                                    <p className="text-[0.875rem]">{dataUser.email}</p>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
                 ),
                 key: '1',
             },
@@ -146,10 +144,19 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link className="text-lg" to={PATHS.USER_HISTORY}>
                         <HistoryOutlined className="text-[1.3rem] mr-3" />
-                        {t('view_history')}
+                        View Registration
                     </Link>
                 ),
                 key: '2',
+            },
+            {
+                label: (
+                    <Link className="text-lg" to={PATHS.USER_HISTORY}>
+                        <HistoryOutlined className="text-[1.3rem] mr-3" />
+                        View All Koi
+                    </Link>
+                ),
+                key: '3',
             },
             {
                 label: (
