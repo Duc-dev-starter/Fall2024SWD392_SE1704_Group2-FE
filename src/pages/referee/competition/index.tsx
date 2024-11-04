@@ -247,7 +247,7 @@ const RefereeCompetition: React.FC = () => {
 			<Table
 				columns={columns}
 				dataSource={dataBlogs}
-				rowKey="_id"
+				rowKey={(record: Blog) => record?.id || 'unknown'}
 				onChange={handleTableChange}
 				pagination={false}
 				className="overflow-auto"

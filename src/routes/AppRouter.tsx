@@ -10,6 +10,7 @@ import {
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, RegisterKoi, ManageContest, ManageCriteria,
     CancelPage, SuccessPage, History, EvaluateKoi
 } from "@/pages";
+import RegistrationContest from '../pages/registration';
 
 const AppRouter: React.FC = () => {
     const { canAccess } = useRoleRedirect();
@@ -32,6 +33,7 @@ const AppRouter: React.FC = () => {
             {/* MEMBER ROUTE */}
             <Route path={PATHS.CHANGE_PASSWORD} element={<ChangePassword />} />
             <Route path={PATHS.USER_PROFILE} element={<Profile />} />
+            <Route path='/contest-registration' element={<RegistrationContest />} />
 
             {/* MANAGER ROUTE */}
             <Route path={PATHS.MANAGER} element={canAccess([ROLES.MANAGER]) ? <DashboardLayout /> : <Navigate to={PATHS.NOTFOUND} />}> {/* Layout */}
