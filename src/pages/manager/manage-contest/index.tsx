@@ -27,7 +27,7 @@ const ManageContest: React.FC = () => {
 	const [criteria, setCriteria] = useState([]);
 	const [criterias, setCriterias] = useState([{ id: '', percentage: '' }]);
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	const [selectedStatus, setSelectedStatus] = useState(null);
+	const [selectedStatus, setSelectedStatus] = useState('');
 	const [categories, setCategories] = useState([]);
 	const [rules, setRules] = useState(['']); // Initial state for rules
 	const [categorieContest, setCategorieContest] = useState([{ id: '' }])
@@ -115,8 +115,9 @@ const ManageContest: React.FC = () => {
 
 	const fetchContest = useCallback(async () => {
 		try {
-			const responseContest = await getContests(debouncedSearchTerm, '', '', pagination.current, pagination.pageSize);
-			console.log(responseContest);
+			const responseContest = await getContests(debouncedSearchTerm, selectedStatus, selectedCategory, pagination.current, pagination.pageSize);
+			console.log(selectedStatus);
+			console.log(selectedCategory);
 
 			setDataContest(responseContest.data.pageData || responseContest.data);
 			setPagination((prev) => ({
@@ -128,17 +129,12 @@ const ManageContest: React.FC = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [pagination.current, debouncedSearchTerm, pagination.pageSize, searchText]);
+	}, [pagination.current, debouncedSearchTerm, pagination.pageSize, selectedCategory, selectedStatus]);
 
 	useEffect(() => {
 		fetchContest();
-	}, [fetchContest, searchText]);
+	}, [fetchContest, searchText, selectedCategory, selectedStatus]);
 
-	useEffect(() => {
-		fetchCategories();
-		fetchCriterias();
-		fetchContest();
-	}, [fetchContest]);
 	const handleCategoryChange = (value) => {
 		setSelectedCategory(value);
 		setPagination((prev) => ({ ...prev, current: 1 }));
@@ -399,6 +395,7 @@ const ManageContest: React.FC = () => {
 	};
 
 	const handleStatusChange = (value) => {
+		console.log(value)
 		setSelectedStatus(value);
 		setPagination((prev) => ({ ...prev, current: 1 }));
 		fetchContest();

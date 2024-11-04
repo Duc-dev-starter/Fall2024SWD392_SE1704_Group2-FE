@@ -41,6 +41,7 @@ const RegisterContest: React.FC<RegisterContestProps> = () => {
                 const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
                 return dateB - dateA;
             });
+            console.log(sortedKois)
             setDataContest(sortedKois);
             setPagination({
                 ...pagination,
@@ -175,7 +176,8 @@ const RegisterContest: React.FC<RegisterContestProps> = () => {
             <Table
                 columns={columns}
                 dataSource={dataContest}
-                rowKey="contestId"
+                rowKey="id"
+                pagination={false}
                 expandable={{
                     expandedRowRender,
                     rowExpandable: (record) => !!record.fish,

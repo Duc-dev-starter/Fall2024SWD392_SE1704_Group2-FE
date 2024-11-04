@@ -11,7 +11,7 @@ import { BaseService } from "./BaseService"
 
 export const getContests = async (
 	keyword: string = '',
-	status: "UpComing" | "Completed" | "Ongoing " | "",
+	status: string = "",
 	categoryId: any,
 	pageNum: number = 1,
 	pageSize: number = 10
