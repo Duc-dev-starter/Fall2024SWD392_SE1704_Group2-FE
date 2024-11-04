@@ -1,36 +1,22 @@
 import { loadStripe } from '@stripe/stripe-js';
-import axios from 'axios';
 import React from 'react';
 import config from '../../secret';
+import { BaseService } from '../../services';
 
 const RegistrationContest = () => {
     const handleRegistration = async () => {
         const stripePromise = await loadStripe(config.STRIPE_PUBLIC_KEY);
 
         try {
-            // Retrieve the token from localStorage
-            const token = localStorage.getItem('token');
-
-            // Set up headers for axios
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,  // Add your token here
-            };
-
             const fakeData = {
-                "contestId": "3c46924a-4a22-49a6-9670-9894dda92463",
+                "contestId": "c11843f2-d04a-41a2-a6e1-746fbc0cb1bf",
                 "note": "I want to join this contest",
                 "displayName": "Khoi adventure",
-                "fishId": "93440ec2-ea97-470f-a23a-7d9145249987",
-                "amount": 5.32
+                "fishId": "a87abef8-64b0-4b15-8a48-1f0bf36b123a",
+                "amount": 5
             }
 
-            // Make the POST request
-            const response = await axios.post(
-                'https://localhost:7230/api/member/contest-registration',
-                fakeData, // You can pass any required data here instead of an empty object
-                { headers }
-            );
+            const response = await BaseService.post({ url: '/api/member/contest-registration', payload: fakeData })
 
             const { sessionId } = response.data;
 

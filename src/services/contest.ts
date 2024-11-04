@@ -10,7 +10,9 @@ import { BaseService } from "./BaseService"
 
 
 export const getContests = async (
-	status: "UpComing" | "Completed" | "Ongoing",
+	keyword: string = '',
+	status: "UpComing" | "Completed" | "Ongoing " | "",
+	categoryId: any,
 	pageNum: number = 1,
 	pageSize: number = 10
 ) => {
@@ -19,7 +21,9 @@ export const getContests = async (
 		const response = await BaseService.post({
 			url: API_PATHS.GET_CONTEST, payload: {
 				searchCondition: {
-					status: status,
+					keyword: keyword || "",
+					categoryId: categoryId || null,
+					status: status || "",
 					isDeleted: false
 				},
 				pageInfo: {
