@@ -36,7 +36,7 @@ export const PATHS = {
     REFEREE_LOGIN: '/referee/login',
     REFEREE_DASHBOARD: 'dashboard',
     REFEREE_COMPETITION: 'competition',
-    REFEREE_SCORE: 'score',
+    REFEREE_SCORE: 'score-koi/:roundId',
 
     // staff paths
     STAFF: '/staff/*',
@@ -46,5 +46,5 @@ export const PATHS = {
     STAFF_REGISTRATION: 'contest-registration',
     STAFF_COMPETITION: 'competition',
     STAFF_REPORT: 'report',
-    STAFF_EVALUATE: 'evaluate'
+    STAFF_EVALUATE: 'evaluate/:roundId/:id'
 }
