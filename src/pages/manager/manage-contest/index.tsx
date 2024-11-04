@@ -11,7 +11,7 @@ import { CustomBreadcrumb, DescriptionFormItem, LoadingOverlay, NameFormItem } f
 import { formartedDate } from "../../../utils/timeHelpers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { createConstest, getCategories, getContests, getCriterias, deleteContest, getUsers } from "../../../services";
+import { createConstest, getCategories, getContests, getCriterias, deleteContest, getUsers, BaseService } from "../../../services";
 import { Option } from "antd/es/mentions";
 import dayjs from "dayjs";
 import { Category, Contest, User } from "../../../models";
@@ -36,6 +36,7 @@ const ManageContest: React.FC = () => {
 	const debouncedSearchTerm = useDebounce(searchText, 500);
 	const [referee, setReferee] = useState<User[]>([]);
 	const [staff, setStaff] = useState<User[]>([]);
+	const [roundCreateOpen, setRoundCreateOpen] = useState(false);
 
 	useEffect(() => {
 		fetchContest();
@@ -118,6 +119,11 @@ const ManageContest: React.FC = () => {
 			console.error("Error fetching criteria:", error);
 		}
 	}, [])
+
+	useEffect(() => {
+		fetchReferee();
+		fetchStaff();
+	}, [roundCreateOpen])
 
 
 	const fetchCriterias = useCallback(async () => {
@@ -324,7 +330,44 @@ const ManageContest: React.FC = () => {
 		}));
 	}, [fetchCategories]);
 
+	const handleOpenRoundModal = (record) => {
+		setRoundCreateOpen(true);
+		form.setFieldsValue({
+			contestId: record.id, // Set contestId to record.id
+			startDate: null,
+			endDate: null,
+			staffId: [],
+			refereeId: [],
+		});
+	}
+
+	const handleFinish = async (values) => {
+		console.log('Form Values:', values);
+		const formattedStartDate = dayjs(values.startDate).format('MM/DD/YYYY');
+		const formattedEndDate = dayjs(values.endDate).format('MM/DD/YYYY');
+		const formattedValues = {
+			...values,
+			startDate: formattedStartDate,
+			endDate: formattedEndDate,
+		};
+
+		try {
+			const response = await BaseService.post({ url: '/api/round/create', payload: formattedValues });
+			console.log('====================================');
+			console.log(response);
+			console.log('====================================');
+		} catch (error) {
+			console.log('====================================');
+			console.log(error);
+			console.log('====================================');
+		}
+	};
 	const columns: ColumnType<Contest>[] = [
+		{
+			title: 'ID',
+			dataIndex: 'id',
+			key: 'id',
+		},
 		{
 			title: "Name",
 			dataIndex: "name",
@@ -387,6 +430,15 @@ const ManageContest: React.FC = () => {
 			key: "updatedDate",
 			width: "12%",
 			render: (updatedDate: Date) => formartedDate(updatedDate),
+		},
+		{
+			title: "Round",
+			dataIndex: "round",
+			key: "round",
+			width: "12%",
+			render: (round: string, record: Contest) => (
+				<a onClick={() => handleOpenRoundModal(record)}>View Round</a>
+			),
 		},
 		{
 			title: "Action",
@@ -614,7 +666,95 @@ const ManageContest: React.FC = () => {
 						</Form.Item>
 					</Form>
 				</Modal>
-			</div>
+
+				{/* Round Modal */}
+				<Modal
+					title="Add New Contest"
+					open={roundCreateOpen}
+					onCancel={() => {
+						form.resetFields();
+						setRoundCreateOpen(false);
+						setValidateOnOpen(false);
+					}}
+					footer={null}>
+					<Form
+						form={form}
+						layout="vertical"
+						onFinish={handleFinish}
+						initialValues={{
+							startDate: null,
+							endDate: null,
+							staffId: [],
+							refereeId: [],
+						}}
+					>
+						<Form.Item
+							label="Contest ID"
+							name="contestId"
+						>
+							<Input placeholder="Enter contest ID" />
+						</Form.Item>
+
+						<Space size="middle">
+							<Form.Item
+								label="Start Date"
+								name="startDate"
+								rules={[{ required: true, message: 'Please select the start date' }]}
+							>
+								<DatePicker format="MM/DD/YYYY" />
+							</Form.Item>
+
+							<Form.Item
+								label="End Date"
+								name="endDate"
+								rules={[{ required: true, message: 'Please select the end date' }]}
+							>
+								<DatePicker format="MM/DD/YYYY" />
+							</Form.Item>
+						</Space>
+
+						<Form.Item
+							label="Staff"
+							name="staffId"
+							rules={[{ required: true, message: 'Please select at least one staff member' }]}
+						>
+							<Select
+								mode="multiple"
+								placeholder="Select staff"
+								allowClear
+							>
+								{staff.map((staff) =>
+									<Option value={staff.id}>{staff.name}</Option>
+								)}
+							</Select>
+						</Form.Item>
+
+						<Form.Item
+							label="Referee"
+							name="refereeId"
+							rules={[{ required: true, message: 'Please select at least one referee' }]}
+						>
+							<Select
+								mode="multiple"
+								placeholder="Select referee"
+								allowClear
+							>
+								{
+									referee.map((referee) =>
+										<Option value={referee.id}>{referee.name}</Option>
+									)}
+							</Select>
+						</Form.Item>
+
+						<Form.Item>
+							<Button type="primary" htmlType="submit">
+								Create Round
+							</Button>
+						</Form.Item>
+					</Form>
+				</Modal>
+
+			</div >
 		</>
 	);
 };

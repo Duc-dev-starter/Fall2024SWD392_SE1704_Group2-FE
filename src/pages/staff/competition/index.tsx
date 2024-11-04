@@ -84,18 +84,6 @@ function EditCompetition() {
 			key: 'createdAt',
 			render: (text: string) => new Date(text).toLocaleString(),
 		},
-		{
-			title: 'Updated At',
-			dataIndex: 'updatedAt',
-			key: 'updatedAt',
-			render: (text: string) => new Date(text).toLocaleString(),
-		},
-		{
-			title: 'Deleted',
-			dataIndex: 'isDeleted',
-			key: 'isDeleted',
-			render: (isDeleted: boolean) => (isDeleted ? 'Yes' : 'No'),
-		},
 	];
 
 	return (
