@@ -8,7 +8,7 @@ import {
     ManagerDashboard, ManagerUsers, ManagerCategory,
     Managecompetition, ContestRegistration, ContestReport, ManageBlogs,
     RefereeCompetition, RefereeScored, ForgotPassword, ChangePassword, Profile, Terms, RegisterKoi, ManageContest, ManageCriteria,
-    CancelPage, SuccessPage, History, EvaluateKoi
+    CancelPage, SuccessPage, History, EvaluateKoi, InternalServerError
 } from "@/pages";
 import RegistrationContest from '../pages/registration';
 
@@ -27,6 +27,7 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.SUCCESS} element={< SuccessPage />} />
             <Route path={PATHS.CANCEL} element={<CancelPage />} />
             <Route path={PATHS.USER_HISTORY} element={<History />} />
+            <Route path={PATHS.INTERNAL_SERVER_ERROR} element={<InternalServerError />} />
 
 
 

@@ -31,6 +31,12 @@ const ManageContest: React.FC = () => {
 	const [categorieContest, setCategorieContest] = useState([{ id: '' }])
 	const maxRows = 100; // Maximum number of criteria rows
 	const maxRules = 100; // Maximum number of rules (optional)
+	const debouncedSearchTerm = useDebounce(searchText, 500);
+
+	useEffect(() => {
+		fetchContest();
+	}, [debouncedSearchTerm]);
+
 
 	const fetchCategories = async () => {
 		try {
@@ -84,17 +90,17 @@ const ManageContest: React.FC = () => {
 		setRules(newRules);
 	};
 
-	const debouncedSearchTerm = useDebounce(searchText, 500);
 	const [pagination, setPagination] = useState<TablePaginationConfig>({
 		current: 1,
 		pageSize: 10,
 		total: 0,
 	});
 
+
 	const fetchCriterias = async () => {
 		try {
 			const responseCriteria = await getCriterias();
-			setCriteria(responseCriteria.data);
+			setCriteria(responseCriteria.data.pageData);
 			console.log(criteria);
 
 		} catch (error) {
@@ -108,7 +114,7 @@ const ManageContest: React.FC = () => {
 
 	const fetchContest = useCallback(async () => {
 		try {
-			const responseContest = await getContests(status, debouncedSearchTerm, pagination.pageSize);
+			const responseContest = await getContests(debouncedSearchTerm, '', '', pagination.current, pagination.pageSize);
 			console.log(responseContest);
 
 			setDataContest(responseContest.data.pageData || responseContest.data);
@@ -123,9 +129,7 @@ const ManageContest: React.FC = () => {
 		}
 	}, [pagination.current, debouncedSearchTerm, pagination.pageSize, searchText]);
 
-	useEffect(() => {
-		fetchContest();
-	}, [fetchContest, searchText]);
+
 
 	const handleOpenModal = useCallback(() => {
 		form.resetFields();
@@ -134,7 +138,7 @@ const ManageContest: React.FC = () => {
 	}, [form]);
 
 	const handleDelete = async (id: string, name: string) => {
-		await deleteContest(id);
+		await deleteContest(id, name, fetchContest);
 		message.success(`Contest ${name} deleted successfully.`);
 		await fetchCategories();
 	};
@@ -256,7 +260,6 @@ const ManageContest: React.FC = () => {
 				form.resetFields();
 				fetchCriterias();
 				fetchContest();
-				message.success(`Contest ${values.name} created successfully.`);
 				setIsModalVisible(false);
 
 			}
@@ -292,6 +295,17 @@ const ManageContest: React.FC = () => {
 			dataIndex: "name",
 			key: "name",
 		},
+
+		{
+			title: "Location",
+			dataIndex: "location",
+			key: "location",
+		},
+		{
+			title: "Description",
+			dataIndex: "description",
+			key: "description",
+		},
 		{
 			title: "Created Date",
 			dataIndex: "createdDate",
@@ -303,16 +317,6 @@ const ManageContest: React.FC = () => {
 			dataIndex: "updatedDate",
 			key: "updatedDate",
 			render: (updatedDate: Date) => formartedDate(updatedDate),
-		},
-		{
-			title: "Location",
-			dataIndex: "location",
-			key: "location",
-		},
-		{
-			title: "Description",
-			dataIndex: "description",
-			key: "description",
 		},
 		{
 			title: "Action",
@@ -345,7 +349,7 @@ const ManageContest: React.FC = () => {
 	};
 	return (
 		<>
-			{isLoading ?? <LoadingOverlay />}
+			{isLoading && <LoadingOverlay />}
 			<div>
 				<div className="flex justify-between items-center ">
 					<CustomBreadcrumb />
@@ -367,7 +371,7 @@ const ManageContest: React.FC = () => {
 				<Table
 					columns={columns}
 					dataSource={dataContest}
-					rowKey="_id"
+					rowKey={(record: Contest) => record?.id || 'unknown'}
 					pagination={false}
 					onChange={handleTableChange}
 					className="overflow-auto"
