@@ -60,10 +60,10 @@ export const createConstest = async (constestData: Contest) => {
 	return response;
 }
 
-// export const getContestDetail = async (id: string) => {
-// 	const response = await BaseService.get({ url: `${API_PATHS.}/${id}` });
-// 	return response;
-// };
+export const getContestDetail = async (id: string) => {
+	const response = await BaseService.get({ url: `${API_PATHS.CONTEST_DETAIL}${id}` });
+	return response;
+};
 
 export const updateContest = async (updateData: Contest) => {
 	await BaseService.put({ url: `${API_PATHS.UPDATE_CONTEST}`, payload: updateData });
@@ -75,3 +75,5 @@ export const deleteContest = async (id: string, name: string, fetchContests: () 
 	toast.success(`Deleted contest ${name} successfully`);
 	await fetchContests();
 };
+
+

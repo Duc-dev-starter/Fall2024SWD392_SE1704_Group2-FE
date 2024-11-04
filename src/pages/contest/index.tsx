@@ -33,11 +33,12 @@ function ContestPage() {
 	const [pageSize, setPageSize] = useState(100);
 	const [status, setStatus] = useState<'UpComing' | 'Completed' | 'Ongoing'>('UpComing');
 	const [keyword, setKeyword] = useState('');
+	const [category, setCategory] = useState('');
 	const navigate = useNavigate();
 
 	const handleGetContest = async () => {
 		try {
-			const response = await getContests(status, pageNum, pageSize);
+			const response = await getContests(keyword, status, category, pageNum, pageSize,);
 			console.log('Fetched contests:', response);
 			setContests(response.data.pageData);
 		} catch (error) {

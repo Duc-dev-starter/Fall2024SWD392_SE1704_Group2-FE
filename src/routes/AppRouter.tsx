@@ -27,6 +27,7 @@ const AppRouter: React.FC = () => {
             <Route path={PATHS.SUCCESS} element={< SuccessPage />} />
             <Route path={PATHS.CANCEL} element={<CancelPage />} />
             <Route path={PATHS.USER_HISTORY} element={<History />} />
+            <Route path={PATHS.CONTEST} element={<ContestPage />} />
 
 
 
