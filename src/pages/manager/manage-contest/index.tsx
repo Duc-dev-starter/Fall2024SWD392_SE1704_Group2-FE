@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Input, Space, Table, Modal, Form, Pagination, Popconfirm, Select, message, DatePicker, InputNumber, } from "antd";
+import { Button, Input, Space, Table, Modal, Form, Pagination, Popconfirm, Select, message, DatePicker, InputNumber, Tag, } from "antd";
 import { DeleteOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
 // import { Contest } from "../../../models";
 // import { getCategories, createContest, deleteContest } from "../../../services";
@@ -26,6 +26,8 @@ const ManageContest: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [criteria, setCriteria] = useState([]);
 	const [criterias, setCriterias] = useState([{ id: '', percentage: '' }]);
+	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [selectedStatus, setSelectedStatus] = useState(null);
 	const [categories, setCategories] = useState([]);
 	const [rules, setRules] = useState(['']); // Initial state for rules
 	const [categorieContest, setCategorieContest] = useState([{ id: '' }])
@@ -38,15 +40,14 @@ const ManageContest: React.FC = () => {
 	}, [debouncedSearchTerm]);
 
 
-	const fetchCategories = async () => {
+	const fetchCategories = useCallback(async () => {
 		try {
 			const responseCategories = await getCategories();
 			setCategories(responseCategories.data.pageData);
 		} catch (error) {
 			console.error(error);
-			message.error("Failed to fetch categories");
 		}
-	}
+	}, [])
 
 	useEffect(() => {
 		fetchCategories();
@@ -97,7 +98,7 @@ const ManageContest: React.FC = () => {
 	});
 
 
-	const fetchCriterias = async () => {
+	const fetchCriterias = useCallback(async () => {
 		try {
 			const responseCriteria = await getCriterias();
 			setCriteria(responseCriteria.data.pageData);
@@ -106,7 +107,7 @@ const ManageContest: React.FC = () => {
 		} catch (error) {
 			console.error("Error fetching criteria:", error);
 		}
-	}
+	}, [])
 
 	useEffect(() => {
 		fetchCriterias();
@@ -138,6 +139,11 @@ const ManageContest: React.FC = () => {
 		fetchCriterias();
 		fetchContest();
 	}, [fetchContest]);
+	const handleCategoryChange = (value) => {
+		setSelectedCategory(value);
+		setPagination((prev) => ({ ...prev, current: 1 }));
+		fetchContest();
+	};
 
 	const handleOpenModal = useCallback(() => {
 		form.resetFields();
@@ -304,11 +310,44 @@ const ManageContest: React.FC = () => {
 			dataIndex: "name",
 			key: "name",
 		},
-
 		{
-			title: "Location",
-			dataIndex: "location",
-			key: "location",
+			title: "Status",
+			dataIndex: "status",
+			key: "status",
+			render: (status) => {
+				let color;
+				let text;
+
+				switch (status) {
+					case "UpComing":
+						color = "cyan";
+						text = "Up Coming";
+						break;
+					case "Ongoing":
+						color = "yellow";
+						text = "On Going";
+						break;
+					case "Completed":
+						color = "green";
+						text = "Completed";
+						break;
+					default:
+						color = "default";
+						text = status;
+						break;
+				}
+
+				return <Tag color={color}>{text}</Tag>;
+			},
+		},
+		{
+			title: 'Category Name',
+			key: 'categories',
+			render: (record) => (
+				<span>
+					{record.categories.map((category: Category) => category.name).join(', ')}
+				</span>
+			),
 		},
 		{
 			title: "Description",
@@ -320,11 +359,13 @@ const ManageContest: React.FC = () => {
 			dataIndex: "createdDate",
 			key: "createdDate",
 			render: (createdDate: Date) => formartedDate(createdDate),
+			width: "12%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedDate",
 			key: "updatedDate",
+			width: "12%",
 			render: (updatedDate: Date) => formartedDate(updatedDate),
 		},
 		{
@@ -356,9 +397,14 @@ const ManageContest: React.FC = () => {
 	const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(e.target.value);
 	};
+
+	const handleStatusChange = (value) => {
+		setSelectedStatus(value);
+		setPagination((prev) => ({ ...prev, current: 1 }));
+		fetchContest();
+	};
 	return (
 		<>
-			{isLoading && <LoadingOverlay />}
 			<div>
 				<div className="flex justify-between items-center ">
 					<CustomBreadcrumb />
@@ -377,6 +423,29 @@ const ManageContest: React.FC = () => {
 						enterButton={<SearchOutlined className="text-white" />}
 					/>
 				</Space>
+
+				<Select
+					placeholder="Select Category"
+					style={{ width: 200, marginRight: 10 }}
+					onChange={handleCategoryChange}
+					allowClear
+				>
+					{categories.map((category: Category) => (
+						<Select.Option key={category.id} value={category.id}>
+							{category.name}
+						</Select.Option>
+					))}
+				</Select>
+				<Select
+					placeholder="Select Status"
+					style={{ width: 200 }}
+					onChange={handleStatusChange}
+					allowClear
+				>
+					<Select.Option value="UpComing">Up Coming</Select.Option>
+					<Select.Option value="Ongoing">Ongoing</Select.Option>
+					<Select.Option value="Completed">Completed</Select.Option>
+				</Select>
 				<Table
 					columns={columns}
 					dataSource={dataContest}

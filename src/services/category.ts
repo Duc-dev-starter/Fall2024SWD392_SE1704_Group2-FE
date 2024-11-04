@@ -15,6 +15,7 @@ export const getCategories = async (
 			url: API_PATHS.GET_CATEGORIES, payload: {
 				searchCondition: {
 					keyword: keyword || "",
+					isDeleted: false
 				},
 				pageInfo: {
 					pageNum: pageNum,
