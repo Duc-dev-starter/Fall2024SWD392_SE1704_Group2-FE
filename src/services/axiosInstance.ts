@@ -76,7 +76,7 @@ axiosInstance.interceptors.response.use(
 
           case HttpStatus.InternalServerError:
             toast.error(data.message || data.Message);
-            // window.location.href = PATHS.INTERNAL_SERVER_ERROR;
+            window.location.href = PATHS.INTERNAL_SERVER_ERROR;
             break;
 
           default:
