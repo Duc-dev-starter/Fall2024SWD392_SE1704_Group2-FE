@@ -2,15 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-	Form,
-	Modal,
 	Pagination,
 	TableColumnsType,
 	TablePaginationConfig,
 } from "antd";
-import { Button, Image, Table } from "antd";
+import { Button, Table } from "antd";
 import { BaseService } from "../../../services";
-import { LoadingOverlay, CustomDeletePopconfirm, CustomBreadcrumb } from "../../../components";
+import { LoadingOverlay, CustomBreadcrumb } from "../../../components";
 import { formartedDate } from "../../../utils";
 import { RootState } from "../../../store";
 import { useSelector } from 'react-redux';
@@ -86,11 +84,11 @@ const RefereeCompetition: React.FC = () => {
 			width: "15%",
 
 			render: (text, record) => (
-				<Button
+				record.participant > 0 && <Button
 					type="link"
 					onClick={() => navigate(`/referee/score-koi/${record.id}`)}
 				>
-					View Score
+					View all koi
 				</Button>
 			),
 		},
@@ -115,7 +113,6 @@ const RefereeCompetition: React.FC = () => {
 			<div className="flex justify-end py-8">
 				<Pagination
 					total={pagination.total}
-					showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
 					current={pagination.current}
 					pageSize={pagination.pageSize}
 					onChange={handlePaginationChange}

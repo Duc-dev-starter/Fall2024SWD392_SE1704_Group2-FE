@@ -3,6 +3,7 @@ import { Form, Input, Button, Table, InputNumber, Typography, Image } from 'antd
 import { BaseService, evaluate } from '../../../services';
 import { getUserFromLocalStorage } from '../../../utils';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const { Title } = Typography;
 
@@ -16,6 +17,7 @@ const EvaluateKoi = () => {
         const fetchKoi = async () => {
             try {
                 const koi = await BaseService.getById({ url: '/api/KoiFish', id })
+                toast.success('Evaluated Koi successfully')
                 setKoi(koi);
             } catch (error) {
                 console.log(error)
