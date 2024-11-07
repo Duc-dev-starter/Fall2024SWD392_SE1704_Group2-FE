@@ -3,7 +3,6 @@ import config from "@/secret";
 import { toast } from "react-toastify";
 import { getUserFromLocalStorage } from "../utils";
 import { HttpStatus, PATHS } from "../consts";
-import { message } from "antd";
 
 export const axiosInstance = axios.create({
   baseURL: config.BASE_URL,
@@ -80,7 +79,7 @@ axiosInstance.interceptors.response.use(
             break;
 
           default:
-            toast.error(data.message);
+            toast.error(data.message || data.Message);
             break;
         }
       }

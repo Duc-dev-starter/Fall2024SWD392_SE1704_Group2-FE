@@ -49,7 +49,7 @@ function ContestPage() {
 	const handleGetContest = async () => {
 		setLoading(true); // Bắt đầu loading
 		try {
-			const response = await getContests(keyword, status, '', pageNum, pageSize, sortOrder);
+			const response = await getContests(keyword, status, '', pageNum, pageSize);
 			setContests(response.data.pageData);
 			setTotalItems(response.data.pageInfo.totalItems);
 		} catch (error) {
@@ -141,80 +141,84 @@ function ContestPage() {
 							grid={{ gutter: 16, column: 1 }}
 							dataSource={contests}
 							renderItem={(contest) => (
-								<List.Item key={contest.id}>
-									<Card
-										title={<Title level={4}>{contest.name}</Title>}
-										extra={
-											contest.categories?.map((category) => (
-												<Tag key={category.id} color="blue">
-													{category.name}
-												</Tag>
-											))
-										}
-										bordered={false}
-										style={{
-											borderRadius: '8px',
-											boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-											cursor: "pointer",
-											transition: "transform 0.3s",
-											padding: '10px 20px',
-										}}
-										onClick={() => handleCardClick(contest.id)}
-										onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; }}
-										onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-									>
-
-										<div>
-											<p style={{ display: 'block', marginTop: '10px' }}>{contest.description}</p>
-										</div>
-
-										<div className='flex gap-5'>
-											<div className='flex items-center gap-1'>
-												<div className='bg-[#f0f0f0] rounded-full p-1'>
-													<CiViewList size={16} />
-												</div>
-												<span>10/40 tham gia</span>
+								contest.round !== 0 ? ( // Kiểm tra nếu round khác 0
+									<List.Item key={contest.id}>
+										<Card
+											title={<Title level={4}>{contest.name}</Title>}
+											extra={
+												contest.categories?.map((category) => (
+													<Tag key={category.id} color="blue">
+														{category.name}
+													</Tag>
+												))
+											}
+											bordered={false}
+											style={{
+												borderRadius: '8px',
+												boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+												cursor: "pointer",
+												transition: "transform 0.3s",
+												padding: '10px 20px',
+											}}
+											onClick={() => handleCardClick(contest.id)}
+											onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; }}
+											onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+										>
+											<div>
+												<p style={{ display: 'block', marginTop: '10px' }}>{contest.description}</p>
 											</div>
 
-											<div className='flex items-center gap-1'>
-												<div className='bg-[#f0f0f0] rounded-full p-1'>
-													<IoCalendarOutline size={16} />
+											<div className='flex gap-5'>
+												<div className='flex items-center gap-1'>
+													<div className='bg-[#f0f0f0] rounded-full p-1'>
+														<CiViewList size={16} />
+													</div>
+													<span>10/40 tham gia</span>
 												</div>
-												<span>{new Date(contest.startDate).toLocaleDateString()}</span>
-											</div>
 
-											<div className='flex items-center gap-1'>
-												<div className='bg-[#f0f0f0] rounded-full p-1'>
-													<SlPresent size={16} />
+												<div className='flex items-center gap-1'>
+													<div className='bg-[#f0f0f0] rounded-full p-1'>
+														<IoCalendarOutline size={16} />
+													</div>
+													<span>{new Date(contest.startDate).toLocaleDateString()}</span>
 												</div>
-												<span>100 triệu</span>
-											</div>
 
-											<div className='flex items-center gap-1'>
-												<div className='bg-[#f0f0f0] rounded-full p-1'>
-													<CiLocationOn size={16} />
+												<div className='flex items-center gap-1'>
+													<div className='bg-[#f0f0f0] rounded-full p-1'>
+														<SlPresent size={16} />
+													</div>
+													<span>100 triệu</span>
 												</div>
-												<span>{contest.location}</span>
+
+												<div className='flex items-center gap-1'>
+													<div className='bg-[#f0f0f0] rounded-full p-1'>
+														<CiLocationOn size={16} />
+													</div>
+													<span>{contest.location}</span>
+												</div>
 											</div>
-										</div>
-									</Card>
-								</List.Item>
+										</Card>
+									</List.Item>
+								) : null
 							)}
 						/>
 					)}
 
-					<Pagination
-						current={pageNum}
-						pageSize={pageSize}
-						total={totalItems}
-						onChange={onPageChange}
-						style={{ textAlign: 'center', marginTop: '30px' }}
-						showSizeChanger={false}
-						itemRender={(page, type, originalElement) => (
-							<span style={{ fontWeight: type === 'page' && page === pageNum ? 'bold' : 'normal' }}>{originalElement}</span>
-						)}
-					/>
+					{
+						contests.length > 10 ? <Pagination
+							current={pageNum}
+							pageSize={pageSize}
+							total={totalItems}
+							onChange={onPageChange}
+							style={{ textAlign: 'center', marginTop: '30px' }}
+							showSizeChanger={false}
+							itemRender={(page, type, originalElement) => (
+								<span style={{ fontWeight: type === 'page' && page === pageNum ? 'bold' : 'normal' }}>{originalElement}</span>
+							)}
+						/> : <></>
+					}
 				</Col>
+
 			</Row>
 		</div>
 	);
