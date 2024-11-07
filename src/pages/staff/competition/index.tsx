@@ -190,16 +190,6 @@ function EditCompetition() {
 										</div>
 									)}
 								</Descriptions.Item>
-								<Descriptions.Item label="" span={3} className="flex justify-center mt-6">
-									<div className="space-x-10">
-										<button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
-											Approve
-										</button>
-										<button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
-											Reject
-										</button>
-									</div>
-								</Descriptions.Item>
 							</Descriptions>
 						</List.Item>
 					)}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Space, Table, Tabs, Pagination } from "antd";
+import { Input, Space, Table, Tabs, Pagination, Tag } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import type { TablePaginationConfig } from "antd/es/table/interface";
 import { useDebounce } from "@/hooks";
@@ -92,6 +92,23 @@ const RegisterContest: React.FC<RegisterContestProps> = () => {
             title: t('status'),
             dataIndex: "status",
             key: "status",
+            render: (status: string) => {
+                let color = '';
+                switch (status) {
+                    case 'Pending':
+                        color = 'blue';
+                        break;
+                    case 'Approved':
+                        color = 'green';
+                        break;
+                    case 'Rejected':
+                        color = 'red';
+                        break;
+                    default:
+                        color = 'gray';
+                }
+                return <Tag color={color}>{status}</Tag>;
+            }
         },
         {
             title: t('pay_status'),
