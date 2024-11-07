@@ -16,6 +16,7 @@ import { Option } from "antd/es/mentions";
 import dayjs from "dayjs";
 import { Category, Contest, User } from "../../../models";
 import { API_PATHS } from "../../../consts";
+import { toast } from "react-toastify";
 
 const ManageContest: React.FC = () => {
 	const [dataContest, setDataContest] = useState<Contest[]>([]);
@@ -380,10 +381,13 @@ const ManageContest: React.FC = () => {
 			console.log('====================================');
 			console.log(response);
 			console.log('====================================');
+			toast.success(response.message);
+			setRoundCreateOpen(false);
 		} catch (error) {
 			console.log('====================================');
 			console.log(error);
 			console.log('====================================');
+			toast.error(error.Message);
 		}
 	};
 	const columns: ColumnType<Contest>[] = [
