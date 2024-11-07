@@ -58,6 +58,21 @@ function EditCompetition() {
 		}
 	};
 
+	// Function to handle check-in
+	const handleCheckIn = async (registrationId: string, roundId: string, categoryId: string) => {
+		try {
+			const checkInData = { registrationId, roundId, categoryId };
+			const response = await BaseService.post({ url: '/api/round/check-in', data: checkInData });
+			if (response.data.success) {
+				message.success('Check-in successful!');
+			} else {
+				message.error('Check-in failed.');
+			}
+		} catch (error) {
+			console.error('Error during check-in:', error);
+			message.error('An error occurred during check-in.');
+		}
+	};
 
 	const columns = [
 		{
@@ -146,7 +161,16 @@ function EditCompetition() {
 				<List
 					dataSource={checkinData}
 					renderItem={(checkin) => (
-						<List.Item>
+						<List.Item
+							actions={[
+								<Button
+									type="primary"
+									onClick={() => handleCheckIn(checkin.registrationId, checkin.roundId, checkin.categoryId)}
+								>
+									Check-in
+								</Button>
+							]}
+						>
 							<Descriptions column={3} className="gap-4">
 								<Descriptions.Item label="Display Name" className="font-semibold">
 									{checkin.displayName}

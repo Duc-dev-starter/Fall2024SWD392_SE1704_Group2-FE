@@ -41,6 +41,10 @@ const ManageContest: React.FC = () => {
 	const [roundCreateOpen, setRoundCreateOpen] = useState(false);
 	const [selectedContest, setSelectedContest] = useState<Contest | null>(null);
 	const [isContestOpen, setIsContestOpen] = useState(false);
+	const [newStatus, setNewStatus] = useState<string | null>(null);
+	const [currentContest, setCurrentContest] = useState<Contest | null>(null);
+	const [isStatusModalVisible, setIsStatusModalVisible] = useState(false);
+
 
 	useEffect(() => {
 		fetchContest();
@@ -397,12 +401,66 @@ const ManageContest: React.FC = () => {
 			fetchContest();
 		}
 	};
+
+	// Handle the click on the status tag
+	const handleStatusClick = (record: Contest, currentStatus: string) => {
+		setCurrentContest(record);  // Set the current contest
+		setNewStatus(currentStatus);  // Set the current status
+		setIsStatusModalVisible(true);  // Show the modal
+	};
+
+	// Handle status update in the table
+	const handleUpdateStatus = async (id: string, status: string) => {
+		try {
+			const response = await BaseService.put({
+				url: `/api/contest/${id}`,  // API to update only status
+				payload: { status },
+			});
+			console.log('====================================');
+			console.log("Update response", response);
+			console.log('====================================');
+			// Update status locally
+			setDataContest(prevData =>
+				prevData.map((contest: Contest) =>
+					contest.id === id ? { ...contest, status: status } : contest
+				)
+			);
+			console.log('====================================');
+			console.log(dataContest);
+			console.log('====================================');
+			toast.success("Status updated successfully"); // Show success message
+			setIsStatusModalVisible(false); // Close the modal
+		} catch (error) {
+			console.error("Error updating status:", error);
+			// Handle error case, show an alert or notification
+		}
+	};
+
+	// Confirm the status update
+	const handleConfirmStatusUpdate = () => {
+		if (currentContest && newStatus) {
+			handleUpdateStatus(currentContest.id, newStatus); // Update only status
+			setIsStatusModalVisible(false); // Close the modal
+		}
+	};
+
+	// // Handle the click on the status tag
+	// const handleStatusClick = (record: Contest, currentStatus: string) => {
+	// 	setCurrentContest(record);  // Set the current contest
+	// 	setNewStatus(currentStatus);  // Set the current status
+	// 	setIsModalVisible(true);  // Show the modal
+	// };
+
+
 	const columns: ColumnType<Contest>[] = [
 		{
 			title: "Name",
 			dataIndex: "name",
 			key: "name",
-			width: "30%"
+			width: "30%",
+			render: (name: string, record: Contest) => (
+				<a onClick={() => handleRowClick(record)}>{name}</a> // Handle click on contest name
+			),
 		},
 		{
 			title: 'Category Name',
@@ -427,7 +485,7 @@ const ManageContest: React.FC = () => {
 			dataIndex: "status",
 			key: "status",
 			width: "10%",
-			render: (status) => {
+			render: (status: string, record: Contest) => {  // Accept `status` and `record` as arguments
 				let color;
 				let text;
 
@@ -450,7 +508,15 @@ const ManageContest: React.FC = () => {
 						break;
 				}
 
-				return <Tag color={color}>{text}</Tag>;
+				return (
+					<Tag
+						color={color}
+						onClick={() => handleStatusClick(record, status)} // Open modal to change status
+						style={{ cursor: 'pointer' }}
+					>
+						{text}
+					</Tag>
+				);
 			},
 		},
 		{
@@ -466,7 +532,7 @@ const ManageContest: React.FC = () => {
 								style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
 								onClick={(e) => {
 									e.stopPropagation();  // Prevent row click
-									handleEditContest(record);
+									// handleEditContest(record);
 								}}
 							/>
 							<Popconfirm
@@ -500,11 +566,9 @@ const ManageContest: React.FC = () => {
 		setSearchText(e.target.value);
 	};
 
-	const handleStatusChange = (value) => {
-		console.log(value)
-		setSelectedStatus(value);
-		setPagination((prev) => ({ ...prev, current: 1 }));
-		fetchContest();
+	// Handle status change in the modal
+	const handleStatusChange = (value: string) => {
+		setNewStatus(value);
 	};
 	return (
 		<>
@@ -557,9 +621,6 @@ const ManageContest: React.FC = () => {
 					pagination={false}
 					onChange={handleTableChange}
 					className="overflow-auto"
-					onRow={(record) => ({
-						onClick: () => handleRowClick(record), // Open modal on row click
-					})}
 				/>
 
 				<div className="flex justify-end py-8">
@@ -821,8 +882,33 @@ const ManageContest: React.FC = () => {
 					)}
 				</Modal>
 
-
 			</div >
+
+			{/* Modal for changing status */}
+			<Modal
+				title="Change Contest Status"
+				visible={isStatusModalVisible}
+				onCancel={() => setIsStatusModalVisible(false)}
+				footer={[
+					<Button key="cancel" onClick={() => setIsModalVisible(false)}>
+						Cancel
+					</Button>,
+					<Button key="submit" type="primary" onClick={handleConfirmStatusUpdate}>
+						Confirm
+					</Button>,
+				]}
+			>
+				<Select
+					value={newStatus}
+					onChange={handleStatusChange}
+					style={{ width: '100%' }}
+				>
+					<Option value="UpComing">Up Coming</Option>
+					<Option value="Ongoing">Ongoing</Option>
+					<Option value="Completed">Completed</Option>
+				</Select>
+			</Modal>
+
 		</>
 	);
 };
