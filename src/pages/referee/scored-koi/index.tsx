@@ -80,7 +80,7 @@ const ScoreKoiFish: React.FC = () => {
 			key: "action",
 			width: "5%",
 			render: (text, record) => (
-				record.participant > 0 && <Button
+				<Button
 					type="link"
 					onClick={() => navigate(`/referee/evaluate/${roundId}/${record.id}`)}
 				>

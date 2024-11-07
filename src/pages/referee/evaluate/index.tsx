@@ -17,7 +17,7 @@ const EvaluateKoi = () => {
         const fetchKoi = async () => {
             try {
                 const koi = await BaseService.getById({ url: '/api/KoiFish', id })
-                toast.success('Evaluated Koi successfully')
+                // toast.success('Evaluated Koi successfully')
                 setKoi(koi);
             } catch (error) {
                 console.log(error)
@@ -36,6 +36,8 @@ const EvaluateKoi = () => {
             refereeId: user.id,
             roundId: roundId
         };
+        console.log(dataToSend);
+
         console.log('Submit Data:', dataToSend);
         try {
             await evaluate(dataToSend);
