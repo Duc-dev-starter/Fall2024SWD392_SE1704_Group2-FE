@@ -3,6 +3,7 @@ import { Button, Descriptions, Image, List, Modal, Table } from 'antd';
 import { BaseService } from '../../../services';
 import dayjs from 'dayjs';
 import { getContestDetail } from '../../../services/contest';
+import { toast } from 'react-toastify';
 
 function EditCompetition() {
 
@@ -59,18 +60,36 @@ function EditCompetition() {
 	};
 
 	// Function to handle check-in
-	const handleCheckIn = async (registrationId: string, roundId: string, categoryId: string) => {
+	const handleCheckIn = async (registrationId: string, roundId: string) => {
 		try {
-			const checkInData = { registrationId, roundId, categoryId };
+			// Fetch the contest details to get categories
+			const contestResponse = await getContestDetail(registrationId);
+			const categories = contestResponse.data.categories || [];
+
+			// Ensure that categories exist and are valid
+			if (!categories.length) {
+				toast.error('No categories available for this registration.');
+				return;
+			}
+
+			// Assuming the API expects a single categoryId or an array of IDs.
+			const categoryIds = categories.map((category: { id: string }) => category.id);
+
+			// Construct the check-in payload
+			const checkInData = { registrationId, roundId, categoryId: categoryIds };
+
+			// Send the check-in request
 			const response = await BaseService.post({ url: '/api/round/check-in', data: checkInData });
+
+			// Handle the server response
 			if (response.data.success) {
-				message.success('Check-in successful!');
+				toast.success('Check-in successful!');
 			} else {
-				message.error('Check-in failed.');
+				toast.error('Check-in failed. ' + (response.data.message || 'Please try again.'));
 			}
 		} catch (error) {
 			console.error('Error during check-in:', error);
-			message.error('An error occurred during check-in.');
+			message.error('An error occurred during check-in. Please check the network or try again later.');
 		}
 	};
 
@@ -165,7 +184,7 @@ function EditCompetition() {
 							actions={[
 								<Button
 									type="primary"
-									onClick={() => handleCheckIn(checkin.registrationId, checkin.roundId, checkin.categoryId)}
+									onClick={() => handleCheckIn(checkin.id, checkin.contestId)}
 								>
 									Check-in
 								</Button>

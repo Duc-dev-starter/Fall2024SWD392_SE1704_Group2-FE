@@ -84,7 +84,7 @@ const RefereeCompetition: React.FC = () => {
 			width: "15%",
 
 			render: (text, record) => (
-				record.participant > 0 && <Button
+				<Button
 					type="link"
 					onClick={() => navigate(`/referee/score-koi/${record.id}`)}
 				>
