@@ -123,8 +123,8 @@ const ManageUser: React.FC = () => {
 
 				const userData = { ...values, avatar: avatarUrl };
 				const response = await createUser(userData);
-				const newUser = response.data.data;
-				setDataUsers((prevData) => [newUser, ...prevData]);
+				console.log(response)
+				setDataUsers((prevData) => [userData, ...prevData]);
 				setIsModalVisible(false);
 				form.resetFields();
 				fetchUsers();
@@ -289,44 +289,47 @@ const ManageUser: React.FC = () => {
 			key: "action",
 			width: "20%",
 			render: (_: unknown, record: User) => (
-				<div>
-					<EditOutlined
-						className="hover:cursor-pointer text-blue-400 hover:opacity-60"
-						style={{ fontSize: "20px" }}
-						onClick={() => {
-							setModalMode("Edit");
-							setIsModalVisible(true);
-							form.setFieldsValue(record);
-							setFormData(record);
+				record.role !== "member" ? ( // Kiểm tra nếu role khác "Member"
+					<div>
+						<EditOutlined
+							className="hover:cursor-pointer text-blue-400 hover:opacity-60"
+							style={{ fontSize: "20px" }}
+							onClick={() => {
+								setModalMode("Edit");
+								setIsModalVisible(true);
+								form.setFieldsValue(record);
+								setFormData(record);
 
-							const avatarUrl = typeof record.avatar === "string" ? record.avatar : "";
+								const avatarUrl = typeof record.avatar === "string" ? record.avatar : "";
 
-							setFileList(
-								avatarUrl
-									? [
-										{
-											uid: "-1",
-											name: "avatar.png",
-											status: "done",
-											url: avatarUrl,
-										} as UploadFile<any>,
-									]
-									: []
-							);
-						}}
-					/>
-					{record.id !== user.id && (
-						<CustomDeletePopconfirm
-							title="Delete the User"
-							description="Are you sure to delete this User?"
-							onConfirm={() =>
-								deleteUser(record.id, record.name, fetchUsers)
-							}
+								setFileList(
+									avatarUrl
+										? [
+											{
+												uid: "-1",
+												name: "avatar.png",
+												status: "done",
+												url: avatarUrl,
+											} as UploadFile<any>,
+										]
+										: []
+								);
+							}}
 						/>
-					)}
-				</div>
+						{record.id !== user.id && (
+							<CustomDeletePopconfirm
+								title="Delete the User"
+								description="Are you sure to delete this User?"
+								onConfirm={() =>
+									deleteUser(record.id, record.name, fetchUsers)
+								}
+							/>
+						)}
+					</div>
+				) : null // Trả về null nếu role là "Member"
 			),
 		},
+
 	];
 
 	const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -14,7 +14,7 @@ export const axiosInstance = axios.create({
 })
 
 let isTokenExpired = false;
-
+const user = getUserFromLocalStorage();
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -70,7 +70,24 @@ axiosInstance.interceptors.response.use(
 
           case HttpStatus.NotFound:
             toast.error(data.message || data.Message);
-            //window.location.href = PATHS.NOTFOUND;
+            switch(user.role){
+              case "member":
+                window.location.href = PATHS.NOTFOUND;
+                break;
+              case "manager":
+                window.location.href = '/manager/404';
+                break;
+              case "referee":
+                // window.location.href = "/referee/404";
+                break;
+              case "staff":
+                window.location.href = "/staff/404";
+                break;
+              default:
+                window.location.href = PATHS.HOME;
+                break;
+            }
+            
             break;
 
           case HttpStatus.InternalServerError:

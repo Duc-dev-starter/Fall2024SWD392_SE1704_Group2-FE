@@ -505,11 +505,11 @@ const ManageContest: React.FC = () => {
 				<div className="flex justify-between items-center ">
 					<CustomBreadcrumb />
 
-					<Button type="primary" onClick={handleOpenModal}>
+					<Button type="primary" className="mt-5" onClick={handleOpenModal}>
 						Add New Contest
 					</Button>
 				</div>
-				<Space>
+				<Space className="flex items-center mb-10 mt-2">
 					<Input.Search
 						placeholder="Search By Name"
 						value={searchText}
@@ -518,30 +518,31 @@ const ManageContest: React.FC = () => {
 						style={{ width: 200 }}
 						enterButton={<SearchOutlined className="text-white" />}
 					/>
+
+					<Select
+						placeholder="Select Category"
+						style={{ width: 200, marginLeft: 10, marginRight: 10 }}
+						onChange={handleCategoryChange}
+						allowClear
+					>
+						{categories.map((category: Category) => (
+							<Select.Option key={category.id} value={category.id}>
+								{category.name}
+							</Select.Option>
+						))}
+					</Select>
+					<Select
+						placeholder="Select Status"
+						style={{ width: 200 }}
+						onChange={handleStatusChange}
+						allowClear
+					>
+						<Select.Option value="UpComing">Up Coming</Select.Option>
+						<Select.Option value="Ongoing">Ongoing</Select.Option>
+						<Select.Option value="Completed">Completed</Select.Option>
+					</Select>
 				</Space>
 
-				<Select
-					placeholder="Select Category"
-					style={{ width: 200, marginLeft: 10, marginTop: 10, marginRight: 10 }}
-					onChange={handleCategoryChange}
-					allowClear
-				>
-					{categories.map((category: Category) => (
-						<Select.Option key={category.id} value={category.id}>
-							{category.name}
-						</Select.Option>
-					))}
-				</Select>
-				<Select
-					placeholder="Select Status"
-					style={{ width: 200 }}
-					onChange={handleStatusChange}
-					allowClear
-				>
-					<Select.Option value="UpComing">Up Coming</Select.Option>
-					<Select.Option value="Ongoing">Ongoing</Select.Option>
-					<Select.Option value="Completed">Completed</Select.Option>
-				</Select>
 				<Table
 					columns={columns}
 					dataSource={dataContest}

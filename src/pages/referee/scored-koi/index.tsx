@@ -28,7 +28,7 @@ const ScoreKoiFish: React.FC = () => {
 
 	const fetchAssignedRound = async () => {
 		try {
-			const response = await BaseService.getById({ url: '/api/round/koi-fishs', id });
+			const response = await BaseService.getById({ url: '/api/round/koi-fishs', id: roundId });
 			console.log(response);
 			setDataContest(response.data || []); // Giả sử API trả về data dạng mảng
 		} catch (error) {
