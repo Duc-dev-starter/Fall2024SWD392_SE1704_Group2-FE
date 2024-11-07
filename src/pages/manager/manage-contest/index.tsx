@@ -153,7 +153,12 @@ const ManageContest: React.FC = () => {
 			console.log(selectedStatus);
 			console.log(selectedCategory);
 
-			setDataContest(responseContest.data.pageData || responseContest.data);
+			// Correct the property name to 'createdAt'
+			const sortedData = (responseContest.data.pageData || responseContest.data.pageData).sort((a, b) => {
+				return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // Descending order
+			});
+
+			setDataContest(sortedData);
 			setPagination((prev) => ({
 				...prev,
 				total: responseContest.data.pageInfo?.totalItems || responseContest.data.length,
@@ -388,6 +393,8 @@ const ManageContest: React.FC = () => {
 			console.log(error);
 			console.log('====================================');
 			toast.error(error.Message);
+		} finally {
+			fetchContest();
 		}
 	};
 	const columns: ColumnType<Contest>[] = [
