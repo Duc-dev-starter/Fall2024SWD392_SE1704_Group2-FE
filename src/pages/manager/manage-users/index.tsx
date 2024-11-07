@@ -412,8 +412,8 @@ const ManageUser: React.FC = () => {
 
 						<Form.Item name="role" rules={roleRules} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="mb-3">
 							<Radio.Group>
-								<Radio value={ROLES.STAFF}>Staff</Radio>
-								<Radio value={ROLES.REFEREE}>Referee</Radio>
+								<Radio value="Staff">Staff</Radio>
+								<Radio value="Referee">Referee</Radio>
 							</Radio.Group>
 						</Form.Item>
 					)}

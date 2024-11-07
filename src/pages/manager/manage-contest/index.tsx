@@ -15,6 +15,7 @@ import { createConstest, getCategories, getContests, getCriterias, deleteContest
 import { Option } from "antd/es/mentions";
 import dayjs from "dayjs";
 import { Category, Contest, User } from "../../../models";
+import { API_PATHS } from "../../../consts";
 
 const ManageContest: React.FC = () => {
 	const [dataContest, setDataContest] = useState<Contest[]>([]);
@@ -37,6 +38,8 @@ const ManageContest: React.FC = () => {
 	const [referee, setReferee] = useState<User[]>([]);
 	const [staff, setStaff] = useState<User[]>([]);
 	const [roundCreateOpen, setRoundCreateOpen] = useState(false);
+	const [selectedContest, setSelectedContest] = useState<Contest | null>(null);
+	const [isContestOpen, setIsContestOpen] = useState(false);
 
 	useEffect(() => {
 		fetchContest();
@@ -185,27 +188,30 @@ const ManageContest: React.FC = () => {
 	};
 
 	// const updateContest = useCallback(
-	// 	async (values: Partial<Contest> & { _id: string | null }, originalCreatedAt: string) => {
-	// 		let parentContestId = null;
-
+	// 	async (values: Partial<Contest> & { id: string | null }, originalCreatedAt: Date) => {
 	// 		setLoading(true);
 	// 		const updatedContest: Contest = {
-	// 			id: values._id!,
+	// 			id: values.id!,
 	// 			name: values.name ?? "",
 	// 			description: values.description ?? "",
-	// 			user_id: values.user_id ?? "",
-	// 			is_deleted: values.is_deleted ?? false,
+	// 			startDate: values.startDate ?? "",
+	// 			endDate: values.endDate ?? "",
+	// 			location: values.location ?? "",
 	// 			createdAt: originalCreatedAt,
-	// 			updatedAt: new Date().toISOString(),
+	// 			updatedAt: Date.now(),
 	// 		};
 
 	// 		try {
-	// 			const response = ;
+	// 			const response = BaseService.put({ url: API_PATHS.UPDATE_CONTEST, payload: updatedContest });
+
+	// 			console.log('====================================');
+	// 			console.log("response update contest", response);
+	// 			console.log('====================================');
 
 	// 			if (response.data) {
 	// 				setDataContest((prevData) =>
 	// 					prevData.map((Contest) =>
-	// 						Contest._id === values._id
+	// 						Contest.id === values.id
 	// 							? { ...Contest, ...response.data }
 	// 							: Contest
 	// 					)
@@ -221,6 +227,14 @@ const ManageContest: React.FC = () => {
 	// 	[dataContest, form]
 	// );
 
+	// 	{
+	// 		"id": "02A3D5F4-B88F-4ECE-980B-594FD2CFC388",
+	// 		"description": "Test",
+	// 		"startDate": "2024-10-16T11:33:09.268Z",
+	// 		"endDate": "2024-10-16T11:33:09.268Z",
+	// 		"location": "string",
+	// 		"status": 1
+	//  }
 	// const handleEditContest = useCallback(
 	// 	async (Contest: Contest) => {
 	// 		form.resetFields();
@@ -232,33 +246,43 @@ const ManageContest: React.FC = () => {
 	// 				<Form
 	// 					form={form}
 	// 					onFinish={(values) => {
-	// 						updateContest(values, Contest.created_at);
-	// 					}}
-	// 					initialValues={{
-	// 						_id: Contest._id,
-	// 						name: Contest.name,
-	// 						parent_Contest_id: Contest.parent_Contest_id,
-	// 						description: Contest.description,
+	// 						updateContest(values, Contest.createdAt);
 	// 					}}
 	// 					labelCol={{ span: 24 }}
+	// 					initialValues={{
+	// 						id: Contest.id,
+	// 						name: Contest.name,
+	// 						location: Contest.location,
+	// 						startDate: dayjs(Contest.startDate),
+	// 						endDate: dayjs(Contest.endDate),
+	// 						description: Contest.description,
+	// 					}}
 	// 				>
-	// 					<Form.Item name="_id" style={{ display: "none" }}>
+	// 					<Form.Item name="id" style={{ display: "none" }}>
 	// 						<Input />
 	// 					</Form.Item>
 
-	// 					<NameFormItem />
+	// 					<Form.Item label="Name" name="name" rules={[{ required: true }]}>
+	// 						<Input />
+	// 					</Form.Item>
+
+	// 					<Form.Item label="Localtion" name="location" rules={[{ required: true }]} >
+	// 						<Input />
+	// 					</Form.Item>
+
+	// 					<Form.Item label="Start Date" name="startDate" rules={[{ required: true }]}>
+	// 						<DatePicker showTime />
+	// 					</Form.Item>
+
+	// 					<Form.Item label="End Date" name="endDate" rules={[{ required: true }]}>
+	// 						<DatePicker showTime />
+	// 					</Form.Item>
+
 	// 					<Form.Item label="Parent Contest" name="parent_Contest_id" rules={[{ required: false }]}>
 	// 						<Select placeholder="Select parent Contest">
 	// 							<Select.Option key="none" value="none">
 	// 								None
 	// 							</Select.Option>
-	// 							{parentCategories
-	// 								.filter((parentContest) => parentContest._id !== form.getFieldValue("_id"))
-	// 								.map((parentContest) => (
-	// 									<Select.Option key={parentContest._id} value={parentContest._id}>
-	// 										{parentContest.name}
-	// 									</Select.Option>
-	// 								))}
 	// 						</Select>
 	// 					</Form.Item>
 
@@ -276,7 +300,7 @@ const ManageContest: React.FC = () => {
 	// 			},
 	// 		});
 	// 	},
-	// 	[form, updateContest, fetchCategories, dataContest]
+	// 	[form, fetchCategories, dataContest]
 	// );
 
 	const addNewContest = useCallback(
@@ -343,8 +367,8 @@ const ManageContest: React.FC = () => {
 
 	const handleFinish = async (values) => {
 		console.log('Form Values:', values);
-		const formattedStartDate = dayjs(values.startDate).format('MM/DD/YYYY');
-		const formattedEndDate = dayjs(values.endDate).format('MM/DD/YYYY');
+		const formattedStartDate = dayjs(values.startDate).format('MM/DD/YYYY hh:mm');
+		const formattedEndDate = dayjs(values.endDate).format('MM/DD/YYYY hh:mm');
 		const formattedValues = {
 			...values,
 			startDate: formattedStartDate,
@@ -364,19 +388,34 @@ const ManageContest: React.FC = () => {
 	};
 	const columns: ColumnType<Contest>[] = [
 		{
-			title: 'ID',
-			dataIndex: 'id',
-			key: 'id',
-		},
-		{
 			title: "Name",
 			dataIndex: "name",
 			key: "name",
+			width: "30%"
+		},
+		{
+			title: 'Category Name',
+			key: 'categories',
+			render: (record) => (
+				<span>
+					{record.categories.map((category: Category) => category.name).join(', ')}
+				</span>
+			),
+		},
+		{
+			title: "Round",
+			dataIndex: "round",
+			key: "round",
+			width: "12%",
+			render: (round: string, record: Contest) => (
+				<a onClick={() => handleOpenRoundModal(record)}>{round}</a>
+			),
 		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			key: "status",
+			width: "10%",
 			render: (status) => {
 				let color;
 				let text;
@@ -404,43 +443,6 @@ const ManageContest: React.FC = () => {
 			},
 		},
 		{
-			title: 'Category Name',
-			key: 'categories',
-			render: (record) => (
-				<span>
-					{record.categories.map((category: Category) => category.name).join(', ')}
-				</span>
-			),
-		},
-		{
-			title: "Description",
-			dataIndex: "description",
-			key: "description",
-		},
-		{
-			title: "Created Date",
-			dataIndex: "createdDate",
-			key: "createdDate",
-			render: (createdDate: Date) => formartedDate(createdDate),
-			width: "12%",
-		},
-		{
-			title: "Updated Date",
-			dataIndex: "updatedDate",
-			key: "updatedDate",
-			width: "12%",
-			render: (updatedDate: Date) => formartedDate(updatedDate),
-		},
-		{
-			title: "Round",
-			dataIndex: "round",
-			key: "round",
-			width: "12%",
-			render: (round: string, record: Contest) => (
-				<a onClick={() => handleOpenRoundModal(record)}>View Round</a>
-			),
-		},
-		{
 			title: "Action",
 			key: "action",
 			width: "10%",
@@ -449,7 +451,11 @@ const ManageContest: React.FC = () => {
 					<EditOutlined
 						className="text-blue-500"
 						style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
-					// onClick={() => handleEditContest(record)}
+						// onClick={() => handleEditContest(record)}
+						onClick={(e) => {
+							e.stopPropagation();  // Prevent row click
+							handleEditContest(record);
+						}}
 					/>
 					<Popconfirm
 						title="Are you sure to delete this Contest?"
@@ -460,12 +466,22 @@ const ManageContest: React.FC = () => {
 						<DeleteOutlined
 							className="text-red-500"
 							style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
+							onClick={(e) => e.stopPropagation()}
 						/>
 					</Popconfirm>
 				</div>
 			),
 		},
 	];
+	const handleRowClick = (record: Contest) => {
+		setSelectedContest(record);
+		setIsContestOpen(true);
+	};
+
+	const handleModalClose = () => {
+		setIsContestOpen(false);
+	};
+
 	const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(e.target.value);
 	};
@@ -526,6 +542,9 @@ const ManageContest: React.FC = () => {
 					pagination={false}
 					onChange={handleTableChange}
 					className="overflow-auto"
+					onRow={(record) => ({
+						onClick: () => handleRowClick(record), // Open modal on row click
+					})}
 				/>
 
 				<div className="flex justify-end py-8">
@@ -556,10 +575,10 @@ const ManageContest: React.FC = () => {
 					>
 						<NameFormItem />
 						<Form.Item label="Start Date" name="startDate">
-							<DatePicker />
+							<DatePicker showTime />
 						</Form.Item>
 						<Form.Item label="End Date" name="endDate">
-							<DatePicker />
+							<DatePicker showTime />
 						</Form.Item>
 						<Form.Item label="Location" name="location">
 							<Input />
@@ -669,7 +688,7 @@ const ManageContest: React.FC = () => {
 
 				{/* Round Modal */}
 				<Modal
-					title="Add New Contest"
+					title="Add New Round"
 					open={roundCreateOpen}
 					onCancel={() => {
 						form.resetFields();
@@ -701,7 +720,7 @@ const ManageContest: React.FC = () => {
 								name="startDate"
 								rules={[{ required: true, message: 'Please select the start date' }]}
 							>
-								<DatePicker format="MM/DD/YYYY" />
+								<DatePicker format="DD/MM/YYYY hh:mm" showTime />
 							</Form.Item>
 
 							<Form.Item
@@ -709,7 +728,7 @@ const ManageContest: React.FC = () => {
 								name="endDate"
 								rules={[{ required: true, message: 'Please select the end date' }]}
 							>
-								<DatePicker format="MM/DD/YYYY" />
+								<DatePicker format="DD/MM/YYYY hh:mm" showTime />
 							</Form.Item>
 						</Space>
 
@@ -753,6 +772,40 @@ const ManageContest: React.FC = () => {
 						</Form.Item>
 					</Form>
 				</Modal>
+
+				{/* modal contest detail */}
+				<Modal
+					title="Contest Details"
+					visible={isContestOpen}
+					onCancel={handleModalClose}
+					footer={null}
+				>
+					{selectedContest && (
+						<div>
+							<p><strong>Name:</strong> {selectedContest.name}</p>
+							<p><strong>Location:</strong> {selectedContest.location}</p>
+							<p><strong>Status:</strong> {selectedContest.status}</p>
+							<p><strong>Start Date:</strong> {dayjs(selectedContest.startDate).format('DD/MM/YYYY hh:mm')}</p>
+							<p><strong>End Date:</strong> {dayjs(selectedContest.endDate).format('DD/MM/YYYY hh:mm')}</p>
+							<p><strong>Categories:</strong> {selectedContest.categories.map((category) => category.name).join(', ')}</p>
+							<p><strong>Criterias:</strong></p>
+							<ul>
+								{selectedContest.criterias.map((criteria, index) => (
+									<li key={index}>{criteria.criteriaName} - {criteria.criteriaDescription} (Weight: {criteria.weight * 100}%)</li>
+								))}
+							</ul>
+							<p><strong>Rules:</strong></p>
+							<ul>
+								{selectedContest.rules.map((rule, index) => (
+									<li key={index}>{rule.description}</li>
+								))}
+							</ul>
+							<p><strong>Create Date:</strong> {dayjs(selectedContest.createdAt).format('DD/MM/YYYY hh:mm')}</p>
+							<p><strong>Description:</strong> {selectedContest.description}</p>
+						</div>
+					)}
+				</Modal>
+
 
 			</div >
 		</>

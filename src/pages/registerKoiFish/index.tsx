@@ -61,7 +61,6 @@ function RegisterKoiPage() {
 			}
 
 			values.koiImages = imageUrls;
-			navigate('/history');
 			console.log("Final values with image URLs (array):", values.koiFishs);
 		}
 		console.log('====================================');
@@ -74,10 +73,11 @@ function RegisterKoiPage() {
 			console.log('====================================');
 			console.log("[P]::::registered KoiFish: ", response);
 			console.log('====================================');
-			toast.success("Registered KoiFish successfully");
+			toast.success("Registered KoiFish successfully, See your list register in history");
 
 			form.resetFields();
 			setFileList([]);
+			navigate('/history');
 		} catch (error) {
 			console.error("Error registering koi fish:", error);
 		}

@@ -11,7 +11,7 @@ export const API_PATHS = {
     CHANGE_STATUS_USER: "/api/users/change-status",
     GET_UPDATE_DELETE_USER: "/api/users",
     CHANGE_ROLE: "/api/users/change-role",
-    CREATE_USER: "/api/users/create",
+    CREATE_USER: "/api/users/register",
     GET_USERS: "/api/users/search",
 
     REGISTER_KOI: "/api/koiFish/register",

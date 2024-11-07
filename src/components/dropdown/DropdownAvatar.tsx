@@ -171,6 +171,17 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
             },
             {
                 label: (
+                    <Link className="text-lg mb-0" to='/register-koi'>
+                        <div className="flex items-center">
+                            <RiLockPasswordLine className="text-center text-[1.5rem] mr-3 ml-[-3px]" />
+                            register koi fish
+                        </div>
+                    </Link>
+                ),
+                key: '5',
+            },
+            {
+                label: (
                     <div>
                         <p
                             onClick={() => logout(navigate)}
