@@ -22,6 +22,7 @@ const ScoreKoiFish: React.FC = () => {
 	const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 	const navigate = useNavigate(); // Dùng useNavigate để điều hướng
 	const { roundId } = useParams<{ roundId: string }>();
+	console.log(roundId);
 	useEffect(() => {
 		fetchAssignedRound();
 	}, [pagination.current, pagination.pageSize]);
@@ -51,27 +52,33 @@ const ScoreKoiFish: React.FC = () => {
 	// Định nghĩa các cột của bảng
 	const columns: TableColumnsType = [
 		{
-			title: "FishName",
-			dataIndex: "koiName",
-			key: "koiName",
+			title: "Fish Name",
+			dataIndex: "name",
+			key: "name",
+		},
+		{
+			title: "Variety",
+			dataIndex: "varietyName",
+			key: "varietyName",
 		},
 		{
 			title: "Created Date",
 			dataIndex: "createdAt",
 			key: "createdAt",
 			render: (createdAt: Date) => formartedDate(createdAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedAt",
 			key: "updatedAt",
 			render: (updatedAt: Date) => formartedDate(updatedAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Action",
 			key: "action",
+			width: "5%",
 			render: (text, record) => (
 				<Button
 					type="link"
