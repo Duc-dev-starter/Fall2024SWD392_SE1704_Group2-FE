@@ -83,11 +83,6 @@ const RegisterContest: React.FC<RegisterContestProps> = () => {
             dataIndex: "displayName",
         },
         {
-            title: t('process_by'),
-            dataIndex: "staffName",
-            key: "staffName",
-        },
-        {
             title: t('koi_registered'),
             dataIndex: "fish",
             key: "fish",

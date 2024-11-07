@@ -7,6 +7,7 @@ import { BiHelpCircle } from 'react-icons/bi';
 import { RiFeedbackLine, RiLockPasswordLine } from 'react-icons/ri';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { DropdownAvatarProps } from '../../interfaces';
+import { FaRegRegistered } from "react-icons/fa";
 import { avatarReplace, PATHS, ROLES } from '../../consts';
 import { useTranslation } from 'react-i18next';
 
@@ -173,7 +174,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                 label: (
                     <Link className="text-lg mb-0" to='/register-koi'>
                         <div className="flex items-center">
-                            <RiLockPasswordLine className="text-center text-[1.5rem] mr-3 ml-[-3px]" />
+                            <FaRegRegistered className="text-center text-[1.5rem] mr-3 ml-[-3px]" />
                             register koi fish
                         </div>
                     </Link>
@@ -192,7 +193,7 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ dataUser }) => {
                         </p>
                     </div>
                 ),
-                key: '5',
+                key: '6',
             },
             { type: 'divider' },
             {

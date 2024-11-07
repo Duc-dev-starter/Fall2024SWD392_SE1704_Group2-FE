@@ -49,7 +49,7 @@ function ContestPage() {
 	const handleGetContest = async () => {
 		setLoading(true); // Bắt đầu loading
 		try {
-			const response = await getContests(keyword, status, '', pageNum, pageSize, sortOrder);
+			const response = await getContests(keyword, status, '', pageNum, pageSize);
 			setContests(response.data.pageData);
 			setTotalItems(response.data.pageInfo.totalItems);
 		} catch (error) {

@@ -11,6 +11,7 @@ import { getUserFromLocalStorage } from '../../utils';
 const { Title, Text } = Typography;
 const { Option } = Select;
 import image from '../../assets/banner.png'
+import { toast } from 'react-toastify';
 
 const RegistrationContest = () => {
     const { id } = useParams();
@@ -86,6 +87,7 @@ const RegistrationContest = () => {
             await stripe?.redirectToCheckout({ sessionId });
         } catch (error) {
             console.error("Error during registration:", error);
+            toast.error(error.Message)
         }
     };
 
@@ -143,58 +145,63 @@ const RegistrationContest = () => {
                 </ul>
 
                 <h1 className='font-semibold text-4xl mt-10'>Awards</h1>
-
-                <h1 className='font-semibold text-4xl mt-10 text-[#dc143c]'>Registration to this contest</h1>
+                {/* contest.status === 'Upcoming' ?? */}
                 {
-                    user ? <Form
-                        name="registration"
-                        onFinish={handleRegistration}
-                        layout="vertical"
-                        style={{ maxWidth: 600, margin: 'auto' }}
-                        form={form}
-                    >
-                        <Form.Item
-                            label="Display Name"
-                            name="displayName"
-                            rules={[{ required: true, message: 'Please enter your display name!' }]}
-                        >
-                            <Input placeholder="Your display name" />
-                        </Form.Item>
+                    contest.status === 'UpComing' && user
+                        ?
+                        <>
+                            <h1 className='font-semibold text-4xl mt-10 text-[#dc143c]'>Registration to this contest</h1>
+                            <Form
+                                name="registration"
+                                onFinish={handleRegistration}
+                                layout="vertical"
+                                style={{ maxWidth: 600, margin: 'auto' }}
+                                form={form}
+                            >
+                                <Form.Item
+                                    label="Display Name"
+                                    name="displayName"
+                                    rules={[{ required: true, message: 'Please enter your display name!' }]}
+                                >
+                                    <Input placeholder="Your display name" />
+                                </Form.Item>
 
-                        <Form.Item
-                            label="Note"
-                            name="note"
-                            rules={[{ required: true, message: 'Please enter a note!' }]}
-                        >
-                            <Input placeholder="I want to join this contest" />
-                        </Form.Item>
+                                <Form.Item
+                                    label="Note"
+                                    name="note"
+                                    rules={[{ required: true, message: 'Please enter a note!' }]}
+                                >
+                                    <Input placeholder="I want to join this contest" />
+                                </Form.Item>
 
-                        <Form.Item
-                            label="Fish ID"
-                            name="fishId"
-                            rules={[{ required: true, message: 'Please select your fish!' }]}
-                        >
-                            <Select placeholder="Select your fish" loading={loading} notFoundContent={error ? error : "No fish found"}>
-                                {fishOptions.length > 0 ? (
-                                    fishOptions.map(koi => (
-                                        <Option key={koi.id} value={koi.id}>
-                                            {koi.name}
-                                        </Option>
-                                    ))
-                                ) : (
-                                    <Option disabled>No fish available</Option>
-                                )}
-                            </Select>
-                        </Form.Item>
+                                <Form.Item
+                                    label="Fish"
+                                    name="fishId"
+                                    rules={[{ required: true, message: 'Please select your fish!' }]}
+                                >
+                                    <Select placeholder="Select your fish" loading={loading} notFoundContent={error ? error : "No fish found"}>
+                                        {fishOptions.length > 0 ? (
+                                            fishOptions.map(koi => (
+                                                <Option key={koi.id} value={koi.id}>
+                                                    {koi.name}
+                                                </Option>
+                                            ))
+                                        ) : (
+                                            <Option disabled>No fish available</Option>
+                                        )}
+                                    </Select>
+                                </Form.Item>
 
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Register
-                            </Button>
-                        </Form.Item>
-                    </Form> : (<>
-                        <p className='text-xl'>You must login before registration</p>
-                    </>)
+                                <Form.Item>
+                                    <Button type="primary" htmlType="submit">
+                                        Register
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+                        </>
+                        : (<>
+                            <p className='text-xl'>You must login before registration</p>
+                        </>)
                 }
 
 
