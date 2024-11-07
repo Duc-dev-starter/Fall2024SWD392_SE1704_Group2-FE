@@ -7,6 +7,7 @@ import { getContestDetail } from '../../services/contest';
 import { Card, Col, Row, List, Tag, Typography, Divider, Form, Button, InputNumber, Input, Select } from 'antd';
 import { useForm } from "antd/es/form/Form";
 import { KoiEntry } from '../../models/KoiEntry';
+import { getUserFromLocalStorage } from '../../utils';
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -20,27 +21,30 @@ const RegistrationContest = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [searchText, setSearchText] = useState('');
+    const user = getUserFromLocalStorage();
 
 
     useEffect(() => {
         // Fetch fish data for the logged-in member
         const fetchFishData = async () => {
-            try {
-                const response = await getKois(searchText, page, pageSize);
-                console.log('====================================');
-                console.log("Koi", response);
-                console.log('====================================');
-                const data = response.pageData || [];
-                console.log('====================================');
-                console.log(data);
-                console.log('====================================');
-                setFishOptions(data);
-                console.log('====================================');
-                console.log(fishOptions);
-                console.log('====================================');
-            } catch (error) {
-                console.error('Error fetching fish data:', error);
-                // message.error('Failed to load fish data');
+            if (user) {
+                try {
+                    const response = await getKois(searchText, page, pageSize);
+                    console.log('====================================');
+                    console.log("Koi", response);
+                    console.log('====================================');
+                    const data = response.pageData || [];
+                    console.log('====================================');
+                    console.log(data);
+                    console.log('====================================');
+                    setFishOptions(data);
+                    console.log('====================================');
+                    console.log(fishOptions);
+                    console.log('====================================');
+                } catch (error) {
+                    console.error('Error fetching fish data:', error);
+                    // message.error('Failed to load fish data');
+                }
             }
         };
 
@@ -149,54 +153,58 @@ const RegistrationContest = () => {
                 </button>
             </div> */}
 
-
-            <Form
-                name="registration"
-                onFinish={handleRegistration}
-                layout="vertical"
-                style={{ maxWidth: 600, margin: 'auto' }}
-                form={form}
-            >
-                <Form.Item
-                    label="Display Name"
-                    name="displayName"
-                    rules={[{ required: true, message: 'Please enter your display name!' }]}
+            <h1 className='text-3xl text-center mt-36'>Registration your koi to this contest</h1>
+            {
+                user ? <Form
+                    name="registration"
+                    onFinish={handleRegistration}
+                    layout="vertical"
+                    style={{ maxWidth: 600, margin: 'auto' }}
+                    form={form}
                 >
-                    <Input placeholder="Your display name" />
-                </Form.Item>
+                    <Form.Item
+                        label="Display Name"
+                        name="displayName"
+                        rules={[{ required: true, message: 'Please enter your display name!' }]}
+                    >
+                        <Input placeholder="Your display name" />
+                    </Form.Item>
 
-                <Form.Item
-                    label="Note"
-                    name="note"
-                    rules={[{ required: true, message: 'Please enter a note!' }]}
-                >
-                    <Input placeholder="I want to join this contest" />
-                </Form.Item>
+                    <Form.Item
+                        label="Note"
+                        name="note"
+                        rules={[{ required: true, message: 'Please enter a note!' }]}
+                    >
+                        <Input placeholder="I want to join this contest" />
+                    </Form.Item>
 
-                <Form.Item
-                    label="Fish ID"
-                    name="fishId"
-                    rules={[{ required: true, message: 'Please select your fish!' }]}
-                >
-                    <Select placeholder="Select your fish" loading={loading} notFoundContent={error ? error : "No fish found"}>
-                        {fishOptions.length > 0 ? (
-                            fishOptions.map(koi => (
-                                <Option key={koi.id} value={koi.id}>
-                                    {koi.name}
-                                </Option>
-                            ))
-                        ) : (
-                            <Option disabled>No fish available</Option>
-                        )}
-                    </Select>
-                </Form.Item>
+                    <Form.Item
+                        label="Fish ID"
+                        name="fishId"
+                        rules={[{ required: true, message: 'Please select your fish!' }]}
+                    >
+                        <Select placeholder="Select your fish" loading={loading} notFoundContent={error ? error : "No fish found"}>
+                            {fishOptions.length > 0 ? (
+                                fishOptions.map(koi => (
+                                    <Option key={koi.id} value={koi.id}>
+                                        {koi.name}
+                                    </Option>
+                                ))
+                            ) : (
+                                <Option disabled>No fish available</Option>
+                            )}
+                        </Select>
+                    </Form.Item>
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
-            </Form>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Register
+                        </Button>
+                    </Form.Item>
+                </Form> : (<>
+                    <p>You must login before registration</p>
+                </>)
+            }
         </div>
     );
 };
