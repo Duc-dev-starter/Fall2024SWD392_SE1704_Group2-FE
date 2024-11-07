@@ -28,7 +28,7 @@ const RefereeCompetition: React.FC = () => {
 
 	const fetchAssignedRound = async () => {
 		try {
-			const response = await BaseService.get({ url: '/api/round/assinged-round' });
+			const response = await BaseService.get({ url: '/api/round/assigned-round' });
 			console.log(response);
 			setDataContest(response.data || []); // Giả sử API trả về data dạng mảng
 		} catch (error) {
@@ -52,8 +52,8 @@ const RefereeCompetition: React.FC = () => {
 	const columns: TableColumnsType = [
 		{
 			title: "Contest",
-			dataIndex: "contestId",
-			key: "contestId",
+			dataIndex: "contestName",
+			key: "contestName",
 		},
 		{
 			title: "Participant",
@@ -71,22 +71,24 @@ const RefereeCompetition: React.FC = () => {
 			dataIndex: "createdAt",
 			key: "createdAt",
 			render: (createdAt: Date) => formartedDate(createdAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedAt",
 			key: "updatedAt",
 			render: (updatedAt: Date) => formartedDate(updatedAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Action",
 			key: "action",
+			width: "15%",
+
 			render: (text, record) => (
 				<Button
 					type="link"
-					onClick={() => navigate(`/referee/score-koi/${record.roundId}`)}
+					onClick={() => navigate(`/referee/score-koi/${record.id}`)}
 				>
 					View Score
 				</Button>

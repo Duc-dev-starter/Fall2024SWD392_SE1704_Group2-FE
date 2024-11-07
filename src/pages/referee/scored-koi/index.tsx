@@ -22,13 +22,14 @@ const ScoreKoiFish: React.FC = () => {
 	const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 	const navigate = useNavigate(); // Dùng useNavigate để điều hướng
 	const { roundId } = useParams<{ roundId: string }>();
+	console.log(roundId);
 	useEffect(() => {
 		fetchAssignedRound();
 	}, [pagination.current, pagination.pageSize]);
 
 	const fetchAssignedRound = async () => {
 		try {
-			const response = await BaseService.getById({ url: '/api/round/koi-fishs', id });
+			const response = await BaseService.getById({ url: '/api/round/koi-fishs', id: roundId });
 			console.log(response);
 			setDataContest(response.data || []); // Giả sử API trả về data dạng mảng
 		} catch (error) {
@@ -51,27 +52,33 @@ const ScoreKoiFish: React.FC = () => {
 	// Định nghĩa các cột của bảng
 	const columns: TableColumnsType = [
 		{
-			title: "FishName",
-			dataIndex: "koiName",
-			key: "koiName",
+			title: "Fish Name",
+			dataIndex: "name",
+			key: "name",
+		},
+		{
+			title: "Variety",
+			dataIndex: "varietyName",
+			key: "varietyName",
 		},
 		{
 			title: "Created Date",
 			dataIndex: "createdAt",
 			key: "createdAt",
 			render: (createdAt: Date) => formartedDate(createdAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Updated Date",
 			dataIndex: "updatedAt",
 			key: "updatedAt",
 			render: (updatedAt: Date) => formartedDate(updatedAt),
-			width: "10%",
+			width: "15%",
 		},
 		{
 			title: "Action",
 			key: "action",
+			width: "5%",
 			render: (text, record) => (
 				<Button
 					type="link"
