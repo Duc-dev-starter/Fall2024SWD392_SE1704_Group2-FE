@@ -31,7 +31,7 @@ const EvaluateKoi = () => {
     const handleFinish = async (values) => {
         const dataToSend = {
             ...values,
-            averageScore: averageScore.toFixed(0),
+            averageScore: averageScore.toFixed(2),
             fishId: id,
             refereeId: user.id,
             roundId: roundId
@@ -89,6 +89,18 @@ const EvaluateKoi = () => {
                     <Title level={3}>{koi.name}</Title>
                     <p>{koi.description}</p>
                 </div>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    {koi.koiImages?.map((image, index) => (
+                        <Image
+                            key={index}
+                            width={100}
+                            height={100}
+                            src={image.imageUrl}
+                            alt={`Koi image ${index + 1}`}
+                            style={{ borderRadius: '8px' }}
+                        />
+                    ))}
+                </div>
             </div>
 
             {/* Evaluation Form */}
@@ -103,7 +115,7 @@ const EvaluateKoi = () => {
                         style={{ marginBottom: '20px' }}
                     />
                     <Form.Item label="Average Score">
-                        <InputNumber value={averageScore.toFixed(0)} disabled />
+                        <InputNumber value={averageScore.toFixed(2)} disabled />
                     </Form.Item>
                     <Form.Item label="Comments" name="comment" rules={[{ required: true, message: 'Please enter your comments' }]}>
                         <Input.TextArea rows={4} />

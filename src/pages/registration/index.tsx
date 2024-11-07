@@ -95,9 +95,6 @@ const RegistrationContest = () => {
         return <div>Loading contest details...</div>;
     }
 
-    const percentCriteria = async (weight) => {
-        return weight * 100
-    }
 
     return (
         <div className='px-20 py-3'>
@@ -107,7 +104,7 @@ const RegistrationContest = () => {
 
             <div>
                 <h1 className='text-center text-5xl'>Welcome to the {contest.name} show</h1>
-                <div className='flex justify-between'>
+                <div className='flex justify-between gap-5'>
                     <div>
                         <p className='text-xl'>{contest.description}</p>
                         <div>
@@ -119,14 +116,27 @@ const RegistrationContest = () => {
                             <span className='font-bold text-xl'>What are the Awards: </span>
                             <span className='text-xl'>Cedar Plaque, Trophy, and Certificate are the top awards. There will be many other awards, prizes by our sponsors.</span>
                         </div>
+
+                        <div className='mt-2'>
+                            <span className='font-bold text-xl'>Close form registration: </span>
+                            <span className='text-xl'>6 hours before the contest.</span>
+                        </div>
                     </div>
                     <div>
-                        <h1 className='font-semibold text-4xl mt-10'>All Koi Show Sponsors</h1>
-                        <h1 className='font-semibold text-4xl mt-10'>Offical Judges</h1>
+
+                        <h1 className='font-semibold text-4xl mt-10'>All Offical Referee for this contest </h1>
+                        <div>
+                            {contest.staffs
+                                .filter((staff) => staff.role === 'Referee')
+                                .map((referee) => (
+                                    <div key={referee.id} className="my-4">
+                                        <h2 className="text-2xl">Mr.{referee.name}</h2>
+                                    </div>
+                                ))}
+                        </div>
                         <h1 className='font-semibold text-4xl mt-10'>2024 Koi Show Schedule</h1>
                         <p className='text-lg'>{new Date(contest.startDate).toLocaleDateString()} - Contest Opens</p>
                         <p className='text-lg'>{new Date(contest.endDate).toLocaleDateString()} - Contest Close</p>
-                        <p className='text-lg'>TBD - Award Ceremony</p>
                     </div>
                 </div>
 
@@ -140,11 +150,14 @@ const RegistrationContest = () => {
                 <h1 className='font-semibold text-4xl mt-10'>Criterias</h1>
                 <ul className="list-disc list-inside">
                     {contest.criterias.map(criteria => (
-                        <li key={criteria.criteriaName} className='ml-4 text-xl'>{criteria.criteriaName} : {criteria.criteriaDescription} ({criteria.weight})</li>
+                        <li key={criteria.criteriaName} className='ml-4 text-xl'>
+                            {criteria.criteriaName} : {criteria.criteriaDescription} ({(criteria.weight * 100).toFixed(0)}%)
+                        </li>
                     ))}
                 </ul>
 
-                <h1 className='font-semibold text-4xl mt-10'>Awards</h1>
+
+                <h1 className='font-semibold text-4xl mt-10'>Registration</h1>
                 {/* contest.status === 'Upcoming' ?? */}
                 {
                     contest.status === 'UpComing' && user
