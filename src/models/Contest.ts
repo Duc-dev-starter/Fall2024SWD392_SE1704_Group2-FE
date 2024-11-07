@@ -10,7 +10,7 @@ export class Contest {
     location: string;
     startDate: Date;
     endDate: Date;
-    status: number;
+    status: string;
     managerId: string;
     rules: Array<{
         id: string,
@@ -36,7 +36,7 @@ export class Contest {
         location: string = "",
         startDate: Date = new Date(),
         endDate: Date = new Date(),
-        status: number = 0,
+        status: string = '',
         managerId: string = "",
         rules: Array<{
             id: string,

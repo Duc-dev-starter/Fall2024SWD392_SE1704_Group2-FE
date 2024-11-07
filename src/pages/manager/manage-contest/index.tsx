@@ -448,27 +448,30 @@ const ManageContest: React.FC = () => {
 			width: "10%",
 			render: (_: unknown, record: Contest) => (
 				<div>
-					<EditOutlined
-						className="text-blue-500"
-						style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
-						// onClick={() => handleEditContest(record)}
-						onClick={(e) => {
-							e.stopPropagation();  // Prevent row click
-							handleEditContest(record);
-						}}
-					/>
-					<Popconfirm
-						title="Are you sure to delete this Contest?"
-						onConfirm={() => handleDelete(record.id, record.name)}
-						okText="Yes"
-						cancelText="No"
-					>
-						<DeleteOutlined
-							className="text-red-500"
-							style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
-							onClick={(e) => e.stopPropagation()}
-						/>
-					</Popconfirm>
+					{record.status === "UpComing" && ( // Kiểm tra nếu status là "Upcoming"
+						<>
+							<EditOutlined
+								className="text-blue-500"
+								style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
+								onClick={(e) => {
+									e.stopPropagation();  // Prevent row click
+									handleEditContest(record);
+								}}
+							/>
+							<Popconfirm
+								title="Are you sure to delete this Contest?"
+								onConfirm={() => handleDelete(record.id, record.name)}
+								okText="Yes"
+								cancelText="No"
+							>
+								<DeleteOutlined
+									className="text-red-500"
+									style={{ fontSize: "16px", marginLeft: "8px", cursor: "pointer" }}
+									onClick={(e) => e.stopPropagation()}
+								/>
+							</Popconfirm>
+						</>
+					)}
 				</div>
 			),
 		},
@@ -515,7 +518,7 @@ const ManageContest: React.FC = () => {
 
 				<Select
 					placeholder="Select Category"
-					style={{ width: 200, marginRight: 10 }}
+					style={{ width: 200, marginLeft: 10, marginTop: 10, marginRight: 10 }}
 					onChange={handleCategoryChange}
 					allowClear
 				>
