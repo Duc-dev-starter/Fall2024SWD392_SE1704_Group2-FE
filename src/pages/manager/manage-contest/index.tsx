@@ -419,7 +419,8 @@ const ManageContest: React.FC = () => {
 			console.log('====================================');
 			console.log("Update response", response);
 			console.log('====================================');
-			// Update status locally
+			// Update status locall
+
 			setDataContest(prevData =>
 				prevData.map((contest: Contest) =>
 					contest.id === id ? { ...contest, status: status } : contest

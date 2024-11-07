@@ -12,6 +12,7 @@ function EditCompetition() {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [contestDetail, setContestDetail] = useState<any>(null);
 	const [checkinData, setCheckinData] = useState<any[]>([]);
+	const [selectedRound, setSelectedRound] = useState('');
 
 	useEffect(() => {
 		handleGetAssignRound();
@@ -49,6 +50,7 @@ function EditCompetition() {
 	};
 
 	const getCheckinListForRound = async (roundId: string) => {
+		setSelectedRound(roundId);
 		try {
 			const response = await BaseService.get({ url: '/api/round/check-in-list/' + roundId });
 			setCheckinData(response.data);
@@ -62,34 +64,19 @@ function EditCompetition() {
 	// Function to handle check-in
 	const handleCheckIn = async (registrationId: string, roundId: string) => {
 		try {
-			// Fetch the contest details to get categories
-			const contestResponse = await getContestDetail(registrationId);
-			const categories = contestResponse.data.categories || [];
-
-			// Ensure that categories exist and are valid
-			if (!categories.length) {
-				toast.error('No categories available for this registration.');
-				return;
-			}
-
-			// Assuming the API expects a single categoryId or an array of IDs.
-			const categoryIds = categories.map((category: { id: string }) => category.id);
+			console.log(registrationId);
+			console.log(roundId);
 
 			// Construct the check-in payload
-			const checkInData = { registrationId, roundId, categoryId: categoryIds };
+			const checkInData = { registrationId, roundId };
 
 			// Send the check-in request
-			const response = await BaseService.post({ url: '/api/round/check-in', data: checkInData });
-
+			const response = await BaseService.post({ url: '/api/round/check-in', payload: checkInData });
 			// Handle the server response
-			if (response.data.success) {
-				toast.success('Check-in successful!');
-			} else {
-				toast.error('Check-in failed. ' + (response.data.message || 'Please try again.'));
-			}
+			toast.success(response.message);
 		} catch (error) {
 			console.error('Error during check-in:', error);
-			message.error('An error occurred during check-in. Please check the network or try again later.');
+			toast.error('An error occurred during check-in. Please check the network or try again later.');
 		}
 	};
 
@@ -184,7 +171,7 @@ function EditCompetition() {
 							actions={[
 								<Button
 									type="primary"
-									onClick={() => handleCheckIn(checkin.id, checkin.contestId)}
+									onClick={() => handleCheckIn(checkin.id, selectedRound)}
 								>
 									Check-in
 								</Button>
