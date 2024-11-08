@@ -337,6 +337,9 @@ const ManageContest: React.FC = () => {
 				fetchContest();
 				setIsModalVisible(false);
 
+			} catch (error) {
+				console.log(error);
+				toast.error(error.message);
 			}
 			finally {
 				setLoading(false);
@@ -396,7 +399,7 @@ const ManageContest: React.FC = () => {
 			console.log('====================================');
 			console.log(error);
 			console.log('====================================');
-			toast.error(error.Message);
+			// toast.error(error.Message);
 		} finally {
 			fetchContest();
 		}
@@ -797,7 +800,7 @@ const ManageContest: React.FC = () => {
 								name="startDate"
 								rules={[{ required: true, message: 'Please select the start date' }]}
 							>
-								<DatePicker format="DD/MM/YYYY hh:mm" showTime />
+								<DatePicker showTime />
 							</Form.Item>
 
 							<Form.Item
@@ -805,7 +808,7 @@ const ManageContest: React.FC = () => {
 								name="endDate"
 								rules={[{ required: true, message: 'Please select the end date' }]}
 							>
-								<DatePicker format="DD/MM/YYYY hh:mm" showTime />
+								<DatePicker showTime />
 							</Form.Item>
 						</Space>
 

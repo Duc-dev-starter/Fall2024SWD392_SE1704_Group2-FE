@@ -7,7 +7,7 @@ const NameFormItem: React.FC = () => {
         <Form.Item
             label="Name"
             name="name"
-            rules={nameRules}
+            // rules={nameRules}
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
             className="mb-3"
