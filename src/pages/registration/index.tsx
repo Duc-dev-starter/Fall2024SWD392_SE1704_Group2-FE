@@ -87,7 +87,7 @@ const RegistrationContest = () => {
             await stripe?.redirectToCheckout({ sessionId });
         } catch (error) {
             console.error("Error during registration:", error);
-            toast.error(error.Message)
+            // toast.error(error.Message)
         }
     };
 
